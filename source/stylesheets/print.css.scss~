@@ -145,4 +145,7 @@ body {
     @extend %icon-ok-sign;
   }
 
+  table tr td:nth-child(2) {
+    width: 80px;
+  }
 }
