@@ -6,68 +6,84 @@ language_tabs:
   - python
   - javascript
 
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
-  - contributing
-
 ---
-# Introduction
+# Getting Started
 
-The base url is `https://uclapi.com/api/v1`
+Yay, you made it 🎉
 
-# Get All Rooms
-### `/rooms/all`
+The base url is `https://uclapi.com/roombookings/`
 
-This endpoint gets a list of all available rooms and their metadata.
+# Get Rooms
+**Endpoint:** `https://uclapi.com/roombookings/rooms`
+
+This endpoint returns rooms and information about them.
+If you don't specify any query parameters besides the `token`, all rooms will be returned.  
+_Note: This endpoint only returns publicly bookable rooms. Departmentally bookable rooms are not included._
+
+**Allowed request type:** `GET`
+
+## Query Parameters
 
 ```shell
-curl https://uclapi.com/api/v1/rooms/all
+curl https://uclapi.com/roombookings/rooms
 ```
 
 ```python
 import requests
 
-requests.get("https://uclapi.com/api/v1/rooms/all")
+r = requests.get("https://uclapi.com/roombookings/rooms")
+print(r.json())
 ```
 
 ```javascript
-var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://uclapi.com/api/v1/rooms/all', true);
-xhr.send();
-
-// response from the server
-xhr.responseText;
+fetch("https://uclapi.com/roombookings/rooms")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+  })
 ```
 
-**Restrictions:** `nil`
-
-**Allowed request type:** `GET`
+Parameter | Example | Required | Description
+--------- | ---------- | ----------- | -----------
+`token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
+`roomid` | `433` | Optional | The room id (not to be confused with the room name)
+`siteid` | `086`| Optional | Every room is inside a site (building). All sites have ids.
+`name` | `Torrington (1-19) 433`| Optional | The room name often includes the site name as well.
+`classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
+`capacity` | `55`| Optional | Every room has a set capacity of how many people can fit inside it. When supplied, all rooms with the given capacity or greater will be returned.
 
 ## Response
 
-> Response
-
 ```json
-[
-  {
-    "roomName":"Gustave Tuck Lecture Theater",
-    "roomId": "abc123",
-    "capacity": 200,
-    "type": "Lecture theater"
-  } 
-]
+{
+  "ok": true,
+  "rooms": [
+    {
+      "capacity": 50,
+      "roomid": "Z4",
+      "name": "Wilkins Building (Main Building) Portico",
+      "siteid": "005",
+      "classification": "SS",
+      "location": {
+        "address1": "",
+        "address2": "",
+        "address3": "",
+        "address4": ""
+      }
+    },
+    {
+      "capacity": 55,
+      "roomid": "433",
+      "name": "Torrington (1-19) 433",
+      "siteid": "086",
+      "classification": "CR"
+    },
+    ...
+  ]
+}
 ```
-
-Field | Type | Description
---------- | ---------- | -----------
-roomName | `String` | The name of the room
-roomId | `String` | The rooms id string
-capacity | `Number` | The total capacity of the room 
-type | `String` | The type of room
 
 #Get Bookings for a Room
 
@@ -116,7 +132,7 @@ xhr.responseText;
     "bookingId": "def456",
     "startDate": "2016-10-23T12:00:00",
     "endDate": "2016-10-23T13:00:00"
-  } 
+  }
 ]
 ```
 
