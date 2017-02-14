@@ -89,15 +89,29 @@ Parameter | Example | Required | Description
 
 ### `/bookings`
 
-This endpoint shows the bookings for a room
+This endpoint shows the bookings for a room.
+
+`start_datetime` and `end_datetime` should be given in ISO8601 format. No other formats are accepted.
+
+If `start_datetime` or `end_datetime` is given, `startdate` will be ignored. If `startdate` is used, it will return all bookings for that specific day with all the other given filters applied
+
+The API doesn't return all bookings at once. It uses something called pagination. If there are a lot of results, we split them up across different pages.
+The results are paginated. You can specify the maximum number of results per page by supplying the `results_per_page` parameter. The maximum value we'll except for this is `100`. If this is not specified with the request, it will be set to 20 by default. The first page will have a `count` field which is the total number of results for the request made. If there are more pages, `next_page_exists` will be set to True. For subsequent requests, you only have to pass the `page_token`, no other parameters are required. Server will keep track of the pages you have been through and how many results you need to go through. If `page_token` is given every other parameters will be ignored.
+
 
 ## Query Parameters
 
-Parameter | Type | Default Value | Description
+Parameter | Example | Required | Description
 ---|---|---|---
-roomId |  `String[]`  |  All room ids   | A list of the ids of rooms you want to see the bookings for
-startDate | `date` | Current date and time rounded up to the nearest hour | The start date and time you want to search from
-endDate | `date` | One week from the current date and time rounded up to the nearest hour | The end date and time you want to search to
+token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Optional | Authentication token
+roomId |  `433`  |  Optional  | id of the room that you want to see the boookings for
+start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Datetime of the starting time
+end_datetime | `2011-03-06T03:36:45+00:00` | Optional | Enddatetime of the bookings
+startdate | `20160202` | Optional | Date of the bookings you need. This will only be used if above two are not given
+site_id | `086` | Optional | Every room is inside a site (building). All sites have ids.
+description | `Lecture` | Optional | I have no fucking clue what this is
+contact | `Mark Herbster` | Optional | Name of the person who booked the room. You can part of the name or full name to filter it.
+results_per_page | `50` | Optional | How many bookings per page. Maximum allowed is 100 per page. If nothing is given, we will use 20 as default
 
 **Restrictions:** `nil`
 
