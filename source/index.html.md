@@ -142,6 +142,72 @@ bookingId | `String` | The of the booking
 startDate | `date` | Start date and time of the booking
 endDate | `date` | End date and time of the booking
 
-#See Which Rooms are Available in a Timeframe
-#Add a Booking
-#Delete a Booking
+# Get Equipment
+**Endpoint:** `https://uclapi.com/roombookings/equipment`
+
+This endpoint returns equipment information about a specific room.
+
+**Allowed request type:** `GET`
+
+## Query Parameters
+
+```shell
+curl https://uclapi.com/roombookings/equipment
+```
+
+```python
+import requests
+
+r = requests.get("https://uclapi.com/roombookings/equipment")
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/roombookings/equipment")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+  })
+```
+
+Parameter | Example | Required | Description
+--------- | ---------- | ----------- | -----------
+`token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
+`roomid` | `433` | Required | The room id (not to be confused with the room name)
+`siteid` | `086`| Required | Every room is inside a site (building). All sites have ids.
+
+## Response
+
+```json
+{
+  "ok": true,
+  "equipment": [
+    {
+      "type": "FF",
+      "description": "Managed PC",
+      "units": 1
+    },
+    {
+      "type": "FE",
+      "description": "Chairs with Tables",
+      "units": 1
+    },
+    ...
+  ]
+}
+```
+The equipment field contains a list of equipment items. The length of this list can be different for every room.
+It can also be 0.  
+Each equipment item contains a `type`, a `description`, and the number of `units`.
+
+Equipment Item | Example |  Description
+--------- | ---------- |  -----------
+`type` | `FE` | The type of equipment. Either Fixed Equipment (`FE`) or Fixed Feature (`FF`).
+`description` | `Managed PC` | What the piece of equipment actually is.
+`units` | `1`| The number of times this piece of equipment exists in the room.
+
+# Contributing
+These docs are open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).  
+Any and all contributions are welcome! If you spot a type or error, fix it :)
