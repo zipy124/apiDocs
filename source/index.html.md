@@ -9,6 +9,7 @@ language_tabs:
 toc_footers:
   - <a href='https://uclapi.com/dashboard/'>Get an API Key</a>
 
+search: true
 ---
 # Room Bookings
 
@@ -104,6 +105,13 @@ Room Property | Example |  Description
 `classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
 `automated` | `N` | Whether bookings in this room will be confirmed automatically. `A` stands for automated, and `N` for not automated. `P` represents that the confirmation will be automatic, but only under certain circumstances.
 `location` | - | Contains an object with the key `address`, whose value is an array of address information, which when combined will make up a complete address.
+
+## Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`Token does not exist` | Gets returned when you supply an invalid `token`.
 
 
 #Get Bookings for a Room
@@ -228,6 +236,15 @@ Equipment Item | Example |  Description
 `type` | `FE` | The type of equipment. Either Fixed Equipment (`FE`) or Fixed Feature (`FF`).
 `description` | `Managed PC` | What the piece of equipment actually is.
 `units` | `1`| The number of times this piece of equipment exists in the room.
+
+## Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`Token does not exist` | Gets returned when you supply an invalid `token`.
+`No roomid supplied` | Gets returned when you don't supply a `roomid`.
+`No siteid supplied` | Gets returned when you don'y supply a `siteid`.
 
 # Contributing
 These docs are open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).  
