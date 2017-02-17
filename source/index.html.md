@@ -96,14 +96,55 @@ This endpoint shows the bookings for a room.
 If `start_datetime` or `end_datetime` is given, `startdate` will be ignored. If `startdate` is used, it will return all bookings for that specific day with all the other given filters applied
 
 The API doesn't return all bookings at once. It uses something called pagination. If there are a lot of results, we split them up across different pages.
-The results are paginated. You can specify the maximum number of results per page by supplying the `results_per_page` parameter. The maximum value we'll except for this is `100`. If this is not specified with the request, it will be set to 20 by default. The first page will have a `count` field which is the total number of results for the request made. If there are more pages, `next_page_exists` will be set to True. For subsequent requests, you only have to pass the `page_token`, no other parameters are required. Server will keep track of the pages you have been through and how many results you need to go through. If `page_token` is given every other parameters will be ignored.
+You can specify the maximum number of results per page by supplying the `results_per_page` parameter. The maximum value we'll except for this is `100`. If this is not specified with the request, it will be set to 20 by default. The first page will have a `count` field which is the total number of results for the request made. If there are more pages, `next_page_exists` will be set to True. For subsequent requests, you only have to pass the `page_token`, no other parameters are required. Server will keep track of the pages you have been through and how many results you need to go through. If `page_token` is given every other parameters will be ignored.
+
+An example of a  query is given below
+
+`url = "https://uclapi.com/api/bookings?contact=Wilhelm&results_per_page=5&token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"`
+
+This url has 3 parameters, `contact`, `token` and `results_per_page`.
+
+`r = requests.get(url)`
+
+Making this requests will get us the data shown below,
+
+`{
+    "bookings": {
+        "page_token": "TmJlhCJSUR",
+        "bookings": [
+            {
+                "room": "Darwin Building B05",
+                "contact": "Wilhelm Klopp - UCLU Tech Society",
+                "start_time": "2016-12-07T00:00::00",
+                "end_time": "2016-12-07T00:00::00",
+                "description": "Meeting",
+                "roomid": "B05A",
+                "siteid": "044",
+                "slotid": 1038241,
+                "weeknumber": 15,
+                "phone": ""
+            },
+            ...
+        ],
+        "count": 155,
+        "next_page_exists": true
+    },
+    "ok": true
+}`
+
+Value of the `ok` field tells if the request was successful. Inside `bookings` we have every bookings and other informations. First response to the request will contain a `count` field which tells you
+how many results are there in total. `next_page_exists` field is a boolean which, if true, indicates there is a next page. Then you can make a request to the same endpoint with just the `page_token` and authentication token in `token`. So the next request url will be
+
+`url = "https://uclapi.com/api/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=TmJlhCJSUR"`
+
+You can make all the subsequent requests with this url and the server will keep track of which page you were in and will return the next pages. You make requests until the `next_page_exists` is `false`.
 
 
 ## Query Parameters
 
 Parameter | Example | Required | Description
 ---|---|---|---
-token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Optional | Authentication token
+token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | required | Authentication token
 roomId |  `433`  |  Optional  | id of the room that you want to see the boookings for
 start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Datetime of the starting time
 end_datetime | `2011-03-06T03:36:45+00:00` | Optional | Enddatetime of the bookings
@@ -118,18 +159,18 @@ results_per_page | `50` | Optional | How many bookings per page. Maximum allowed
 **Allowed request type:** `GET`
 
 ```shell
-curl https://uclapi.com/api/v1/bookings?roomId=abc123&startDate=2016-10-23T11:00:00&endDate=2016-10-23T14:00:00
+curl https://uclapi.com/api/bookings?roomId=abc123&startDate=2016-10-23T11:00:00&endDate=2016-10-23T14:00:00
 ```
 
 ```python
 import requests
 
-requests.get("https://uclapi.com/api/v1/bookings?roomId=abc123&startDate=2016-10-23T11:00:00&endDate=2016-10-23T14:00:00")
+requests.get("https://uclapi.com/api/bookings?roomId=abc123&startDate=2016-10-23T11:00:00&endDate=2016-10-23T14:00:00")
 ```
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://uclapi.com/api/v1/bookings?roomId=abc123&startDate=2016-10-23T11:00:00&endDate=2016-10-23T14:00:00', true);
+xhr.open('GET', 'https://uclapi.com/api/bookings?roomId=abc123&startDate=2016-10-23T11:00:00&endDate=2016-10-23T14:00:00', true);
 xhr.send();
 
 // response from the server
@@ -141,13 +182,54 @@ xhr.responseText;
 > Response
 
 ```json
-[
-  {
-    "bookingId": "def456",
-    "startDate": "2016-10-23T12:00:00",
-    "endDate": "2016-10-23T13:00:00"
-  }
-]
+First request response
+{
+    "bookings": {
+        "page_token": "TmJlhCJSUR",
+        "bookings": [
+            {
+                "room": "Darwin Building B05",
+                "contact": "Wilhelm Klopp - UCLU Tech Society",
+                "start_time": "2016-12-07T00:00::00",
+                "end_time": "2016-12-07T00:00::00",
+                "description": "Meeting",
+                "roomid": "B05A",
+                "siteid": "044",
+                "slotid": 1038241,
+                "weeknumber": 15,
+                "phone": ""
+            },
+            ...
+        ],
+        "count": 155,
+        "next_page_exists": true
+    },
+    "ok": true
+}
+
+subsequent requests
+{
+    "bookings": {
+        "page_token": "TmJlhCJSUR",
+        "bookings": [
+            {
+                "slotid": 1024991,
+                "contact": "Wilhelm Klopp - UCLU Tech Society",
+                "start_time": "2016-10-20T18:00:00+00:00",
+                "end_time": "2016-10-20T19:00:00+00:00",
+                "description": "",
+                "siteid": "212",
+                "roomid": "B305",
+                "room": "Cruciform Building B.3.05",
+                "weeknumber": 8,
+                "phone": ""
+            },
+            ...
+        ],
+        "next_page_exists": true
+    },
+    "ok": true
+}
 ```
 
 Field | Type | Description
