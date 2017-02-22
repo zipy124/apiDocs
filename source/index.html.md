@@ -224,8 +224,8 @@ First request response
             {
                 "room": "Darwin Building B05",
                 "contact": "Wilhelm Klopp - UCLU Tech Society",
-                "start_time": "2016-12-07T00:00::00",
-                "end_time": "2016-12-07T00:00::00",
+                "start_time": "2016-10-20T18:00:00+00:00",
+                "end_time": "2016-10-20T19:00:00+00:00",
                 "description": "Meeting",
                 "roomid": "B05A",
                 "siteid": "044",
@@ -265,11 +265,88 @@ subsequent requests
 }
 ```
 
-Field | Type | Description
+Field | Example | Description
 --------- | ---------- | -----------
-bookingId | `String` | The of the booking
-startDate | `date` | Start date and time of the booking
-endDate | `date` | End date and time of the booking
+ok | `True` | Whether the request was successful
+bookings | Array of bookings | An array containing all the bookings
+page_token | `TmJlhCJSUR` | Token parameter you need to send to the server for subsequent requests if there are more pages
+next_page_exists | `true` | If there are more pages
+slotid | `1024991` | A unique id for the booking
+contact | `Wilhelm Klopp - UCLU Tech Society` | Name of the person who made the booking
+start_time | `2016-10-20T18:00:00+00:00` | start time of the booking. ISO8601 formatted datetime string
+end_time | `2016-10-20T19:00:00+00:00` | End time of the booking. ISO8601 formatted datetime string
+roomid | `B305` | ID of the room
+room | `Cruciform Building B.3.05` | Name of the room
+weeknumber | `8` | Week number
+phont | ` ` | Phone number
+
+# Paginated requests
+**Endpoint:** `https://uclapi.com/roombookings/bookings`
+
+This endpoint returns equipment information about a specific room.
+
+**Allowed request type:** `GET`
+
+## Query Parameters
+
+```shell
+curl https://uclapi.com/roombookings/equipment?page_token=TmJlhCJSUR&token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+```
+
+```python
+import requests
+
+params = {"page_token": "TmJlhCJSUR", "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"}
+
+r = requests.get("https://uclapi.com/roombookings/equipment", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/roombookings/equipment")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+  })
+```
+
+Parameter | Example | Required | Description
+--------- | ---------- | ----------- | -----------
+`token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
+`page_token` | `TmJlhCJSUR` | Required | Page token you got from the response
+
+## Response
+
+```json
+{
+  "ok": true,
+  "equipment": [
+    {
+      "type": "FF",
+      "description": "Managed PC",
+      "units": 1
+    },
+    {
+      "type": "FE",
+      "description": "Chairs with Tables",
+      "units": 1
+    },
+    ...
+  ]
+}
+```
+The equipment field contains a list of equipment items. The length of this list can be different for every room.
+It can also be 0.  
+Each equipment item contains a `type`, a `description`, and the number of `units`.
+
+Equipment Item | Example |  Description
+--------- | ---------- |  -----------
+`type` | `FE` | The type of equipment. Either Fixed Equipment (`FE`) or Fixed Feature (`FF`).
+`description` | `Managed PC` | What the piece of equipment actually is.
+`units` | `1`| The number of times this piece of equipment exists in the room.
+
 
 # Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
