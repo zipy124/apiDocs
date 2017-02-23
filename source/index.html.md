@@ -116,6 +116,15 @@ Error | Description
 #Get Bookings
 ## Regular request
 
+**Endpoint:** `https://uclapi.com/roombookings/bookings`
+
+This endpoint shows the results to a bookings or space availability query. It returns a paginated list of bookings.
+_Note: This endpoint only returns publicly displayed bookings. Departmental bookings are not included._
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
 ```shell
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark
 ```
@@ -141,75 +150,21 @@ fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c291
   })
 ```
 
-**Endpoint:** `https://uclapi.com/roombookings/bookings`
-
-This endpoint shows the results to a bookings or space availability query. It returns a paginated list of bookings.
-_Note: This endpoint only returns publicly displayed bookings. Departmental bookings are not included._
-
-**Allowed request type:** `GET`
-
 Parameter | Example | Required | Description
 ---|---|---|---
 token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
 roomid |  `433`  |  Optional  | The room id (not to be confused with the room name)
-start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Start datetime of the booking. Returns bookings with a start_datetime after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
-end_datetime | `2011-03-06T03:36:45+00:00` | Optional | End datetime of the booking. Returns bookings with an end_datetime before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
-date | `20160202` | Optional | Date of the bookings you need. Returns bookings occuring on this day. This query parameter is only considered when `end_datetime` and `start_datetime` are not supplied.
+start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
+end_datetime | `2011-03-06T03:36:45+00:00` | Optional | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
+date | `20160202` | Optional | Date of the bookings you need. Returns bookings occuring on this day. **This query parameter is only considered when `end_datetime` and `start_datetime` are not supplied.**
 siteid | `086` | Optional | Every room is inside a site (building). All sites have ids.
-description | `Lecture` | Optional | Describes what the booking is. Could contain a module code like WIBRG005 or just the type of activity like Lecture.
+description | `Lecture` | Optional | Describes what the booking is. Could contain a module code (for example `WIBRG005`) or just the type of activity (for example `Lecture`).
 contact | `Mark Herbster` | Optional | The name of the person who made the booking. Can substrings of the contact name: Queries for `Mark` will include `Mark Herbster`.
 results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `100`. Defaults to `20`.
 
-The API doesn't return all bookings at once, but instead uses *pagination* which can split results across multiple pages. You can specify the maximum number of results per page by supplying the `results_per_page` parameter. If you do not specify `results_per_page`, it will be set to `20` by default. The maximum accepted value is `100`.
-
-An example of a query is given below:
-
-`url = "https://uclapi.com/api/bookings?contact=Wilhelm&results_per_page=5&token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"`
-
-This url has 3 parameters, `contact`, `token` and `results_per_page`.
-
-`r = requests.get(url)`
-
-Making this request will get us the data shown below:
-
-`{
-    "ok": true,
-    "bookings": {
-        "page_token": "TmJlhCJSUR",
-        "bookings": [
-            {
-                "room": "Darwin Building B05",
-                "contact": "Wilhelm Klopp - UCLU Tech Society",
-                "start_time": "2016-12-07T00:00::00",
-                "end_time": "2016-12-07T00:00::00",
-                "description": "Meeting",
-                "roomid": "B05A",
-                "siteid": "044",
-                "slotid": 1038241,
-                "weeknumber": 15,
-                "phone": ""
-            },
-            ...
-        ],
-        "count": 155,
-        "next_page_exists": true
-    }
-}`
-
-Value of the `ok` field tells if the request was successful.
-
-Inside `bookings` we have every booking that fits the relevant filters, along with more information. The first 'page' will contain a `count` field which indicates the total number of results which fit your request. If there are more 'pages' to follow, the boolean field, `next_page_exists`, will be set to True.
-
-To get the other pages in subsequent requests, you only have to pass the `page_token` in another request to the the same URL- no other parameters are required. Then you can make a request to the same endpoint with just the `page_token` and authentication token in `token`.
-
-So the next request url will be:
-
-`url = "https://uclapi.com/api/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=TmJlhCJSUR"`
-
-The server will keep track of how many pages you have received, and how many you are yet to go through. If `page_token` is given in your request, any other parameter will be ignored. You make requests until the `next_page_exists` is `false`.
-
 
 ### Response
+
 
 ```json
 {  
@@ -225,13 +180,11 @@ The server will keep track of how many pages you have received, and how many you
           "start_time": "2016-09-01T09:00:00+00:00",
           "end_time": "2016-09-01T18:00:00+00:00",
           "roomid": "433",
+          "roomname": "Torrington (1-19) 433",
           "weeknumber": 1,
-
-          "siteid": "086",
 
           "phone": "45699",
           "description": "",
-          "room": "Torrington (1-19) 433",
 
 
        },
@@ -241,49 +194,57 @@ The server will keep track of how many pages you have received, and how many you
 }
 ```
 
+
 Field | Example | Description
 --------- | ---------- | -----------
 ok | `true` | Whether the request was successful
 bookings | - | An array of booking objects.
 next_page_exists | `true` | True if there is another page with more bookings.
-page_token | `TmJlhCJSUR` | Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.
+page_token | `6hb14hXjRV` | Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.
 
+The bookings array contains booking objects, which each have the following properties.
 
 Booking Property | Example | Description
 --------- | ---------- | -----------
-slotid | `1024991` | A unique id for the booking
+slotid | `1024991` | An id for the booking. Combined with `weeknumber` they can be assumed to be almost unique.
 contact | `Wilhelm Klopp - UCLU Tech Society` | Name of the person who made the booking
-start_time | `2016-10-20T18:00:00+00:00` | start time of the booking. ISO8601 formatted datetime string
-end_time | `2016-10-20T19:00:00+00:00` | End time of the booking. ISO8601 formatted datetime string
-roomid | `B305` | ID of the room
-room | `Cruciform Building B.3.05` | Name of the room
-weeknumber | `8` | Week number
-phont | ` ` | Phone number
+start_time | `2016-10-20T18:00:00+00:00` | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
+end_time | `2016-10-20T19:00:00+00:00` | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
+roomid | `B305` | The room ID (not to be confused with the room name)
+roomname | `Cruciform Building B.3.05` | The name of the room. It often includes the name of the site (building) as well.
+siteid | `044` | Every room is inside a site (building). All sites have ids.
+weeknumber | `8` | The week the booking is in.
+phone | `45699` | Phone number (UCL extension)
 
 ## Paginated request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
 
-This endpoint returns equipment information about a specific room.
+Paginated requests also go to the `/bookings` endpoint, but other than the regular requests only the `token` and `page_token` should be supplied. All other filters are "remembered" from the initiating regular request.
+
+The API remembers how many requests you've made, so to move through the pages you can keep making the same request (with the same `token` and `page_token`) until the response contains `false` in the `next_page_exists` field.
 
 **Allowed request type:** `GET`
 
 ### Query Parameters
 
 ```shell
-curl https://uclapi.com/roombookings/equipment?page_token=TmJlhCJSUR&token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV
 ```
 
 ```python
 import requests
 
-params = {"page_token": "TmJlhCJSUR", "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"}
+params = {
+  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "page_token": "6hb14hXjRV"
+}
 
-r = requests.get("https://uclapi.com/roombookings/equipment", params=params)
+r = requests.get("https://uclapi.com/roombookings/bookings", params=params)
 print(r.json())
 ```
 
 ```javascript
-fetch("https://uclapi.com/roombookings/equipment")
+fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV")
 .then((response) => {
   return response.json()
 })
@@ -295,43 +256,44 @@ fetch("https://uclapi.com/roombookings/equipment")
 Parameter | Example | Required | Description
 --------- | ---------- | ----------- | -----------
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-`page_token` | `TmJlhCJSUR` | Required | Page token you got from the response
+`page_token` | `6hb14hXjRV` | Required | Page token received in regular `/bookings` request. The page token does not change as you paginate through the results.
 
 ### Response
 
 ```json
 {
   "ok": true,
-  "equipment": [
-    {
-      "type": "FF",
-      "description": "Managed PC",
-      "units": 1
-    },
-    {
-      "type": "FE",
-      "description": "Chairs with Tables",
-      "units": 1
-    },
+  "bookings": {
+    "page_token": "wmCUiJgItq",
+    "next_page_exists": true,
+    "bookings": [
+      {
+        "room": "Christopher Ingold Building XLG2 Auditorium",
+        "slotid": 733044,
+        "siteid": "067",
+        "start_time": "2017-03-20T13:00:00+00:00",
+        "roomid": "XLG2",
+        "weeknumber": 30,
+        "description": "",
+        "end_time": "2017-03-20T14:00:00+00:00",
+        "phone": "",
+        "contact": "Dr Mark Roberts"
+      },
     ...
-  ]
+    ]
+  }
 }
 ```
-The equipment field contains a list of equipment items. The length of this list can be different for every room.
-It can also be 0.  
-Each equipment item contains a `type`, a `description`, and the number of `units`.
 
-Equipment Item | Example |  Description
---------- | ---------- |  -----------
-`type` | `FE` | The type of equipment. Either Fixed Equipment (`FE`) or Fixed Feature (`FF`).
-`description` | `Managed PC` | What the piece of equipment actually is.
-`units` | `1`| The number of times this piece of equipment exists in the room.
+The response to a paginated request is identical to that of a regular request, except that no `count` field is provided.
 
 
 # Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
 
-This endpoint returns equipment information about a specific room.
+This endpoint returns equipment/feature information about a specific room. So, for example whether there is a `Whiteboard` or a `DVD Player` in the room. A full example can be seen [here.](https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&building=016&invoker=EFD)
+
+You _need_ to supply a `token`, `roomid`, and `siteid` to get a response.
 
 **Allowed request type:** `GET`
 
@@ -359,7 +321,7 @@ fetch("https://uclapi.com/roombookings/equipment")
 ```
 
 Parameter | Example | Required | Description
---------- | ---------- | ----------- | -----------
+--------- | ------- | -------- | -----------
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
 `roomid` | `433` | Required | The room id (not to be confused with the room name)
 `siteid` | `086`| Required | Every room is inside a site (building). All sites have ids.
@@ -384,24 +346,24 @@ Parameter | Example | Required | Description
   ]
 }
 ```
-The equipment field contains a list of equipment items. The length of this list can be different for every room.
-It can also be 0.  
+The equipment field contains a list of equipment items. This list can have a different length depending on the room, and it can also be empty.
+
 Each equipment item contains a `type`, a `description`, and the number of `units`.
 
-Equipment Item | Example |  Description
---------- | ---------- |  -----------
-`type` | `FE` | The type of equipment. Either Fixed Equipment (`FE`) or Fixed Feature (`FF`).
-`description` | `Managed PC` | What the piece of equipment actually is.
-`units` | `1`| The number of times this piece of equipment exists in the room.
+Equipment Item | Example      |  Description
+-------------- | ------------ |  -----------
+`type`         | `FE`         | The type of equipment. Either Fixed Equipment (`FE`) or Fixed Feature (`FF`).
+`description`  | `Managed PC` | What the piece of equipment actually is.
+`units`        | `1`          | The number of times this piece of equipment exists in the room.
 
 ### Errors
 
-Error | Description
---------- | ---------
-`No token provided` | Gets returned when you have not supplied a `token` in your request.
-`Token does not exist` | Gets returned when you supply an invalid `token`.
-`No roomid supplied` | Gets returned when you don't supply a `roomid`.
-`No siteid supplied` | Gets returned when you don'y supply a `siteid`.
+Error                 | Description
+----------------------| -----------
+`No token provided`   | Gets returned when you have not supplied a `token` in your request.
+`Token does not exist`| Gets returned when you supply an invalid `token`.
+`No roomid supplied`  | Gets returned when you don't supply a `roomid`.
+`No siteid supplied`  | Gets returned when you don't supply a `siteid`.
 
 # Contributing
 These docs are open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).  
