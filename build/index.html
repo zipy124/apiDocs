@@ -134,7 +134,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
-<h2 id="query-parameters">Query Parameters</h2>
+<h3 id="query-parameters">Query Parameters</h3>
 <pre class="highlight shell"><code>curl https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
@@ -203,7 +203,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 </tr>
 </tbody></table>
 
-<h2 id="response">Response</h2>
+<h3 id="response">Response</h3>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"rooms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -228,8 +228,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>The room field contains a list of rooms that match your query. If no filters are applied, all rooms will be returned.
-Each equipment item contains a <code class="prettyprint">type</code>, a <code class="prettyprint">description</code>, and the number of <code class="prettyprint">units</code>.</p>
+<p>The room field contains a list of rooms that match your query. If no filters are applied, all rooms will be returned.</p>
 
 <table><thead>
 <tr>
@@ -280,7 +279,7 @@ Each equipment item contains a <code class="prettyprint">type</code>, a <code cl
 </tr>
 </tbody></table>
 
-<h2 id="errors">Errors</h2>
+<h3 id="errors">Errors</h3>
 
 <table><thead>
 <tr>
@@ -298,102 +297,299 @@ Each equipment item contains a <code class="prettyprint">type</code>, a <code cl
 </tr>
 </tbody></table>
 
-<h1 id="get-bookings-for-a-room">Get Bookings for a Room</h1>
+<h1 id="get-bookings">Get Bookings</h1>
 
-<h3 id="bookings"><code class="prettyprint">/bookings</code></h3>
+<h2 id="regular-request">Regular request</h2>
 
-<p>This endpoint shows the bookings for a room</p>
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/bookings</code></p>
 
-<h2 id="query-parameters">Query Parameters</h2>
+<p>This endpoint shows the results to a bookings or space availability query. It returns a paginated list of bookings.
+<em>Note: This endpoint only returns publicly displayed bookings. Departmental bookings are not included.</em></p>
 
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact<span class="o">=</span>Mark
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"contact"</span><span class="p">:</span> <span class="s">"Mark"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
-<th>Default Value</th>
+<th>Example</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>roomId</td>
-<td><code class="prettyprint">String[]</code></td>
-<td>All room ids</td>
-<td>A list of the ids of rooms you want to see the bookings for</td>
+<td>token</td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token</td>
 </tr>
 <tr>
-<td>startDate</td>
-<td><code class="prettyprint">date</code></td>
-<td>Current date and time rounded up to the nearest hour</td>
-<td>The start date and time you want to search from</td>
+<td>roomid</td>
+<td><code class="prettyprint">433</code></td>
+<td>Optional</td>
+<td>The room id (not to be confused with the room name)</td>
 </tr>
 <tr>
-<td>endDate</td>
-<td><code class="prettyprint">date</code></td>
-<td>One week from the current date and time rounded up to the nearest hour</td>
-<td>The end date and time you want to search to</td>
+<td>start_datetime</td>
+<td><code class="prettyprint">2011-03-06T03:36:45+00:00</code></td>
+<td>Optional</td>
+<td>Start datetime of the booking. Returns bookings with a <code class="prettyprint">start_datetime</code> after the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>end_datetime</td>
+<td><code class="prettyprint">2011-03-06T03:36:45+00:00</code></td>
+<td>Optional</td>
+<td>End datetime of the booking. Returns bookings with an <code class="prettyprint">end_datetime</code> before the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>date</td>
+<td><code class="prettyprint">20160202</code></td>
+<td>Optional</td>
+<td>Date of the bookings you need. Returns bookings occuring on this day. <strong>This query parameter is only considered when <code class="prettyprint">end_datetime</code> and <code class="prettyprint">start_datetime</code> are not supplied.</strong></td>
+</tr>
+<tr>
+<td>siteid</td>
+<td><code class="prettyprint">086</code></td>
+<td>Optional</td>
+<td>Every room is inside a site (building). All sites have ids.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code class="prettyprint">Lecture</code></td>
+<td>Optional</td>
+<td>Describes what the booking is. Could contain a module code (for example <code class="prettyprint">WIBRG005</code>) or just the type of activity (for example <code class="prettyprint">Lecture</code>).</td>
+</tr>
+<tr>
+<td>contact</td>
+<td><code class="prettyprint">Mark Herbster</code></td>
+<td>Optional</td>
+<td>The name of the person who made the booking. Can substrings of the contact name: Queries for <code class="prettyprint">Mark</code> will include <code class="prettyprint">Mark Herbster</code>.</td>
+</tr>
+<tr>
+<td>results_per_page</td>
+<td><code class="prettyprint">50</code></td>
+<td>Optional</td>
+<td>Number of bookings returned per page. Maximum allowed value is <code class="prettyprint">100</code>. Defaults to <code class="prettyprint">20</code>.</td>
 </tr>
 </tbody></table>
 
-<p><strong>Restrictions:</strong> <code class="prettyprint">nil</code></p>
+<h3 id="response">Response</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">  
+  </span><span class="s2">"ok"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">  
+    </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6hb14hXjRV"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1197</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">  
+          </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">983481</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ms Leah Markwick"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-01T09:00:00+00:00"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-01T18:00:00+00:00"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"433"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"roomname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Torrington (1-19) 433"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"weeknumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
 
-<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
-<pre class="highlight shell"><code>curl https://uclapi.com/api/v1/bookings?roomId<span class="o">=</span>abc123&amp;startDate<span class="o">=</span>2016-10-23T11:00:00&amp;endDate<span class="o">=</span>2016-10-23T14:00:00
-</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+          </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45699"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
 
-<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/api/v1/bookings?roomId=abc123&amp;startDate=2016-10-23T11:00:00&amp;endDate=2016-10-23T14:00:00"</span><span class="p">)</span>
-</code></pre><pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://uclapi.com/api/v1/bookings?roomId=abc123&amp;startDate=2016-10-23T11:00:00&amp;endDate=2016-10-23T14:00:00'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
 
-<span class="c1">// response from the server</span>
-<span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
-</code></pre>
-<h2 id="response">Response</h2>
-
-<blockquote>
-<p>Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"bookingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"def456"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"startDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-23T12:00:00"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"endDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-23T13:00:00"</span><span class="w">
+       </span><span class="p">},</span><span class="w">
+       </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
 <tr>
 <th>Field</th>
-<th>Type</th>
+<th>Example</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>bookingId</td>
-<td><code class="prettyprint">String</code></td>
-<td>The of the booking</td>
+<td>ok</td>
+<td><code class="prettyprint">true</code></td>
+<td>Whether the request was successful</td>
 </tr>
 <tr>
-<td>startDate</td>
-<td><code class="prettyprint">date</code></td>
-<td>Start date and time of the booking</td>
+<td>bookings</td>
+<td>-</td>
+<td>An array of booking objects.</td>
 </tr>
 <tr>
-<td>endDate</td>
-<td><code class="prettyprint">date</code></td>
-<td>End date and time of the booking</td>
+<td>next_page_exists</td>
+<td><code class="prettyprint">true</code></td>
+<td>True if there is another page with more bookings.</td>
+</tr>
+<tr>
+<td>page_token</td>
+<td><code class="prettyprint">6hb14hXjRV</code></td>
+<td>Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.</td>
 </tr>
 </tbody></table>
+
+<p>The bookings array contains booking objects, which each have the following properties.</p>
+
+<table><thead>
+<tr>
+<th>Booking Property</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>slotid</td>
+<td><code class="prettyprint">1024991</code></td>
+<td>An id for the booking. Combined with <code class="prettyprint">weeknumber</code> they can be assumed to be almost unique.</td>
+</tr>
+<tr>
+<td>contact</td>
+<td><code class="prettyprint">Wilhelm Klopp - UCLU Tech Society</code></td>
+<td>Name of the person who made the booking</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td><code class="prettyprint">2016-10-20T18:00:00+00:00</code></td>
+<td>Start datetime of the booking. Returns bookings with a <code class="prettyprint">start_datetime</code> after the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td><code class="prettyprint">2016-10-20T19:00:00+00:00</code></td>
+<td>End datetime of the booking. Returns bookings with an <code class="prettyprint">end_datetime</code> before the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>roomid</td>
+<td><code class="prettyprint">B305</code></td>
+<td>The room ID (not to be confused with the room name)</td>
+</tr>
+<tr>
+<td>roomname</td>
+<td><code class="prettyprint">Cruciform Building B.3.05</code></td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td>siteid</td>
+<td><code class="prettyprint">044</code></td>
+<td>Every room is inside a site (building). All sites have ids.</td>
+</tr>
+<tr>
+<td>weeknumber</td>
+<td><code class="prettyprint">8</code></td>
+<td>The week the booking is in.</td>
+</tr>
+<tr>
+<td>phone</td>
+<td><code class="prettyprint">45699</code></td>
+<td>Phone number (UCL extension)</td>
+</tr>
+</tbody></table>
+
+<h2 id="paginated-request">Paginated request</h2>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/bookings</code></p>
+
+<p>Paginated requests also go to the <code class="prettyprint">/bookings</code> endpoint, but other than the regular requests only the <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code> should be supplied. All other filters are &ldquo;remembered&rdquo; from the initiating regular request.</p>
+
+<p>The API remembers how many requests you&rsquo;ve made, so to move through the pages you can keep making the same request (with the same <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code>) until the response contains <code class="prettyprint">false</code> in the <code class="prettyprint">next_page_exists</code> field.</p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token<span class="o">=</span>6hb14hXjRV
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"page_token"</span><span class="p">:</span> <span class="s">"6hb14hXjRV"</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token</td>
+</tr>
+<tr>
+<td><code class="prettyprint">page_token</code></td>
+<td><code class="prettyprint">6hb14hXjRV</code></td>
+<td>Required</td>
+<td>Page token received in regular <code class="prettyprint">/bookings</code> request. The page token does not change as you paginate through the results.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wmCUiJgItq"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"room"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Christopher Ingold Building XLG2 Auditorium"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">733044</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"siteid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"067"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-20T13:00:00+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XLG2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"weeknumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-20T14:00:00+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dr Mark Roberts"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The response to a paginated request is identical to that of a regular request, except that no <code class="prettyprint">count</code> field is provided.</p>
 
 <h1 id="get-equipment">Get Equipment</h1>
 
 <p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/equipment</code></p>
 
-<p>This endpoint returns equipment information about a specific room.</p>
+<p>This endpoint returns equipment/feature information about a specific room. So, for example whether there is a <code class="prettyprint">Whiteboard</code> or a <code class="prettyprint">DVD Player</code> in the room. A full example can be seen <a href="https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&amp;building=016&amp;invoker=EFD">here.</a></p>
+
+<p>You <em>need</em> to supply a <code class="prettyprint">token</code>, <code class="prettyprint">roomid</code>, and <code class="prettyprint">siteid</code> to get a response.</p>
 
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
-<h2 id="query-parameters">Query Parameters</h2>
+<h3 id="query-parameters">Query Parameters</h3>
 <pre class="highlight shell"><code>curl https://uclapi.com/roombookings/equipment
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
@@ -435,7 +631,7 @@ Each equipment item contains a <code class="prettyprint">type</code>, a <code cl
 </tr>
 </tbody></table>
 
-<h2 id="response">Response</h2>
+<h3 id="response">Response</h3>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"equipment"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -453,9 +649,9 @@ Each equipment item contains a <code class="prettyprint">type</code>, a <code cl
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>The equipment field contains a list of equipment items. The length of this list can be different for every room.
-It can also be 0.<br>
-Each equipment item contains a <code class="prettyprint">type</code>, a <code class="prettyprint">description</code>, and the number of <code class="prettyprint">units</code>.</p>
+<p>The equipment field contains a list of equipment items. This list can have a different length depending on the room, and it can also be empty.</p>
+
+<p>Each equipment item contains a <code class="prettyprint">type</code>, a <code class="prettyprint">description</code>, and the number of <code class="prettyprint">units</code>.</p>
 
 <table><thead>
 <tr>
@@ -481,7 +677,7 @@ Each equipment item contains a <code class="prettyprint">type</code>, a <code cl
 </tr>
 </tbody></table>
 
-<h2 id="errors">Errors</h2>
+<h3 id="errors">Errors</h3>
 
 <table><thead>
 <tr>
@@ -503,7 +699,7 @@ Each equipment item contains a <code class="prettyprint">type</code>, a <code cl
 </tr>
 <tr>
 <td><code class="prettyprint">No siteid supplied</code></td>
-<td>Gets returned when you don&#39;y supply a <code class="prettyprint">siteid</code>.</td>
+<td>Gets returned when you don&rsquo;t supply a <code class="prettyprint">siteid</code>.</td>
 </tr>
 </tbody></table>
 
