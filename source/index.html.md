@@ -58,7 +58,7 @@ Parameter | Example | Required | Description
 --------- | ---------- | ----------- | -----------
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
 `roomid` | `433` | Optional | The room id (not to be confused with the room name).
-`name` | `Torrington (1-19) 433`| Optional | The name of the room. It often includes the name of the site (building) as well.
+`roomname` | `Torrington (1-19) 433`| Optional | The name of the room. It often includes the name of the site (building) as well.
 `siteid` | `086`| Optional | Every room is inside a site (building). All sites have ids.
 `sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the room name as well.
 `classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
@@ -71,7 +71,7 @@ Parameter | Example | Required | Description
   "ok": true,
   "rooms": [
     {
-      "name": "Wilkins Building (Main Building) Portico",
+      "roomname": "Wilkins Building (Main Building) Portico",
       "roomid": "Z4",
       "siteid": "005",
       "sitename": "Main Building",
@@ -96,7 +96,7 @@ The room field contains a list of rooms that match your query. If no filters are
 
 Room Property | Example |  Description
 --------- | ---------- |  -----------
-`name` | `Wilkins Building (Main Building) Portico` | The name of the room. It often includes the name of the site (building) as well.
+`roomname` | `Wilkins Building (Main Building) Portico` | The name of the room. It often includes the name of the site (building) as well.
 `roomid` | `Z4` | The room id (not to be confused with the room name)
 `siteid` | `005`| Every room is inside a site (building). All sites have ids.
 `sitename` | `Main Building` | The name of the site (building).
@@ -167,9 +167,8 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
 
 
 ```json
-{  
-  "ok":true,
-  "bookings": {  
+{
+    "ok": True,
     "next_page_exists": true,
     "page_token": "6hb14hXjRV",
     "count": 1197,
@@ -190,8 +189,8 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
        },
        ...
     ]
-  }
 }
+
 ```
 
 
@@ -262,13 +261,12 @@ Parameter | Example | Required | Description
 
 ```json
 {
-  "ok": true,
-  "bookings": {
+    "ok": true,
     "page_token": "wmCUiJgItq",
     "next_page_exists": true,
     "bookings": [
       {
-        "room": "Christopher Ingold Building XLG2 Auditorium",
+        "roomname": "Christopher Ingold Building XLG2 Auditorium",
         "slotid": 733044,
         "siteid": "067",
         "start_time": "2017-03-20T13:00:00+00:00",
@@ -279,9 +277,8 @@ Parameter | Example | Required | Description
         "phone": "",
         "contact": "Dr Mark Roberts"
       },
-    ...
+      ...
     ]
-  }
 }
 ```
 
