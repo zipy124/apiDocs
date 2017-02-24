@@ -168,7 +168,7 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
 
 ```json
 {
-    "ok": True,
+    "ok": true,
     "next_page_exists": true,
     "page_token": "6hb14hXjRV",
     "count": 1197,
