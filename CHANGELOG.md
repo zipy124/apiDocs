@@ -1,6 +1,4 @@
 # Changelog
-
-<<<<<<< HEAD
 =======
 ## Version 1.5.0
 
@@ -24,7 +22,6 @@
 - Fix bug with logo margin
 - Bump tested Ruby versions in .travis.yml
 
->>>>>>> upstream/master
 ## Version 1.3.3
 
 *June 11, 2016*
