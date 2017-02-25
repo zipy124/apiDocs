@@ -110,7 +110,7 @@ html, body {
     }
   }
 
-  img+.tocify {
+  img+.tocify, .lang-selector+.tocify {
     margin-top: $logo-margin;
   }
 
@@ -216,7 +216,6 @@ html, body {
       text-decoration: none;
     }
   }
-
 }
 
 // button to show navigation on mobile devices
@@ -373,6 +372,7 @@ html, body {
   h2 {
     @extend %header-font;
     font-size: 20px;
+    /* IGNORED MERGE FROM UPSTREAM */
     /*margin-top: 4em;*/
     margin-bottom: 0;
     border-top: 1px solid #ccc;
@@ -391,6 +391,7 @@ html, body {
   h3, h4, h5, h6 {
     @extend %header-font;
     font-size: 15px;
+    /* IGNORED MERGE FROM UPSTREAM */
     /*margin-top: 2.5em;*/
     margin-bottom: 0.8em;
   }
@@ -408,16 +409,13 @@ html, body {
   table {
     margin-bottom: 1em;
     overflow: auto;
+
     th,td {
       text-align: left;
       vertical-align: top;
       line-height: 1.6;
     }
-    tr{
-      td:nth-child(2) {
-        width: 80px;
-      }
-    } 
+
     th {
       padding: 5px 10px;
       border-bottom: 1px solid #ccc;
@@ -465,11 +463,6 @@ html, body {
     @extend %break-words;
     @extend %code-font;
   }
-
-  h3> code {
-    font-size:40px;
-  }
-
   pre>code {
     background-color: transparent;
     padding: 0;

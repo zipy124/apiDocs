@@ -9,81 +9,190 @@
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
-.highlight, .highlight .w {
-  color: #f8f8f2;
-  background-color: #272822;
+.highlight .gh {
+  color: #999999;
 }
-.highlight .err {
-  color: #272822;
-  background-color: #f92672;
+.highlight .sr {
+  color: #f6aa11;
 }
-.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
   color: #75715e;
 }
 .highlight .cp {
-  color: #f4bf75;
+  color: #75715e;
 }
-.highlight .nt {
-  color: #f4bf75;
+.highlight .c1 {
+  color: #75715e;
 }
-.highlight .o, .highlight .ow {
-  color: #f8f8f2;
+.highlight .cs {
+  color: #75715e;
 }
-.highlight .p, .highlight .pi {
-  color: #f8f8f2;
+.highlight .c, .highlight .cd {
+  color: #75715e;
 }
-.highlight .gi {
-  color: #a6e22e;
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
 }
 .highlight .gd {
-  color: #f92672;
+  color: #49483e;
 }
-.highlight .gh {
-  color: #66d9ef;
-  background-color: #272822;
-  font-weight: bold;
+.highlight .gi {
+  color: #49483e;
 }
-.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #ae81ff;
+.highlight .ge {
+  color: #49483e;
 }
 .highlight .kc {
-  color: #fd971f;
-}
-.highlight .kt {
-  color: #fd971f;
-}
-.highlight .kd {
-  color: #fd971f;
-}
-.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #a6e22e;
-}
-.highlight .sr {
-  color: #a1efe4;
-}
-.highlight .si {
-  color: #cc6633;
-}
-.highlight .se {
-  color: #cc6633;
-}
-.highlight .nn {
-  color: #f4bf75;
-}
-.highlight .nc {
-  color: #f4bf75;
-}
-.highlight .no {
-  color: #f4bf75;
-}
-.highlight .na {
   color: #66d9ef;
 }
-.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
-  color: #a6e22e;
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
 }
 .highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
   color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
 }
     </style>
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
@@ -91,7 +200,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;shell&quot;,&quot;python&quot;,&quot;python&quot;,&quot;javascript&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;shell--shellv1&quot;,&quot;python&quot;,&quot;python--pythonv1&quot;,&quot;javascript&quot;,&quot;javascript--javascriptv1&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -102,11 +211,11 @@
       <img src="images/logo.png" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="shell">shell (v1)</a>
+              <a href="#" data-language-name="shell--shellv1">shell--shellv1</a>
               <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="python">python (v1)</a>
+              <a href="#" data-language-name="python--pythonv1">python--pythonv1</a>
               <a href="#" data-language-name="javascript">javascript</a>
-              <a href="#" data-language-name="javascript">javascript (v1)</a>
+              <a href="#" data-language-name="javascript--javascriptv1">javascript--javascriptv1</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -142,32 +251,41 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
-<pre class="highlight shell"><code>curl https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
-</code></pre>
-<p><code class="prettyprint">shell (v1)
-curl -H &quot;uclapi-roombookings-version: 1.0&quot; https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
-</code></p>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+</code></pre><pre class="highlight shell tab-shell--shellv1"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1.0"</span> https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span>
 <span class="p">}</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/rooms"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</code></pre>
-<p>&ldquo;`python (v1)
-import requests</p>
+</code></pre><pre class="highlight python tab-python--pythonv1"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<p>params = {
-  &quot;token&rdquo;: &ldquo;uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&rdquo;
-}
-headers = {
-  &ldquo;uclapi-roombookings-version&rdquo;: &ldquo;1.0&rdquo;
-}
-r = requests.get(&ldquo;https://uclapi.com/roombookings/rooms&rdquo;, params=params, headers=headers)
-print(r.json())
-&ldquo;`</p>
-<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span>
+<span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1.0"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/rooms"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><pre class="highlight javascript tab-javascript--javascriptv1"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="s1">'cors'</span><span class="p">,</span>
+  <span class="na">cache</span><span class="p">:</span> <span class="s1">'default'</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span> <span class="nx">initData</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 <span class="p">})</span>
@@ -175,24 +293,6 @@ print(r.json())
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p><code class="prettyprint">javascript (v1)
-var myHeaders = new Headers();
-myHeaders.append(&quot;uclapi-roombookings-version&quot;, &quot;1.0&quot;);
-var initData = {
-  method: &#39;GET&#39;,
-  headers: myHeaders,
-  mode: &#39;cors&#39;,
-  cache: &#39;default&#39;
-};
-fetch(&quot;https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&quot;, initData)
-.then((response) =&gt; {
-  return response.json()
-})
-.then((json) =&gt; {
-  console.log(json);
-  })
-</code></p>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -246,7 +346,7 @@ fetch(&quot;https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2
 </tbody></table>
 
 <h3 id="response">Response</h3>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"rooms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -351,12 +451,9 @@ fetch(&quot;https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
-<pre class="highlight shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact<span class="o">=</span>Mark
-</code></pre>
-<p><code class="prettyprint">shell (v1)
-curl -H &quot;uclapi-roombookings-version: 1.0&quot; https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark
-</code></p>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact<span class="o">=</span>Mark
+</code></pre><pre class="highlight shell tab-shell--shellv1"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1.0"</span> https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact<span class="o">=</span>Mark
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
@@ -364,21 +461,33 @@ curl -H &quot;uclapi-roombookings-version: 1.0&quot; https://uclapi.com/roombook
 <span class="p">}</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</code></pre>
-<p>&rdquo;`python (v1)
-import requests</p>
+</code></pre><pre class="highlight python tab-python--pythonv1"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<p>params = {
-  &ldquo;token&rdquo;: &ldquo;uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&rdquo;,
-  &ldquo;contact&rdquo;: &ldquo;Mark&rdquo;
-}
-headers = {
-  &ldquo;uclapi-roombookings-version&rdquo;: &ldquo;1.0&rdquo;
-}
-r = requests.get(&ldquo;https://uclapi.com/roombookings/bookings&rdquo;, params=params, headers=headers)
-print(r.json())
-&ldquo;`</p>
-<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark"</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"contact"</span><span class="p">:</span> <span class="s">"Mark"</span>
+<span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1.0"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><pre class="highlight javascript tab-javascript--javascriptv1"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="s1">'cors'</span><span class="p">,</span>
+  <span class="na">cache</span><span class="p">:</span> <span class="s1">'default'</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark"</span><span class="p">,</span> <span class="nx">initData</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 <span class="p">})</span>
@@ -386,24 +495,6 @@ print(r.json())
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p><code class="prettyprint">javascript (v1)
-var myHeaders = new Headers();
-myHeaders.append(&quot;uclapi-roombookings-version&quot;, &quot;1.0&quot;);
-var initData = {
-  method: &#39;GET&#39;,
-  headers: myHeaders,
-  mode: &#39;cors&#39;,
-  cache: &#39;default&#39;
-};
-fetch(&quot;https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark&quot;, initData)
-.then((response) =&gt; {
-  return response.json()
-})
-.then((json) =&gt; {
-  console.log(json);
-  })
-</code></p>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -469,7 +560,7 @@ fetch(&quot;https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c
 </tbody></table>
 
 <h3 id="response">Response</h3>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6hb14hXjRV"</span><span class="p">,</span><span class="w">
@@ -583,19 +674,16 @@ fetch(&quot;https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c
 
 <p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/bookings</code></p>
 
-<p>Paginated requests also go to the <code class="prettyprint">/bookings</code> endpoint, but other than the regular requests only the <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code> should be supplied. All other filters are &quot;remembered&rdquo; from the initiating regular request.</p>
+<p>Paginated requests also go to the <code class="prettyprint">/bookings</code> endpoint, but other than the regular requests only the <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code> should be supplied. All other filters are &ldquo;remembered&rdquo; from the initiating regular request.</p>
 
 <p>The API remembers how many requests you&rsquo;ve made, so to move through the pages you can keep making the same request (with the same <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code>) until the response contains <code class="prettyprint">false</code> in the <code class="prettyprint">next_page_exists</code> field.</p>
 
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
-<pre class="highlight shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token<span class="o">=</span>6hb14hXjRV
-</code></pre>
-<p><code class="prettyprint">shell (v1)
-curl -H &quot;uclapi-roombookings-version: 1.0&quot; https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV
-</code></p>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token<span class="o">=</span>6hb14hXjRV
+</code></pre><pre class="highlight shell tab-shell--shellv1"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1.0"</span> https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token<span class="o">=</span>6hb14hXjRV
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
@@ -604,21 +692,33 @@ curl -H &quot;uclapi-roombookings-version: 1.0&quot; https://uclapi.com/roombook
 
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</code></pre>
-<p>&ldquo;`python (v1)
-import requests</p>
+</code></pre><pre class="highlight python tab-python--pythonv1"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<p>params = {
-  &quot;token&rdquo;: &ldquo;uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&rdquo;,
-  &ldquo;page_token&rdquo;: &ldquo;6hb14hXjRV&rdquo;
-}
-headers = {
-  &ldquo;uclapi-roombookings-version&rdquo;: &ldquo;1.0&rdquo;
-}
-r = requests.get(&ldquo;https://uclapi.com/roombookings/bookings&rdquo;, params=params, headers=headers)
-print(r.json())
-&ldquo;`</p>
-<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV"</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"page_token"</span><span class="p">:</span> <span class="s">"6hb14hXjRV"</span>
+<span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1.0"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><pre class="highlight javascript tab-javascript--javascriptv1"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="s1">'cors'</span><span class="p">,</span>
+  <span class="na">cache</span><span class="p">:</span> <span class="s1">'default'</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV"</span><span class="p">,</span> <span class="nx">initData</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 <span class="p">})</span>
@@ -626,24 +726,6 @@ print(r.json())
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p><code class="prettyprint">javascript (v1)
-var myHeaders = new Headers();
-myHeaders.append(&quot;uclapi-roombookings-version&quot;, &quot;1.0&quot;);
-var initData = {
-  method: &#39;GET&#39;,
-  headers: myHeaders,
-  mode: &#39;cors&#39;,
-  cache: &#39;default&#39;
-};
-fetch(&quot;https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV&quot;, initData)
-.then((response) =&gt; {
-  return response.json()
-})
-.then((json) =&gt; {
-  console.log(json);
-  })
-</code></p>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -667,7 +749,7 @@ fetch(&quot;https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c
 </tbody></table>
 
 <h3 id="response">Response</h3>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wmCUiJgItq"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -701,29 +783,38 @@ fetch(&quot;https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
-<pre class="highlight shell"><code>curl https://uclapi.com/roombookings/equipment?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
-</code></pre>
-<p><code class="prettyprint">shell (v1)
-curl -H &quot;uclapi-roombookings-version: 1.0&quot; https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
-</code></p>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/equipment?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+</code></pre><pre class="highlight shell tab-shell--shellv1"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1.0"</span> https://uclapi.com/roombookings/equipment?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</code></pre>
-<p>&rdquo;`python (v1)
-import requests</p>
+</code></pre><pre class="highlight python tab-python--pythonv1"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<p>params = {
-  &ldquo;token&rdquo;: &ldquo;uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&rdquo;
-}
-headers = {
-  &ldquo;uclapi-roombookings-version&rdquo;: &ldquo;1.0&rdquo;
-}
-r = requests.get(&ldquo;https://uclapi.com/roombookings/equipment&rdquo;, params=params, headers=headers)
-print(r.json())
-&ldquo;`</p>
-<pre class="highlight javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span>
+<span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1.0"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/equipment"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre><pre class="highlight javascript tab-javascript--javascriptv1"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="s1">'cors'</span><span class="p">,</span>
+  <span class="na">cache</span><span class="p">:</span> <span class="s1">'default'</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span> <span class="nx">initData</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 <span class="p">})</span>
@@ -731,24 +822,6 @@ print(r.json())
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p><code class="prettyprint">javascript (v1)
-var myHeaders = new Headers();
-myHeaders.append(&quot;uclapi-roombookings-version&quot;, &quot;1.0&quot;);
-var initData = {
-  method: &#39;GET&#39;,
-  headers: myHeaders,
-  mode: &#39;cors&#39;,
-  cache: &#39;default&#39;
-};
-fetch(&quot;https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&quot;, initData)
-.then((response) =&gt; {
-  return response.json()
-})
-.then((json) =&gt; {
-  console.log(json);
-  })
-</code></p>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -778,7 +851,7 @@ fetch(&quot;https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9
 </tbody></table>
 
 <h3 id="response">Response</h3>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"equipment"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -851,18 +924,194 @@ fetch(&quot;https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9
 
 <h1 id="contributing">Contributing</h1>
 
-<p>These docs are open sourced at <a href="https://github.com/uclapi/apiDocs">https://github.com/uclapi/apiDocs</a>.<br>
-Any and all contributions are welcome! If you spot a type or error, fix it :)</p>
+<p>These docs are open sourced at <a href="https://github.com/uclapi/apiDocs">https://github.com/uclapi/apiDocs</a>.  </p>
+
+<h1 id="any-and-all-contributions-are-welcome-if-you-spot-a-type-or-error-fix-it">Any and all contributions are welcome! If you spot a type or error, fix it :)</h1>
+
+<p>title: API Reference</p>
+
+<p>language_tabs:
+  - shell
+  - ruby
+  - python
+  - javascript</p>
+
+<p>toc_footers:
+  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></p>
+
+<p>includes:
+  - errors</p>
+
+<h2 id="search-true">search: true</h2>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+
+<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+
+<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+
+<h1 id="authentication">Authentication</h1>
+
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"api_endpoint_here"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
+</blockquote>
+
+<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+
+<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+
+<aside class="notice">
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
+
+<h1 id="kittens">Kittens</h1>
+
+<h2 id="get-all-kittens">Get All Kittens</h2>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves all kittens.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>include_cats</td>
+<td>false</td>
+<td>If set to true, the result will also include cats.</td>
+</tr>
+<tr>
+<td>available</td>
+<td>true</td>
+<td>If set to false, the result will include kittens that have already been adopted.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific kitten.</p>
+
+<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="shell">shell (v1)</a>
+                <a href="#" data-language-name="shell--shellv1">shell--shellv1</a>
                 <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="python">python (v1)</a>
+                <a href="#" data-language-name="python--pythonv1">python--pythonv1</a>
                 <a href="#" data-language-name="javascript">javascript</a>
-                <a href="#" data-language-name="javascript">javascript (v1)</a>
+                <a href="#" data-language-name="javascript--javascriptv1">javascript--javascriptv1</a>
           </div>
       </div>
     </div>

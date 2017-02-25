@@ -39,7 +39,6 @@ $aside-warning-bg: #c97a7e;
 $aside-success-bg: #6ac174;
 $search-notice-bg: #c97a7e;
 
-
 // TEXT COLORS
 ////////////////////
 $main-text: #333; // main content text color
@@ -64,7 +63,6 @@ $h1-margin-bottom: 21px; // padding under the largest header tags
 $tablet-width: 930px; // min width before reverting to tablet size
 $phone-width: $tablet-width - $nav-width; // min width before reverting to mobile size
 
-
 // FONTS
 ////////////////////
 %default-font {
@@ -82,9 +80,6 @@ $phone-width: $tablet-width - $nav-width; // min width before reverting to mobil
   font-size: 12px;
   line-height: 1.5;
 }
-
-
-
 
 // OTHER
 ////////////////////
