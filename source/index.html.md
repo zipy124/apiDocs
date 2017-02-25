@@ -2,12 +2,12 @@
 title: UCL API Reference
 
 language_tabs:
-  - shell
-  - shell--shellv1
-  - python
-  - python--pythonv1
-  - javascript
-  - javascript--javascriptv1
+  - shell : Shell
+  - shell--shellv1: Shell v1
+  - python : Python 
+  - python--pythonv1 : Python v1
+  - javascript : JavaScript
+  - javascript--javascriptv1 : JavaScript v1
 
 toc_footers:
   - <a href='https://uclapi.com/dashboard/'>Get an API Key</a>
@@ -21,8 +21,11 @@ Yay, you made it 🎉
 The base url is `https://uclapi.com/roombookings/`
 
 By default every request is sent to the latest version of the API, which is **Version 1**. You should aim to write all your code against the latest version of the API. However, you should always specific in the header which version you would like to fetch data from. This is so that when the API is updated in the future you will not be affected by breaking changes.
+
 The header variable you can set for Room Bookings is `uclapi-roombookings-version: 1.0`.
+
 Please note that this is different behaviour to the Engineering Hub API; in that system the API version is specified explicitly in the URL. It is not necessary to specify a version when experimenting, but it is _highly_ recommended that you specify the target version in any production code as this will protect you against any breaking changes in the API as it is developed.
+Each of the languages includes a `v1` option which will show you how to include this header in your request.
 
 # Get Rooms
 **Endpoint:** `https://uclapi.com/roombookings/rooms`
