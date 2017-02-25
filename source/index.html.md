@@ -3,31 +3,80 @@ title: UCL API Reference
 
 language_tabs:
   - shell : Shell
-  - shell--shellv1: Shell v1
   - python : Python 
-  - python--pythonv1 : Python v1
   - javascript : JavaScript
-  - javascript--javascriptv1 : JavaScript v1
 
 toc_footers:
   - <a href='https://uclapi.com/dashboard/'>Get an API Key</a>
 
 search: true
 ---
-# Room Bookings
+# Welcome
+Yay, you made it! 🎉
 
-Yay, you made it 🎉
+Welcome to the documentation for UCL's brand new open API. Each service is listed below with examples in three different programming languages (Shell script using cURL, Python and JavaScript) to help you get going as quickly as possible.
+
+The API will be made up of several services, each of which will be separately versioned and explained. Every service will be documented here with important information, tips and examples.
+
+## Get Your API Key
+Before you can use the API you should head to the [API Dashboard](https://uclapi.com/dashboard) and sign up using your UCL user account. Once logged into the dashboard simply name your app and you'll be given a key that you can use to access all the services. Simples!
+
+# Version Information
+
+```shell
+curl -H "uclapi-roombookings-version: 1.0" https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"
+}
+headers = {
+  "uclapi-roombookings-version": "1.0"
+}
+r = requests.get("https://uclapi.com/roombookings/rooms", params=params, headers=headers)
+print(r.json())
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("uclapi-roombookings-version", "1.0");
+var initData = {
+  method: 'GET',
+  headers: myHeaders,
+  mode: 'cors',
+  cache: 'default'
+};
+fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb", initData)
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+  })
+```
+
+Each service will have a header named `uclapi-SERVICE-version` which you can add to your requests, where `SERVICE` is the endpoint name for the service you are using (such as `roombookings`).
+
+<aside class="warning">
+When you make a request to a UCL API service, it will be directed to the latest version of the endpoint you requested. This is okay for test purposes but if you are going to publish your app into production then you should pay special attention to these instructions to avoid unexpected breaking changes affecting the reliability of your app or service.
+</aside>
+
+Whilst you do not need a version to be specified to make requests for testing, we _highly_ recommend you include the API service version you have tested your application with when running in production in case we push a new version in the future with a breaking change.
+
+In each versioned code sample, we are specifying that version `1.0` of the `roombookings` service should be used for the request URL `https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb`. You should amend these examples accordingly as the API is updated.
+
+# Room Bookings
 
 The base url is `https://uclapi.com/roombookings/`
 
-By default every request is sent to the latest version of the API, which is **Version 1**. You should aim to write all your code against the latest version of the API. However, you should always specific in the header which version you would like to fetch data from. This is so that when the API is updated in the future you will not be affected by breaking changes.
+Version Header | Latest Version
+---------- | -----------
+`uclapi-roombookings-version` | `1.0`
 
-The header variable you can set for Room Bookings is `uclapi-roombookings-version: 1.0`.
-
-Please note that this is different behaviour to the Engineering Hub API; in that system the API version is specified explicitly in the URL. It is not necessary to specify a version when experimenting, but it is _highly_ recommended that you specify the target version in any production code as this will protect you against any breaking changes in the API as it is developed.
-Each of the languages includes a `v1` option which will show you how to include this header in your request.
-
-# Get Rooms
+## Get Rooms
 **Endpoint:** `https://uclapi.com/roombookings/rooms`
 
 This endpoint returns rooms and information about them.
@@ -42,10 +91,6 @@ _Note: This endpoint only returns publicly bookable rooms. Departmentally bookab
 curl https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 ```
 
-```shell--shellv1
-curl -H "uclapi-roombookings-version: 1.0" https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
-```
-
 ```python
 import requests
 
@@ -56,39 +101,8 @@ r = requests.get("https://uclapi.com/roombookings/rooms", params=params)
 print(r.json())
 ```
 
-```python--pythonv1
-import requests
-
-params = {
-  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"
-}
-headers = {
-  "uclapi-roombookings-version": "1.0"
-}
-r = requests.get("https://uclapi.com/roombookings/rooms", params=params, headers=headers)
-print(r.json())
-```
-
 ```javascript
 fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb")
-.then((response) => {
-  return response.json()
-})
-.then((json) => {
-  console.log(json);
-  })
-```
-
-```javascript--javascriptv1
-var myHeaders = new Headers();
-myHeaders.append("uclapi-roombookings-version", "1.0");
-var initData = {
-  method: 'GET',
-  headers: myHeaders,
-  mode: 'cors',
-  cache: 'default'
-};
-fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb", initData)
 .then((response) => {
   return response.json()
 })
@@ -156,7 +170,7 @@ Error | Description
 `Token does not exist` | Gets returned when you supply an invalid `token`.
 
 
-#Get Bookings
+## Get Bookings
 ## Regular request
 
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
@@ -172,10 +186,6 @@ _Note: This endpoint only returns publicly displayed bookings. Departmental book
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark
 ```
 
-```shell--shellv1
-curl -H "uclapi-roombookings-version: 1.0" https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark
-```
-
 ```python
 import requests
 
@@ -187,40 +197,8 @@ r = requests.get("https://uclapi.com/roombookings/bookings", params=params)
 print(r.json())
 ```
 
-```python--pythonv1
-import requests
-
-params = {
-  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
-  "contact": "Mark"
-}
-headers = {
-  "uclapi-roombookings-version": "1.0"
-}
-r = requests.get("https://uclapi.com/roombookings/bookings", params=params, headers=headers)
-print(r.json())
-```
-
 ```javascript
 fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark")
-.then((response) => {
-  return response.json()
-})
-.then((json) => {
-  console.log(json);
-  })
-```
-
-```javascript--javascriptv1
-var myHeaders = new Headers();
-myHeaders.append("uclapi-roombookings-version", "1.0");
-var initData = {
-  method: 'GET',
-  headers: myHeaders,
-  mode: 'cors',
-  cache: 'default'
-};
-fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark", initData)
 .then((response) => {
   return response.json()
 })
@@ -309,10 +287,6 @@ The API remembers how many requests you've made, so to move through the pages yo
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV
 ```
 
-```shell--shellv1
-curl -H "uclapi-roombookings-version: 1.0" https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV
-```
-
 ```python
 import requests
 
@@ -325,40 +299,8 @@ r = requests.get("https://uclapi.com/roombookings/bookings", params=params)
 print(r.json())
 ```
 
-```python--pythonv1
-import requests
-
-params = {
-  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
-  "page_token": "6hb14hXjRV"
-}
-headers = {
-  "uclapi-roombookings-version": "1.0"
-}
-r = requests.get("https://uclapi.com/roombookings/bookings", params=params, headers=headers)
-print(r.json())
-```
-
 ```javascript
 fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV")
-.then((response) => {
-  return response.json()
-})
-.then((json) => {
-  console.log(json);
-  })
-```
-
-```javascript--javascriptv1
-var myHeaders = new Headers();
-myHeaders.append("uclapi-roombookings-version", "1.0");
-var initData = {
-  method: 'GET',
-  headers: myHeaders,
-  mode: 'cors',
-  cache: 'default'
-};
-fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV", initData)
 .then((response) => {
   return response.json()
 })
@@ -400,7 +342,7 @@ Parameter | Example | Required | Description
 The response to a paginated request is identical to that of a regular request, except that no `count` field is provided.
 
 
-# Get Equipment
+## Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
 
 This endpoint returns equipment/feature information about a specific room. So, for example whether there is a `Whiteboard` or a `DVD Player` in the room. A full example can be seen [here.](https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&building=016&invoker=EFD)
@@ -415,10 +357,6 @@ You _need_ to supply a `token`, `roomid`, and `siteid` to get a response.
 curl https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 ```
 
-```shell--shellv1
-curl -H "uclapi-roombookings-version: 1.0" https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
-```
-
 ```python
 import requests
 
@@ -426,39 +364,8 @@ r = requests.get("https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c
 print(r.json())
 ```
 
-```python--pythonv1
-import requests
-
-params = {
-  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"
-}
-headers = {
-  "uclapi-roombookings-version": "1.0"
-}
-r = requests.get("https://uclapi.com/roombookings/equipment", params=params, headers=headers)
-print(r.json())
-```
-
 ```javascript
 fetch("https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb")
-.then((response) => {
-  return response.json()
-})
-.then((json) => {
-  console.log(json);
-  })
-```
-
-```javascript--javascriptv1
-var myHeaders = new Headers();
-myHeaders.append("uclapi-roombookings-version", "1.0");
-var initData = {
-  method: 'GET',
-  headers: myHeaders,
-  mode: 'cors',
-  cache: 'default'
-};
-fetch("https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb", initData)
 .then((response) => {
   return response.json()
 })
@@ -515,5 +422,6 @@ Error                 | Description
 # Contributing
 These docs are open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
 
-Any and all contributions are welcome! If you spot a type or error, fix it :)
+The full API is open sourced at [https://github.com/uclapi/uclapi](https://github.com/uclapi/uclapi).
 
+Any and all contributions are welcome! If you spot a typo or error, feel free to fix it and submit a pull request :)
