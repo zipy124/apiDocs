@@ -747,6 +747,36 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 </span></code></pre>
 <p>The response to a paginated request is identical to that of a regular request, except that no <code class="prettyprint">count</code> field is provided.</p>
 
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Token does not exist</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">date/time isn&#39;t formatted as suggested in the docs</code></td>
+<td>Passed datetime parameter do not conform to the ISO8601 format</td>
+</tr>
+<tr>
+<td><code class="prettyprint">results_per_page should be an integer</code></td>
+<td><code class="prettyprint">results_per_page</code> should always be an integer.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Page token does not exist</code></td>
+<td>passed <code class="prettyprint">page_token</code> parameter isn&rsquo;t a valid one.</td>
+</tr>
+</tbody></table>
+
 <h2 id="get-equipment">Get Equipment</h2>
 
 <p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/equipment</code></p>

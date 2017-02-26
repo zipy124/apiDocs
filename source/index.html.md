@@ -345,6 +345,15 @@ Parameter | Example | Required | Description
 The response to a paginated request is identical to that of a regular request, except that no `count` field is provided.
 
 
+### Errors
+Error                 | Description
+----------------------| -----------
+`No token provided`   | Gets returned when you have not supplied a `token` in your request.
+`Token does not exist`| Gets returned when you supply an invalid `token`.
+`date/time isn't formatted as suggested in the docs`  | Passed datetime parameter do not conform to the ISO8601 format
+`results_per_page should be an integer`  | `results_per_page` should always be an integer.
+`Page token does not exist` | passed `page_token` parameter isn't a valid one.
+
 ## Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
 
