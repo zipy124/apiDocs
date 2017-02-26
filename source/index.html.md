@@ -171,7 +171,8 @@ Error | Description
 
 
 ## Get Bookings
-## Regular request
+
+### Regular Request
 
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
 
@@ -180,7 +181,7 @@ _Note: This endpoint only returns publicly displayed bookings. Departmental book
 
 **Allowed request type:** `GET`
 
-### Query Parameters
+#### Query Parameters
 
 ```shell
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark
@@ -220,7 +221,7 @@ contact | `Mark Herbster` | Optional | The name of the person who made the booki
 results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `100`. Defaults to `20`.
 
 
-### Response
+#### Response
 
 
 ```json
@@ -272,7 +273,7 @@ siteid | `044` | Every room is inside a site (building). All sites have ids.
 weeknumber | `8` | The week the booking is in.
 phone | `45699` | Phone number (UCL extension)
 
-## Paginated request
+### Paginated Request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
 
 Paginated requests also go to the `/bookings` endpoint, but other than the regular requests only the `token` and `page_token` should be supplied. All other filters are "remembered" from the initiating regular request.
@@ -281,7 +282,7 @@ The API remembers how many requests you've made, so to move through the pages yo
 
 **Allowed request type:** `GET`
 
-### Query Parameters
+#### Query Parameters
 
 ```shell
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV
@@ -314,7 +315,7 @@ Parameter | Example | Required | Description
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
 `page_token` | `6hb14hXjRV` | Required | Page token received in regular `/bookings` request. The page token does not change as you paginate through the results.
 
-### Response
+#### Response
 
 ```json
 {
@@ -410,7 +411,7 @@ Equipment Item | Example      |  Description
 `description`  | `Managed PC` | What the piece of equipment actually is.
 `units`        | `1`          | The number of times this piece of equipment exists in the room.
 
-### Errors
+## Errors
 
 Error                 | Description
 ----------------------| -----------
@@ -419,9 +420,9 @@ Error                 | Description
 `No roomid supplied`  | Gets returned when you don't supply a `roomid`.
 `No siteid supplied`  | Gets returned when you don't supply a `siteid`.
 
-# Contributing
-These docs are open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
+# Get Involved
+This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
 
 The full API is open sourced at [https://github.com/uclapi/uclapi](https://github.com/uclapi/uclapi).
 
-Any and all contributions are welcome! If you spot a typo or error, feel free to fix it and submit a pull request :)
+Any and all contributions are welcome! If you spot a tpyo or error, feel free to fix it and submit a pull request :)
