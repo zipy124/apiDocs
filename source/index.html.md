@@ -2,24 +2,85 @@
 title: UCL API Reference
 
 language_tabs:
-  - shell
-  - python
-  - javascript
+  - shell : Shell
+  - python : Python 
+  - javascript : JavaScript
 
 toc_footers:
   - <a href='https://uclapi.com/dashboard/'>Get an API Key</a>
 
 search: true
 ---
+# Welcome
+Yay, you made it! 🎉
+
+Welcome to the documentation for UCL's brand new open API. Each service is listed below with examples in three different programming languages (Shell script using cURL, Python and JavaScript) to help you get going as quickly as possible.
+
+The API will be made up of several services, each of which will be separately versioned and explained. Every service will be documented here with important information, tips and examples.
+
+## Get Your API Key
+Before you can use the API you should head to the [API Dashboard](https://uclapi.com/dashboard) and sign up using your UCL user account. Once logged into the dashboard simply name your app and you'll be given a key that you can use to access all the services. Simples!
+
+# Version Information
+
+Each service has a header named `uclapi-servicenamehere-version` which you can add to your requests, where `servicenamehere` is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the `uclapi-roombookings-version` header.
+
+```shell
+curl -H "uclapi-roombookings-version: 1" https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"
+}
+headers = {
+  "uclapi-roombookings-version": "1"
+}
+r = requests.get("https://uclapi.com/roombookings/rooms", params=params, headers=headers)
+print(r.json())
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("uclapi-roombookings-version", "1");
+var initData = {
+  method: 'GET',
+  headers: myHeaders,
+  mode: 'cors',
+  cache: 'default'
+};
+fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb", initData)
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+  })
+```
+
+<aside class="warning">
+  <strong>Really Important Warning</strong>
+  <hr>
+  <ul>
+    <li>By default, every UCL API request gets sent to the <strong>latest version</strong> of the service you requested.</li>
+    <li>This is okay for test purposes.</li>
+    <li>If you are deploying into production you must follow the versioning instructions to ensure you are not affected by breaking changes.</li>
+  </ul>
+</aside>
+
+On the right hand side you'll see a code sample with the version data added. We are specifying that version `1` of the `roombookings` service should be used for the request URL `https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb`. You should amend the example accordingly for the service and API version you are using.
+
 # Room Bookings
-
-Yay, you made it 🎉
-
-
 
 The base url is `https://uclapi.com/roombookings/`
 
-# Get Rooms
+Version Header | Latest Version
+---------- | -----------
+`uclapi-roombookings-version` | `1`
+
+## Get Rooms
 **Endpoint:** `https://uclapi.com/roombookings/rooms`
 
 This endpoint returns rooms and information about them.
@@ -57,7 +118,7 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
 Parameter | Example | Required | Description
 --------- | ---------- | ----------- | -----------
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-`roomid` | `433` | Optional | The room id (not to be confused with the room name).
+`roomid` | `433` | Optional | The room id (not to be confused, with the room name).
 `roomname` | `Torrington (1-19) 433`| Optional | The name of the room. It often includes the name of the site (building) as well.
 `siteid` | `086`| Optional | Every room is inside a site (building). All sites have ids.
 `sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the room name as well.
@@ -113,8 +174,9 @@ Error | Description
 `Token does not exist` | Gets returned when you supply an invalid `token`.
 
 
-#Get Bookings
-## Regular request
+## Get Bookings
+
+### Regular Request
 
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
 
@@ -123,7 +185,7 @@ _Note: This endpoint only returns publicly displayed bookings. Departmental book
 
 **Allowed request type:** `GET`
 
-### Query Parameters
+#### Query Parameters
 
 ```shell
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&contact=Mark
@@ -163,32 +225,30 @@ contact | `Mark Herbster` | Optional | The name of the person who made the booki
 results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `100`. Defaults to `20`.
 
 
-### Response
+#### Response
 
 
 ```json
 {
-    "ok": true,
-    "next_page_exists": true,
-    "page_token": "6hb14hXjRV",
-    "count": 1197,
-    "bookings": [
+   "bookings": [
       {  
-          "slotid": 983481,
-          "contact": "Ms Leah Markwick",
-          "start_time": "2016-09-01T09:00:00+00:00",
-          "end_time": "2016-09-01T18:00:00+00:00",
-          "roomid": "433",
+          "slotid": 998503,
+          "end_time": "2016-09-02T18:00:00+00:00",
+          "description": "split weeks to assist rooming 29.06",
           "roomname": "Torrington (1-19) 433",
+          "siteid": "086",
+          "contact": "Ms Leah Markwick",
           "weeknumber": 1,
-
-          "phone": "45699",
-          "description": "",
-
-
+          "roomid": "433",
+          "start_time": "2016-09-02T09:00:00+00:00",
+          "phone": "45699"
        },
        ...
-    ]
+    ],
+    "page_token": "6hb14hXjRV",
+    "ok": true,
+    "next_page_exists": true,
+    "count": 1197
 }
 
 ```
@@ -215,7 +275,7 @@ siteid | `044` | Every room is inside a site (building). All sites have ids.
 weeknumber | `8` | The week the booking is in.
 phone | `45699` | Phone number (UCL extension)
 
-## Paginated request
+### Paginated Request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
 
 Paginated requests also go to the `/bookings` endpoint, but other than the regular requests only the `token` and `page_token` should be supplied. All other filters are "remembered" from the initiating regular request.
@@ -224,7 +284,7 @@ The API remembers how many requests you've made, so to move through the pages yo
 
 **Allowed request type:** `GET`
 
-### Query Parameters
+#### Query Parameters
 
 ```shell
 curl https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&page_token=6hb14hXjRV
@@ -257,7 +317,7 @@ Parameter | Example | Required | Description
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
 `page_token` | `6hb14hXjRV` | Required | Page token received in regular `/bookings` request. The page token does not change as you paginate through the results.
 
-### Response
+#### Response
 
 ```json
 {
@@ -285,7 +345,7 @@ Parameter | Example | Required | Description
 The response to a paginated request is identical to that of a regular request, except that no `count` field is provided.
 
 
-# Get Equipment
+## Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
 
 This endpoint returns equipment/feature information about a specific room. So, for example whether there is a `Whiteboard` or a `DVD Player` in the room. A full example can be seen [here.](https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&building=016&invoker=EFD)
@@ -297,18 +357,18 @@ You _need_ to supply a `token`, `roomid`, and `siteid` to get a response.
 ### Query Parameters
 
 ```shell
-curl https://uclapi.com/roombookings/equipment
+curl https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 ```
 
 ```python
 import requests
 
-r = requests.get("https://uclapi.com/roombookings/equipment")
+r = requests.get("https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb")
 print(r.json())
 ```
 
 ```javascript
-fetch("https://uclapi.com/roombookings/equipment")
+fetch("https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb")
 .then((response) => {
   return response.json()
 })
@@ -362,6 +422,9 @@ Error                 | Description
 `No roomid supplied`  | Gets returned when you don't supply a `roomid`.
 `No siteid supplied`  | Gets returned when you don't supply a `siteid`.
 
-# Contributing
-These docs are open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).  
-Any and all contributions are welcome! If you spot a type or error, fix it :)
+# Get Involved
+This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
+
+The full API is open sourced at [https://github.com/uclapi/uclapi](https://github.com/uclapi/uclapi).
+
+Any and all contributions are welcome! If you spot a tpyo or error, feel free to fix it and submit a pull request :)
