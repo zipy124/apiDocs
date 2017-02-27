@@ -267,7 +267,7 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p>Each service has a header named <code class="prettyprint">uclapi-SERVICE-version</code> which you can add to your requests, where <code class="prettyprint">SERVICE</code> is the endpoint name for the service you are using (such as <code class="prettyprint">roombookings</code>).</p>
+<p>Each service has a header named <code class="prettyprint">uclapi-servicenamehere-version</code> which you can add to your requests, where <code class="prettyprint">servicenamehere</code> is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the <code class="prettyprint">uclapi-roombookings-version</code> header.</p>
 
 <aside class="warning">
 When you make a request to a UCL API service, it will be directed to the latest version of the endpoint you requested. This is okay for test purposes but if you are going to publish your app into production then you should pay special attention to these instructions to avoid unexpected breaking changes affecting the reliability of your app or service.

@@ -58,7 +58,7 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
   })
 ```
 
-Each service has a header named `uclapi-SERVICE-version` which you can add to your requests, where `SERVICE` is the endpoint name for the service you are using (such as `roombookings`).
+Each service has a header named `uclapi-servicenamehere-version` which you can add to your requests, where `servicenamehere` is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the `uclapi-roombookings-version` header.
 
 <aside class="warning">
 When you make a request to a UCL API service, it will be directed to the latest version of the endpoint you requested. This is okay for test purposes but if you are going to publish your app into production then you should pay special attention to these instructions to avoid unexpected breaking changes affecting the reliability of your app or service.
