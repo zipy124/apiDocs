@@ -24,7 +24,7 @@ Before you can use the API you should head to the [API Dashboard](https://uclapi
 # Version Information
 
 ```shell
-curl -H "uclapi-roombookings-version: 1.0" https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+curl -H "uclapi-roombookings-version: 1" https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 ```
 
 ```python
@@ -34,7 +34,7 @@ params = {
   "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"
 }
 headers = {
-  "uclapi-roombookings-version": "1.0"
+  "uclapi-roombookings-version": "1"
 }
 r = requests.get("https://uclapi.com/roombookings/rooms", params=params, headers=headers)
 print(r.json())
@@ -42,7 +42,7 @@ print(r.json())
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("uclapi-roombookings-version", "1.0");
+myHeaders.append("uclapi-roombookings-version", "1");
 var initData = {
   method: 'GET',
   headers: myHeaders,
@@ -58,7 +58,7 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
   })
 ```
 
-Each service will have a header named `uclapi-SERVICE-version` which you can add to your requests, where `SERVICE` is the endpoint name for the service you are using (such as `roombookings`).
+Each service has a header named `uclapi-SERVICE-version` which you can add to your requests, where `SERVICE` is the endpoint name for the service you are using (such as `roombookings`).
 
 <aside class="warning">
 When you make a request to a UCL API service, it will be directed to the latest version of the endpoint you requested. This is okay for test purposes but if you are going to publish your app into production then you should pay special attention to these instructions to avoid unexpected breaking changes affecting the reliability of your app or service.
@@ -66,7 +66,7 @@ When you make a request to a UCL API service, it will be directed to the latest 
 
 Whilst you do not need a version to be specified to make requests for testing, we _highly_ recommend you include the API service version you have tested your application with when running in production in case we push a new version in the future with a breaking change.
 
-In each versioned code sample, we are specifying that version `1.0` of the `roombookings` service should be used for the request URL `https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb`. You should amend these examples accordingly as the API is updated.
+In each versioned code sample, we are specifying that version `1` of the `roombookings` service should be used for the request URL `https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb`. You should amend these examples accordingly as the API is updated.
 
 # Room Bookings
 
@@ -74,7 +74,7 @@ The base url is `https://uclapi.com/roombookings/`
 
 Version Header | Latest Version
 ---------- | -----------
-`uclapi-roombookings-version` | `1.0`
+`uclapi-roombookings-version` | `1`
 
 ## Get Rooms
 **Endpoint:** `https://uclapi.com/roombookings/rooms`

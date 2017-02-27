@@ -240,19 +240,19 @@
 <p>Before you can use the API you should head to the <a href="https://uclapi.com/dashboard">API Dashboard</a> and sign up using your UCL user account. Once logged into the dashboard simply name your app and you&rsquo;ll be given a key that you can use to access all the services. Simples!</p>
 
 <h1 id="version-information">Version Information</h1>
-<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1.0"</span> https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1"</span> https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span>
 <span class="p">}</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1.0"</span>
+  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1"</span>
 <span class="p">}</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/rooms"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
-<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1.0"</span><span class="p">);</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
@@ -267,7 +267,7 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p>Each service will have a header named <code class="prettyprint">uclapi-SERVICE-version</code> which you can add to your requests, where <code class="prettyprint">SERVICE</code> is the endpoint name for the service you are using (such as <code class="prettyprint">roombookings</code>).</p>
+<p>Each service has a header named <code class="prettyprint">uclapi-SERVICE-version</code> which you can add to your requests, where <code class="prettyprint">SERVICE</code> is the endpoint name for the service you are using (such as <code class="prettyprint">roombookings</code>).</p>
 
 <aside class="warning">
 When you make a request to a UCL API service, it will be directed to the latest version of the endpoint you requested. This is okay for test purposes but if you are going to publish your app into production then you should pay special attention to these instructions to avoid unexpected breaking changes affecting the reliability of your app or service.
@@ -275,7 +275,7 @@ When you make a request to a UCL API service, it will be directed to the latest 
 
 <p>Whilst you do not need a version to be specified to make requests for testing, we <em>highly</em> recommend you include the API service version you have tested your application with when running in production in case we push a new version in the future with a breaking change.</p>
 
-<p>In each versioned code sample, we are specifying that version <code class="prettyprint">1.0</code> of the <code class="prettyprint">roombookings</code> service should be used for the request URL <code class="prettyprint">https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code>. You should amend these examples accordingly as the API is updated.</p>
+<p>In each versioned code sample, we are specifying that version <code class="prettyprint">1</code> of the <code class="prettyprint">roombookings</code> service should be used for the request URL <code class="prettyprint">https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code>. You should amend these examples accordingly as the API is updated.</p>
 
 <h1 id="room-bookings">Room Bookings</h1>
 
@@ -289,7 +289,7 @@ When you make a request to a UCL API service, it will be directed to the latest 
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">uclapi-roombookings-version</code></td>
-<td><code class="prettyprint">1.0</code></td>
+<td><code class="prettyprint">1</code></td>
 </tr>
 </tbody></table>
 
