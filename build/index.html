@@ -240,6 +240,8 @@
 <p>Before you can use the API you should head to the <a href="https://uclapi.com/dashboard">API Dashboard</a> and sign up using your UCL user account. Once logged into the dashboard simply name your app and you&rsquo;ll be given a key that you can use to access all the services. Simples!</p>
 
 <h1 id="version-information">Version Information</h1>
+
+<p>Each service has a header named <code class="prettyprint">uclapi-servicenamehere-version</code> which you can add to your requests, where <code class="prettyprint">servicenamehere</code> is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the <code class="prettyprint">uclapi-roombookings-version</code> header.</p>
 <pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1"</span> https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
@@ -267,15 +269,17 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
   <span class="p">})</span>
 </code></pre>
-<p>Each service has a header named <code class="prettyprint">uclapi-servicenamehere-version</code> which you can add to your requests, where <code class="prettyprint">servicenamehere</code> is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the <code class="prettyprint">uclapi-roombookings-version</code> header.</p>
-
 <aside class="warning">
-When you make a request to a UCL API service, it will be directed to the latest version of the endpoint you requested. This is okay for test purposes but if you are going to publish your app into production then you should pay special attention to these instructions to avoid unexpected breaking changes affecting the reliability of your app or service.
+  <strong>Really Important Warning</strong>
+  <hr>
+  <ul>
+    <li>By default, every UCL API request gets sent to the <strong>latest version</strong> of the service you requested.</li>
+    <li>This is okay for test purposes.</li>
+    <li>If you are deploying into production you must follow the versioning instructions to ensure you are not affected by breaking changes.</li>
+  </ul>
 </aside>
 
-<p>Whilst you do not need a version to be specified to make requests for testing, we <em>highly</em> recommend you include the API service version you have tested your application with when running in production in case we push a new version in the future with a breaking change.</p>
-
-<p>In each versioned code sample, we are specifying that version <code class="prettyprint">1</code> of the <code class="prettyprint">roombookings</code> service should be used for the request URL <code class="prettyprint">https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code>. You should amend these examples accordingly as the API is updated.</p>
+<p>On the right hand side you&rsquo;ll see a code sample with the version data added. We are specifying that version <code class="prettyprint">1</code> of the <code class="prettyprint">roombookings</code> service should be used for the request URL <code class="prettyprint">https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code>. You should amend the example accordingly for the service and API version you are using.</p>
 
 <h1 id="room-bookings">Room Bookings</h1>
 
