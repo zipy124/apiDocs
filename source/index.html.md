@@ -411,7 +411,7 @@ Equipment Item | Example      |  Description
 `description`  | `Managed PC` | What the piece of equipment actually is.
 `units`        | `1`          | The number of times this piece of equipment exists in the room.
 
-## Errors
+### Errors
 
 Error                 | Description
 ----------------------| -----------
