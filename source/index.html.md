@@ -226,27 +226,25 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
 
 ```json
 {
-    "ok": true,
-    "next_page_exists": true,
-    "page_token": "6hb14hXjRV",
-    "count": 1197,
-    "bookings": [
+   "bookings": [
       {  
-          "slotid": 983481,
-          "contact": "Ms Leah Markwick",
-          "start_time": "2016-09-01T09:00:00+00:00",
-          "end_time": "2016-09-01T18:00:00+00:00",
-          "roomid": "433",
+          "slotid": 998503,
+          "end_time": "2016-09-02T18:00:00+00:00",
+          "description": "split weeks to assist rooming 29.06",
           "roomname": "Torrington (1-19) 433",
+          "siteid": "086",
+          "contact": "Ms Leah Markwick",
           "weeknumber": 1,
-
-          "phone": "45699",
-          "description": "",
-
-
+          "roomid": "433",
+          "start_time": "2016-09-02T09:00:00+00:00",
+          "phone": "45699"
        },
        ...
-    ]
+    ],
+    "page_token": "6hb14hXjRV",
+    "ok": true,
+    "next_page_exists": true,
+    "count": 1197
 }
 
 ```
