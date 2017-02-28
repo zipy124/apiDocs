@@ -223,7 +223,7 @@ siteid | `086` | Optional | Every room is inside a site (building). All sites ha
 description | `Lecture` | Optional | Describes what the booking is. Could contain a module code (for example `WIBRG005`) or just the type of activity (for example `Lecture`).
 contact | `Mark Herbster` | Optional | The name of the person who made the booking. Substrings of the contact name can be used: Queries for `Mark` will include `Mark Herbster`. Sometimes, a society or student group may be the contact for a booking.
 results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `100`. Defaults to `20`.
-roomname | `Cruciform Building B.3.05` | The name of the room. It often includes the name of the site (building) as well.
+roomname | `Cruciform Building B.3.05` | Optional | The name of the room. It often includes the name of the site (building) as well.
 
 
 #### Response
