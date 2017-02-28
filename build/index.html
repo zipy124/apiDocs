@@ -336,13 +336,13 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td><code class="prettyprint">token</code></td>
 <td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
 <td>Required</td>
-<td>Authentication token</td>
+<td>Authentication token.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">roomid</code></td>
 <td><code class="prettyprint">433</code></td>
 <td>Optional</td>
-<td>The room id (not to be confused, with the room name).</td>
+<td>The room ID (not to be confused, with the <code class="prettyprint">roomname</code>).</td>
 </tr>
 <tr>
 <td><code class="prettyprint">roomname</code></td>
@@ -354,19 +354,19 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td><code class="prettyprint">siteid</code></td>
 <td><code class="prettyprint">086</code></td>
 <td>Optional</td>
-<td>Every room is inside a site (building). All sites have ids.</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">sitename</code></td>
 <td><code class="prettyprint">Torrington Place, 1-19</code></td>
 <td>Optional</td>
-<td>Every site (building) has a name. In some cases this is contained in the room name as well.</td>
+<td>Every site (building) has a name. In some cases this is contained in the <code class="prettyprint">roomname</code> as well.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">classification</code></td>
 <td><code class="prettyprint">CR</code></td>
 <td>Optional</td>
-<td>The type of room. <code class="prettyprint">LT</code> = Lecture Theatre, <code class="prettyprint">CR</code> = Classroom, <code class="prettyprint">SS</code> = Social Space, <code class="prettyprint">PC1</code> = Public Cluster</td>
+<td>The type of room. <code class="prettyprint">LT</code> = Lecture Theatre, <code class="prettyprint">CR</code> = Classroom, <code class="prettyprint">SS</code> = Social Space, <code class="prettyprint">PC1</code> = Public Cluster.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">capacity</code></td>
@@ -418,12 +418,12 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td><code class="prettyprint">roomid</code></td>
 <td><code class="prettyprint">Z4</code></td>
-<td>The room id (not to be confused with the room name)</td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
 </tr>
 <tr>
 <td><code class="prettyprint">siteid</code></td>
 <td><code class="prettyprint">005</code></td>
-<td>Every room is inside a site (building). All sites have ids.</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">sitename</code></td>
@@ -438,7 +438,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td><code class="prettyprint">classification</code></td>
 <td><code class="prettyprint">SS</code></td>
-<td>The type of room. <code class="prettyprint">LT</code> = Lecture Theatre, <code class="prettyprint">CR</code> = Classroom, <code class="prettyprint">SS</code> = Social Space, <code class="prettyprint">PC1</code> = Public Cluster</td>
+<td>The type of room. <code class="prettyprint">LT</code> = Lecture Theatre, <code class="prettyprint">CR</code> = Classroom, <code class="prettyprint">SS</code> = Social Space, <code class="prettyprint">PC1</code> = Public Cluster.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">automated</code></td>
@@ -511,13 +511,13 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>token</td>
 <td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
 <td>Required</td>
-<td>Authentication token</td>
+<td>Authentication token.</td>
 </tr>
 <tr>
 <td>roomid</td>
 <td><code class="prettyprint">433</code></td>
 <td>Optional</td>
-<td>The room id (not to be confused with the room name)</td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
 </tr>
 <tr>
 <td>start_datetime</td>
@@ -535,13 +535,13 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>date</td>
 <td><code class="prettyprint">20160202</code></td>
 <td>Optional</td>
-<td>Date of the bookings you need. Returns bookings occuring on this day. <strong>This query parameter is only considered when <code class="prettyprint">end_datetime</code> and <code class="prettyprint">start_datetime</code> are not supplied.</strong></td>
+<td>Date of the bookings you need, in the format <em>YYYYMMDD</em>. Returns bookings occurring on this day. <strong>This query parameter is only considered when <code class="prettyprint">end_datetime</code> and <code class="prettyprint">start_datetime</code> are not supplied.</strong></td>
 </tr>
 <tr>
 <td>siteid</td>
 <td><code class="prettyprint">086</code></td>
 <td>Optional</td>
-<td>Every room is inside a site (building). All sites have ids.</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
 </tr>
 <tr>
 <td>description</td>
@@ -553,7 +553,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>contact</td>
 <td><code class="prettyprint">Mark Herbster</code></td>
 <td>Optional</td>
-<td>The name of the person who made the booking. Can substrings of the contact name: Queries for <code class="prettyprint">Mark</code> will include <code class="prettyprint">Mark Herbster</code>.</td>
+<td>The name of the person who made the booking. Substrings of the contact name can be used: Queries for <code class="prettyprint">Mark</code> will include <code class="prettyprint">Mark Herbster</code>. Sometimes, a society or student group may be the contact for a booking.</td>
 </tr>
 <tr>
 <td>results_per_page</td>
@@ -561,10 +561,17 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>Optional</td>
 <td>Number of bookings returned per page. Maximum allowed value is <code class="prettyprint">100</code>. Defaults to <code class="prettyprint">20</code>.</td>
 </tr>
+<tr>
+<td>roomname</td>
+<td><code class="prettyprint">Cruciform Building B.3.05</code></td>
+<td>Optional</td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
 </tbody></table>
 
 <h4 id="response">Response</h4>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
    </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">  
           </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">998503</span><span class="p">,</span><span class="w">
@@ -580,9 +587,8 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
        </span><span class="p">},</span><span class="w">
        </span><span class="err">...</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6hb14hXjRV"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6hb14hXjRV"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1197</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -597,7 +603,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td>ok</td>
 <td><code class="prettyprint">true</code></td>
-<td>Whether the request was successful</td>
+<td>Boolean indicating whether the request was successful.</td>
 </tr>
 <tr>
 <td>bookings</td>
@@ -607,7 +613,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td>next_page_exists</td>
 <td><code class="prettyprint">true</code></td>
-<td>True if there is another page with more bookings.</td>
+<td>True if there is another page containing more bookings.</td>
 </tr>
 <tr>
 <td>page_token</td>
@@ -628,12 +634,12 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td>slotid</td>
 <td><code class="prettyprint">1024991</code></td>
-<td>An id for the booking. Combined with <code class="prettyprint">weeknumber</code> they can be assumed to be almost unique.</td>
+<td>An ID for the booking. Combined with <code class="prettyprint">weeknumber</code> they can be assumed to be almost unique.</td>
 </tr>
 <tr>
 <td>contact</td>
 <td><code class="prettyprint">Wilhelm Klopp - UCLU Tech Society</code></td>
-<td>Name of the person who made the booking</td>
+<td>Name of the person (and society/student group, if applicable) who made the booking.</td>
 </tr>
 <tr>
 <td>start_time</td>
@@ -648,7 +654,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td>roomid</td>
 <td><code class="prettyprint">B305</code></td>
-<td>The room ID (not to be confused with the room name)</td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
 </tr>
 <tr>
 <td>roomname</td>
@@ -658,7 +664,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td>siteid</td>
 <td><code class="prettyprint">044</code></td>
-<td>Every room is inside a site (building). All sites have ids.</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
 </tr>
 <tr>
 <td>weeknumber</td>
@@ -668,7 +674,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td>phone</td>
 <td><code class="prettyprint">45699</code></td>
-<td>Phone number (UCL extension)</td>
+<td>Phone number of the room (UCL extension).</td>
 </tr>
 <tr>
 <td>count</td>
@@ -681,9 +687,9 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 
 <p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/bookings</code></p>
 
-<p>Paginated requests also go to the <code class="prettyprint">/bookings</code> endpoint, but other than the regular requests only the <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code> should be supplied. All other filters are &ldquo;remembered&rdquo; from the initiating regular request.</p>
+<p>Paginated requests also go to the <code class="prettyprint">/bookings</code> endpoint but, unlike the regular requests, only the <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code> should be supplied. All other filters are &ldquo;remembered&rdquo; from the initiating regular request.</p>
 
-<p>The API remembers how many requests you&rsquo;ve made, so to move through the pages you can keep making the same request (with the same <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code>) until the response contains <code class="prettyprint">false</code> in the <code class="prettyprint">next_page_exists</code> field.</p>
+<p>The API &ldquo;remembers&rdquo; how many requests you&rsquo;ve made, so to move through the pages you can keep making the same request (with the same <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code>) until the response&rsquo;s <code class="prettyprint">next_page_exists</code> field is <code class="prettyprint">false</code>.</p>
 
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
@@ -724,7 +730,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td><code class="prettyprint">page_token</code></td>
 <td><code class="prettyprint">6hb14hXjRV</code></td>
 <td>Required</td>
-<td>Page token received in regular <code class="prettyprint">/bookings</code> request. The page token does not change as you paginate through the results.</td>
+<td>Page token received in initial <code class="prettyprint">/bookings</code> request. The page token does not change as you paginate through the results.</td>
 </tr>
 </tbody></table>
 
@@ -770,7 +776,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 </tr>
 <tr>
 <td><code class="prettyprint">date/time isn&#39;t formatted as suggested in the docs</code></td>
-<td>Passed datetime parameter do not conform to the ISO8601 format</td>
+<td>Passed datetime parameter does not conform to the ISO8601 format</td>
 </tr>
 <tr>
 <td><code class="prettyprint">results_per_page should be an integer</code></td>
@@ -778,7 +784,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 </tr>
 <tr>
 <td><code class="prettyprint">Page token does not exist</code></td>
-<td>passed <code class="prettyprint">page_token</code> parameter isn&rsquo;t a valid one.</td>
+<td>The passed <code class="prettyprint">page_token</code> parameter isn&rsquo;t a valid one.</td>
 </tr>
 </tbody></table>
 
@@ -786,7 +792,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 
 <p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/equipment</code></p>
 
-<p>This endpoint returns equipment/feature information about a specific room. So, for example whether there is a <code class="prettyprint">Whiteboard</code> or a <code class="prettyprint">DVD Player</code> in the room. A full example can be seen <a href="https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&amp;building=016&amp;invoker=EFD">here.</a></p>
+<p>This endpoint returns any equipment/feature information about a specific room. So, for example whether there is a <code class="prettyprint">Whiteboard</code> or a <code class="prettyprint">DVD Player</code> in the room. A full example can be seen <a href="https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&amp;building=016&amp;invoker=EFD">here.</a></p>
 
 <p>You <em>need</em> to supply a <code class="prettyprint">token</code>, <code class="prettyprint">roomid</code>, and <code class="prettyprint">siteid</code> to get a response.</p>
 
@@ -824,13 +830,13 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td><code class="prettyprint">roomid</code></td>
 <td><code class="prettyprint">433</code></td>
 <td>Required</td>
-<td>The room id (not to be confused with the room name)</td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>)</td>
 </tr>
 <tr>
 <td><code class="prettyprint">siteid</code></td>
 <td><code class="prettyprint">086</code></td>
 <td>Required</td>
-<td>Every room is inside a site (building). All sites have ids.</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
 </tr>
 </tbody></table>
 
