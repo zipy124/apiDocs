@@ -117,12 +117,12 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
 
 Parameter | Example | Required | Description
 --------- | ------- | -------- | -----------
-`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token.
 `roomid` | `433` | Optional | The room ID (not to be confused, with the `roomname`).
 `roomname` | `Torrington (1-19) 433`| Optional | The name of the room. It often includes the name of the site (building) as well.
 `siteid` | `086`| Optional | Every room is inside a site (building). All sites have IDs.
 `sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the `roomname` as well.
-`classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
+`classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
 `capacity` | `55`| Optional | Every room has a set capacity of how many people can fit inside it. When supplied, all rooms with the given capacity or greater will be returned.
 
 ### Response
@@ -158,11 +158,11 @@ The room field contains a list of rooms that match your query. If no filters are
 Room Property | Example |  Description
 --------- | ---------- |  -----------
 `roomname` | `Wilkins Building (Main Building) Portico` | The name of the room. It often includes the name of the site (building) as well.
-`roomid` | `Z4` | The room ID (not to be confused with the `roomname`)
+`roomid` | `Z4` | The room ID (not to be confused with the `roomname`).
 `siteid` | `005`| Every room is inside a site (building). All sites have IDs.
 `sitename` | `Main Building` | The name of the site (building).
 `capacity` | `50` | The number of people that can fit in the room.
-`classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
+`classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
 `automated` | `N` | Whether bookings in this room will be confirmed automatically. `A` stands for automated, and `N` for not automated. `P` represents that the confirmation will be automatic, but only under certain circumstances.
 `location` | - | Contains an object with the key `address`, whose value is an array of address information, which when combined will make up a complete address.
 
@@ -214,8 +214,8 @@ fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c291
 
 Parameter | Example | Required | Description
 ---|---|---|---
-token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-roomid |  `433`  |  Optional  | The room ID (not to be confused with the `roomname`)
+token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token.
+roomid |  `433`  |  Optional  | The room ID (not to be confused with the `roomname`).
 start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
 end_datetime | `2011-03-06T03:36:45+00:00` | Optional | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
 date | `20160202` | Optional | Date of the bookings you need, in the format *YYYYMMDD*. Returns bookings occurring on this day. **This query parameter is only considered when `end_datetime` and `start_datetime` are not supplied.**
@@ -352,9 +352,9 @@ Error                 | Description
 ----------------------| -----------
 `No token provided`   | Gets returned when you have not supplied a `token` in your request.
 `Token does not exist`| Gets returned when you supply an invalid `token`.
-`date/time isn't formatted as suggested in the docs`  | Passed datetime parameter do not conform to the ISO8601 format
+`date/time isn't formatted as suggested in the docs`  | Passed datetime parameter does not conform to the ISO8601 format
 `results_per_page should be an integer`  | `results_per_page` should always be an integer.
-`Page token does not exist` | passed `page_token` parameter isn't a valid one.
+`Page token does not exist` | The passed `page_token` parameter isn't a valid one.
 
 ## Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
