@@ -77,7 +77,7 @@ On the right hand side you'll see a code sample with the version data added. We 
 The base url is `https://uclapi.com/roombookings/`
 
 Version Header | Latest Version
----------- | -----------
+-------------- | --------------
 `uclapi-roombookings-version` | `1`
 
 ## Get Rooms
@@ -116,12 +116,12 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
 ```
 
 Parameter | Example | Required | Description
---------- | ---------- | ----------- | -----------
-`token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-`roomid` | `433` | Optional | The room id (not to be confused, with the room name).
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
+`roomid` | `433` | Optional | The room ID (not to be confused, with the `roomname`).
 `roomname` | `Torrington (1-19) 433`| Optional | The name of the room. It often includes the name of the site (building) as well.
-`siteid` | `086`| Optional | Every room is inside a site (building). All sites have ids.
-`sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the room name as well.
+`siteid` | `086`| Optional | Every room is inside a site (building). All sites have IDs.
+`sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the `roomname` as well.
 `classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
 `capacity` | `55`| Optional | Every room has a set capacity of how many people can fit inside it. When supplied, all rooms with the given capacity or greater will be returned.
 
@@ -158,8 +158,8 @@ The room field contains a list of rooms that match your query. If no filters are
 Room Property | Example |  Description
 --------- | ---------- |  -----------
 `roomname` | `Wilkins Building (Main Building) Portico` | The name of the room. It often includes the name of the site (building) as well.
-`roomid` | `Z4` | The room id (not to be confused with the room name)
-`siteid` | `005`| Every room is inside a site (building). All sites have ids.
+`roomid` | `Z4` | The room ID (not to be confused with the `roomname`)
+`siteid` | `005`| Every room is inside a site (building). All sites have IDs.
 `sitename` | `Main Building` | The name of the site (building).
 `capacity` | `50` | The number of people that can fit in the room.
 `classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster
@@ -215,14 +215,15 @@ fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c291
 Parameter | Example | Required | Description
 ---|---|---|---
 token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-roomid |  `433`  |  Optional  | The room id (not to be confused with the room name)
+roomid |  `433`  |  Optional  | The room ID (not to be confused with the `roomname`)
 start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
 end_datetime | `2011-03-06T03:36:45+00:00` | Optional | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
-date | `20160202` | Optional | Date of the bookings you need. Returns bookings occuring on this day. **This query parameter is only considered when `end_datetime` and `start_datetime` are not supplied.**
-siteid | `086` | Optional | Every room is inside a site (building). All sites have ids.
+date | `20160202` | Optional | Date of the bookings you need, in the format *YYYYMMDD*. Returns bookings occurring on this day. **This query parameter is only considered when `end_datetime` and `start_datetime` are not supplied.**
+siteid | `086` | Optional | Every room is inside a site (building). All sites have IDs.
 description | `Lecture` | Optional | Describes what the booking is. Could contain a module code (for example `WIBRG005`) or just the type of activity (for example `Lecture`).
-contact | `Mark Herbster` | Optional | The name of the person who made the booking. Can substrings of the contact name: Queries for `Mark` will include `Mark Herbster`.
+contact | `Mark Herbster` | Optional | The name of the person who made the booking. Substrings of the contact name can be used: Queries for `Mark` will include `Mark Herbster`. Sometimes, a society or student group may be the contact for a booking.
 results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `100`. Defaults to `20`.
+roomname | `Cruciform Building B.3.05` | The name of the room. It often includes the name of the site (building) as well.
 
 
 #### Response
@@ -230,6 +231,7 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
 
 ```json
 {
+   "ok": true,
    "bookings": [
       {  
           "slotid": 998503,
@@ -245,9 +247,8 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
        },
        ...
     ],
-    "page_token": "6hb14hXjRV",
-    "ok": true,
     "next_page_exists": true,
+    "page_token": "6hb14hXjRV",
     "count": 1197
 }
 
@@ -256,32 +257,32 @@ results_per_page | `50` | Optional | Number of bookings returned per page. Maxim
 
 Field | Example | Description
 --------- | ---------- | -----------
-ok | `true` | Whether the request was successful
+ok | `true` | Boolean indicating whether the request was successful.
 bookings | - | An array of booking objects.
-next_page_exists | `true` | True if there is another page with more bookings.
+next_page_exists | `true` | True if there is another page containing more bookings.
 page_token | `6hb14hXjRV` | Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.
 
 The bookings array contains booking objects, which each have the following properties.
 
 Booking Property | Example | Description
 --------- | ---------- | -----------
-slotid | `1024991` | An id for the booking. Combined with `weeknumber` they can be assumed to be almost unique.
-contact | `Wilhelm Klopp - UCLU Tech Society` | Name of the person who made the booking
+slotid | `1024991` | An ID for the booking. Combined with `weeknumber` they can be assumed to be almost unique.
+contact | `Wilhelm Klopp - UCLU Tech Society` | Name of the person (and society/student group, if applicable) who made the booking.
 start_time | `2016-10-20T18:00:00+00:00` | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
 end_time | `2016-10-20T19:00:00+00:00` | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
-roomid | `B305` | The room ID (not to be confused with the room name)
+roomid | `B305` | The room ID (not to be confused with the `roomname`).
 roomname | `Cruciform Building B.3.05` | The name of the room. It often includes the name of the site (building) as well.
-siteid | `044` | Every room is inside a site (building). All sites have ids.
+siteid | `044` | Every room is inside a site (building). All sites have IDs.
 weeknumber | `8` | The week the booking is in.
-phone | `45699` | Phone number (UCL extension)
+phone | `45699` | Phone number of the room (UCL extension).
 count | `1197` | Total number of bookings matching the query. The `count` field will only be in the first response to a query
 
 ### Paginated Request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
 
-Paginated requests also go to the `/bookings` endpoint, but other than the regular requests only the `token` and `page_token` should be supplied. All other filters are "remembered" from the initiating regular request.
+Paginated requests also go to the `/bookings` endpoint but, unlike the regular requests, only the `token` and `page_token` should be supplied. All other filters are "remembered" from the initiating regular request.
 
-The API remembers how many requests you've made, so to move through the pages you can keep making the same request (with the same `token` and `page_token`) until the response contains `false` in the `next_page_exists` field.
+The API "remembers" how many requests you've made, so to move through the pages you can keep making the same request (with the same `token` and `page_token`) until the response's `next_page_exists` field is `false`.
 
 **Allowed request type:** `GET`
 
@@ -316,7 +317,7 @@ fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c291
 Parameter | Example | Required | Description
 --------- | ---------- | ----------- | -----------
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-`page_token` | `6hb14hXjRV` | Required | Page token received in regular `/bookings` request. The page token does not change as you paginate through the results.
+`page_token` | `6hb14hXjRV` | Required | Page token received in initial `/bookings` request. The page token does not change as you paginate through the results.
 
 #### Response
 
@@ -358,7 +359,7 @@ Error                 | Description
 ## Get Equipment
 **Endpoint:** `https://uclapi.com/roombookings/equipment`
 
-This endpoint returns equipment/feature information about a specific room. So, for example whether there is a `Whiteboard` or a `DVD Player` in the room. A full example can be seen [here.](https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&building=016&invoker=EFD)
+This endpoint returns any equipment/feature information about a specific room. So, for example whether there is a `Whiteboard` or a `DVD Player` in the room. A full example can be seen [here.](https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&building=016&invoker=EFD)
 
 You _need_ to supply a `token`, `roomid`, and `siteid` to get a response.
 
@@ -390,8 +391,8 @@ fetch("https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c29
 Parameter | Example | Required | Description
 --------- | ------- | -------- | -----------
 `token` | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token
-`roomid` | `433` | Required | The room id (not to be confused with the room name)
-`siteid` | `086`| Required | Every room is inside a site (building). All sites have ids.
+`roomid` | `433` | Required | The room ID (not to be confused with the `roomname`)
+`siteid` | `086`| Required | Every room is inside a site (building). All sites have IDs.
 
 ### Response
 
