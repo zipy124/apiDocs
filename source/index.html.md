@@ -260,6 +260,7 @@ ok | `true` | Whether the request was successful
 bookings | - | An array of booking objects.
 next_page_exists | `true` | True if there is another page with more bookings.
 page_token | `6hb14hXjRV` | Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.
+count | `1197` | Total number of bookings matching the query. The `count` field will only be in the first response to a query
 
 The bookings array contains booking objects, which each have the following properties.
 
@@ -274,7 +275,6 @@ roomname | `Cruciform Building B.3.05` | The name of the room. It often includes
 siteid | `044` | Every room is inside a site (building). All sites have ids.
 weeknumber | `8` | The week the booking is in.
 phone | `45699` | Phone number (UCL extension)
-count | `1197` | Total number of bookings matching the query. The `count` field will only be in the first response to a query
 
 ### Paginated Request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
