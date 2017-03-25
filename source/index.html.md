@@ -261,6 +261,7 @@ ok | `true` | Boolean indicating whether the request was successful.
 bookings | - | An array of booking objects.
 next_page_exists | `true` | True if there is another page containing more bookings.
 page_token | `6hb14hXjRV` | Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.
+count | `1197` | Total number of bookings matching the query. The `count` field will only be in the first response to a query
 
 The bookings array contains booking objects, which each have the following properties.
 
