@@ -140,6 +140,10 @@ Parameter | Example | Required | Description
       "classification": "SS",
       "automated": "N",
       "location": {
+        "coordinates": {
+          "lat": "51.524699",
+          "lng": "-0.13366"
+        },
         "address": [
           "Gower Street",
           "London",
@@ -164,7 +168,7 @@ Room Property | Example |  Description
 `capacity` | `50` | The number of people that can fit in the room.
 `classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
 `automated` | `N` | Whether bookings in this room will be confirmed automatically. `A` stands for automated, and `N` for not automated. `P` represents that the confirmation will be automatic, but only under certain circumstances.
-`location` | - | Contains an object with the key `address`, whose value is an array of address information, which when combined will make up a complete address.
+`location` | - | Contains an object with two keys `address`, and `coordinates`. `address` contains an array of address information, which when combined will make up a complete address. <br /> `coordinates` contains a `lat` and `lng` key with the latitude and longitude of the room.
 
 ### Errors
 
