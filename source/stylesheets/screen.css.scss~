@@ -57,7 +57,7 @@ html, body {
 
 .tocify-wrapper {
   transition: left 0.3s ease-in-out;
-
+  padding-top: 10px;
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
@@ -166,6 +166,8 @@ html, body {
 
   li {
     color: $nav-text;
+    border-radius: 4px;
+    margin: 5px;
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 230ms;
@@ -189,11 +191,6 @@ html, body {
       font-size: 12px;
     }
 
-    // for embossed look:
-    @include embossed-bg;
-    &>li:last-child {
-      box-shadow: none; // otherwise it'll overflow out of the subheader
-    }
   }
 
   .toc-footer {
@@ -413,7 +410,11 @@ html, body {
       vertical-align: top;
       line-height: 1.6;
     }
-
+    tr{
+      td:nth-child(2) {
+        width: 80px;
+      }
+    } 
     th {
       padding: 5px 10px;
       border-bottom: 1px solid #ccc;

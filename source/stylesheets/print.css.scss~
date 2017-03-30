@@ -32,6 +32,7 @@ body {
 }
 
 .tocify-wrapper>img {
+  padding-top: 10px;
   margin: 0 auto;
   display: block;
 }
@@ -106,10 +107,18 @@ body {
     margin-top: 0;
   }
 
-  h3, h4 {
+  h3 {
     @extend %header-font;
-    font-size: 0.8em;
-    margin-top: 1.5em;
+    font-size: 1.6em;
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    text-decoration: underline;
+  }
+
+  h4 {
+    @extend %header-font;
+    font-size: 1.2em;
+    margin-top: 1.1em;
     margin-bottom: 0.8em;
     text-transform: uppercase;
   }
@@ -144,8 +153,4 @@ body {
   aside.success:before {
     @extend %icon-ok-sign;
   }
-
-  table tr td:nth-child(2) {
-    width: 80px;
   }
-}
