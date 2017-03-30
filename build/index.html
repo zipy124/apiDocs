@@ -339,16 +339,16 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>Authentication token.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">roomid</code></td>
-<td><code class="prettyprint">433</code></td>
-<td>Optional</td>
-<td>The room ID (not to be confused, with the <code class="prettyprint">roomname</code>).</td>
-</tr>
-<tr>
 <td><code class="prettyprint">roomname</code></td>
 <td><code class="prettyprint">Torrington (1-19) 433</code></td>
 <td>Optional</td>
 <td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">roomid</code></td>
+<td><code class="prettyprint">433</code></td>
+<td>Optional</td>
+<td>The room ID (not to be confused, with the <code class="prettyprint">roomname</code>).</td>
 </tr>
 <tr>
 <td><code class="prettyprint">siteid</code></td>
@@ -389,6 +389,10 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
       </span><span class="s2">"classification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SS"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"automated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"lat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51.524699"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"lng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.13366"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
         </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
           </span><span class="s2">"Gower Street"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
@@ -448,7 +452,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <tr>
 <td><code class="prettyprint">location</code></td>
 <td>-</td>
-<td>Contains an object with the key <code class="prettyprint">address</code>, whose value is an array of address information, which when combined will make up a complete address.</td>
+<td>Contains an object with two keys <code class="prettyprint">address</code>, and <code class="prettyprint">coordinates</code>. <code class="prettyprint">address</code> contains an array of address information, which when combined will make up a complete address. <br /> <code class="prettyprint">coordinates</code> contains a <code class="prettyprint">lat</code> and <code class="prettyprint">lng</code> key with the latitude and longitude of the room.</td>
 </tr>
 </tbody></table>
 
@@ -514,6 +518,12 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>Authentication token.</td>
 </tr>
 <tr>
+<td>roomname</td>
+<td><code class="prettyprint">Cruciform Building B.3.05</code></td>
+<td>Optional</td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
 <td>roomid</td>
 <td><code class="prettyprint">433</code></td>
 <td>Optional</td>
@@ -559,13 +569,7 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>results_per_page</td>
 <td><code class="prettyprint">50</code></td>
 <td>Optional</td>
-<td>Number of bookings returned per page. Maximum allowed value is <code class="prettyprint">100</code>. Defaults to <code class="prettyprint">20</code>.</td>
-</tr>
-<tr>
-<td>roomname</td>
-<td><code class="prettyprint">Cruciform Building B.3.05</code></td>
-<td>Optional</td>
-<td>The name of the room. It often includes the name of the site (building) as well.</td>
+<td>Number of bookings returned per page. Maximum allowed value is <code class="prettyprint">1000</code>. Defaults to <code class="prettyprint">1000</code>.</td>
 </tr>
 </tbody></table>
 
@@ -620,6 +624,11 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td><code class="prettyprint">6hb14hXjRV</code></td>
 <td>Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.</td>
 </tr>
+<tr>
+<td>count</td>
+<td><code class="prettyprint">1197</code></td>
+<td>Total number of bookings matching the query. The <code class="prettyprint">count</code> field will only be in the first response to a query</td>
+</tr>
 </tbody></table>
 
 <p>The bookings array contains booking objects, which each have the following properties.</p>
@@ -652,14 +661,14 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>End datetime of the booking. Returns bookings with an <code class="prettyprint">end_datetime</code> before the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
 </tr>
 <tr>
-<td>roomid</td>
-<td><code class="prettyprint">B305</code></td>
-<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
-</tr>
-<tr>
 <td>roomname</td>
 <td><code class="prettyprint">Cruciform Building B.3.05</code></td>
 <td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td>roomid</td>
+<td><code class="prettyprint">B305</code></td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
 </tr>
 <tr>
 <td>siteid</td>
@@ -675,11 +684,6 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td>phone</td>
 <td><code class="prettyprint">45699</code></td>
 <td>Phone number of the room (UCL extension).</td>
-</tr>
-<tr>
-<td>count</td>
-<td><code class="prettyprint">1197</code></td>
-<td>Total number of bookings matching the query. The <code class="prettyprint">count</code> field will only be in the first response to a query</td>
 </tr>
 </tbody></table>
 

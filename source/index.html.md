@@ -118,8 +118,8 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
 Parameter | Example | Required | Description
 --------- | ------- | -------- | -----------
 `token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token.
-`roomid` | `433` | Optional | The room ID (not to be confused, with the `roomname`).
 `roomname` | `Torrington (1-19) 433`| Optional | The name of the room. It often includes the name of the site (building) as well.
+`roomid` | `433` | Optional | The room ID (not to be confused, with the `roomname`).
 `siteid` | `086`| Optional | Every room is inside a site (building). All sites have IDs.
 `sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the `roomname` as well.
 `classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
@@ -140,6 +140,10 @@ Parameter | Example | Required | Description
       "classification": "SS",
       "automated": "N",
       "location": {
+        "coordinates": {
+          "lat": "51.524699",
+          "lng": "-0.13366"
+        },
         "address": [
           "Gower Street",
           "London",
@@ -164,7 +168,7 @@ Room Property | Example |  Description
 `capacity` | `50` | The number of people that can fit in the room.
 `classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
 `automated` | `N` | Whether bookings in this room will be confirmed automatically. `A` stands for automated, and `N` for not automated. `P` represents that the confirmation will be automatic, but only under certain circumstances.
-`location` | - | Contains an object with the key `address`, whose value is an array of address information, which when combined will make up a complete address.
+`location` | - | Contains an object with two keys `address`, and `coordinates`. `address` contains an array of address information, which when combined will make up a complete address. <br /> `coordinates` contains a `lat` and `lng` key with the latitude and longitude of the room.
 
 ### Errors
 
@@ -215,6 +219,7 @@ fetch("https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c291
 Parameter | Example | Required | Description
 ---|---|---|---
 token | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token.
+roomname | `Cruciform Building B.3.05` | Optional | The name of the room. It often includes the name of the site (building) as well.
 roomid |  `433`  |  Optional  | The room ID (not to be confused with the `roomname`).
 start_datetime | `2011-03-06T03:36:45+00:00` | Optional | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
 end_datetime | `2011-03-06T03:36:45+00:00` | Optional | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
@@ -222,8 +227,7 @@ date | `20160202` | Optional | Date of the bookings you need, in the format *YYY
 siteid | `086` | Optional | Every room is inside a site (building). All sites have IDs.
 description | `Lecture` | Optional | Describes what the booking is. Could contain a module code (for example `WIBRG005`) or just the type of activity (for example `Lecture`).
 contact | `Mark Herbster` | Optional | The name of the person who made the booking. Substrings of the contact name can be used: Queries for `Mark` will include `Mark Herbster`. Sometimes, a society or student group may be the contact for a booking.
-results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `100`. Defaults to `20`.
-roomname | `Cruciform Building B.3.05` | Optional | The name of the room. It often includes the name of the site (building) as well.
+results_per_page | `50` | Optional | Number of bookings returned per page. Maximum allowed value is `1000`. Defaults to `1000`.
 
 
 #### Response
@@ -261,6 +265,7 @@ ok | `true` | Boolean indicating whether the request was successful.
 bookings | - | An array of booking objects.
 next_page_exists | `true` | True if there is another page containing more bookings.
 page_token | `6hb14hXjRV` | Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.
+count | `1197` | Total number of bookings matching the query. The `count` field will only be in the first response to a query
 
 The bookings array contains booking objects, which each have the following properties.
 
@@ -270,12 +275,11 @@ slotid | `1024991` | An ID for the booking. Combined with `weeknumber` they can 
 contact | `Wilhelm Klopp - UCLU Tech Society` | Name of the person (and society/student group, if applicable) who made the booking.
 start_time | `2016-10-20T18:00:00+00:00` | Start datetime of the booking. Returns bookings with a `start_datetime` after the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
 end_time | `2016-10-20T19:00:00+00:00` | End datetime of the booking. Returns bookings with an `end_datetime` before the one supplied. Follows the [ISO 8601 formatting standard](https://en.wikipedia.org/wiki/ISO_8601).
-roomid | `B305` | The room ID (not to be confused with the `roomname`).
 roomname | `Cruciform Building B.3.05` | The name of the room. It often includes the name of the site (building) as well.
+roomid | `B305` | The room ID (not to be confused with the `roomname`).
 siteid | `044` | Every room is inside a site (building). All sites have IDs.
 weeknumber | `8` | The week the booking is in.
 phone | `45699` | Phone number of the room (UCL extension).
-count | `1197` | Total number of bookings matching the query. The `count` field will only be in the first response to a query
 
 ### Paginated Request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
