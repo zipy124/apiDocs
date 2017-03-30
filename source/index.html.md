@@ -280,6 +280,7 @@ roomid | `B305` | The room ID (not to be confused with the `roomname`).
 siteid | `044` | Every room is inside a site (building). All sites have IDs.
 weeknumber | `8` | The week the booking is in.
 phone | `45699` | Phone number of the room (UCL extension).
+description |	`Lecture` |	Describes what the booking is. Could contain a module code (for example WIBRG005) or just the type of activity (for example Lecture).
 
 ### Paginated Request
 **Endpoint:** `https://uclapi.com/roombookings/bookings`
