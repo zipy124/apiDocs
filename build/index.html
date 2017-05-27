@@ -577,6 +577,11 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <td><code class="prettyprint">45699</code></td>
 <td>Phone number of the room (UCL extension).</td>
 </tr>
+<tr>
+<td>description</td>
+<td><code class="prettyprint">Lecture</code></td>
+<td>Describes what the booking is. Could contain a module code (for example WIBRG005) or just the type of activity (for example Lecture).</td>
+</tr>
 </tbody></table>
 
 <h3 id="paginated-request">Paginated Request</h3>
@@ -695,12 +700,18 @@ If you don&rsquo;t specify any query parameters besides the <code class="prettyp
 <p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
-<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/equipment?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/equipment?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;roomid<span class="o">=</span>433&amp;siteid<span class="o">=</span>086
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"roomid"</span><span class="p">:</span> <span class="s">"433"</span>
+  <span class="s">"siteid"</span><span class="p">:</span> <span class="s">"086"</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/equipment"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;roomid=433&amp;siteid=086"</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 <span class="p">})</span>
