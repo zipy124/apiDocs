@@ -25,9 +25,11 @@ Before you can use the API you should head to the [API Dashboard](https://uclapi
 
 Rate limiting of the API is primarily on a per-user basis. The limit is calculated against user's ID (e-mail) across all access tokens.
 
-The limit is 10 000 requests per daay and resets every day midnight London time. (00:00 GMT)
+The limit is 10 000 requests per day and resets every day midnight London time. (00:00 GMT)
 
 When a request is throttled, the response returned by the server has HTTP Status Code "429 Too Many Requests". It includes a `Retry-After` header with the number of seconds the client is throttled for.
+
+If you would like your rate limit to be increased, contact us at isd.apiteam@ucl.ac.uk
 
 # Version Information
 
