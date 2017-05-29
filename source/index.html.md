@@ -449,4 +449,4 @@ This documentation is all open sourced at [https://github.com/uclapi/apiDocs](ht
 
 The full API is open sourced at [https://github.com/uclapi/uclapi](https://github.com/uclapi/uclapi).
 
-Any and all contributions are welcome! If you spot a tpyo or error, feel free to fix it and submit a pull request :)
+Any and all contributions are welcome! If you spot a typo or error, feel free to fix it and submit a pull request :)
