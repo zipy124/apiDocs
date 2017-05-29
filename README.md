@@ -1,4 +1,4 @@
-API documentation of [UCLAPI](https://uclapi.com)
+API documentation of [UCLAPI](https://uclapi.com) [![Build Status](https://travis-ci.org/uclapi/apiDocs.svg?branch=master)](https://travis-ci.org/uclapi/apiDocs)
 
 The full API is open sourced at [https://github.com/uclapi/uclapi](https://github.com/uclapi/uclapi).
 
