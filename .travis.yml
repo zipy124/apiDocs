@@ -5,6 +5,10 @@ rvm:
 cache: bundler
 script: bundle exec middleman build --clean
 
+branches:
+  only: 
+    - master
+
 deploy:
   provider: pages
   skip_cleanup: true
