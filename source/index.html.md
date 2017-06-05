@@ -21,6 +21,16 @@ The API will be made up of several services, each of which will be separately ve
 ## Get Your API Key
 Before you can use the API you should head to the [API Dashboard](https://uclapi.com/dashboard) and sign up using your UCL user account. Once logged into the dashboard simply name your app and you'll be given a key that you can use to access all the services. Simples!
 
+## API Rate Limits
+
+Rate limiting of the API is primarily on a per-user basis. The limit is calculated against user's ID (e-mail) across all access tokens.
+
+The limit is 10 000 requests per day and resets every day midnight London time. (00:00 GMT)
+
+When a request is throttled, the response returned by the server has HTTP Status Code "429 Too Many Requests". It includes a `Retry-After` header with the number of seconds the client is throttled for.
+
+If you would like your rate limit to be increased, contact us at isd.apiteam@ucl.ac.uk
+
 # Version Information
 
 Each service has a header named `uclapi-servicenamehere-version` which you can add to your requests, where `servicenamehere` is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the `uclapi-roombookings-version` header.
