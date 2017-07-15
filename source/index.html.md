@@ -454,6 +454,86 @@ Error                 | Description
 `No roomid supplied`  | Gets returned when you don't supply a `roomid`.
 `No siteid supplied`  | Gets returned when you don't supply a `siteid`.
 
+# OAuth
+OAuth support allows your application to authenticate with the UCL API against UCL's Single Sign On (SSO) system in order to provide a personalised experience to your users. This also means that you will not ever have to work with Shibboleth, as that is all abstracted away for you. Over the coming months we are also planning to add:
+- Personalised room bookings data
+- Personalised timetable data
+- Personalised UCL Union data and submission
+
+With OAuth it will be possible for users to authorise your application access to their personal data on a scope-by-scope basis.
+
+<aside class="notice">
+  <strong>Please Note!</strong>
+  <hr>
+  Whilst we roughly follow the OAuth 2.0 Specification, [https://tools.ietf.org/html/rfc6749](RFC6749), we have tweaked some parts of it to provide the most secure possible experience. We also do not (yet!) support every single subset of the specification. If you have a complex use case that we cannot cater for yet, please do let us know, and we will do our best to support you.<br>
+  OAuth is a completely new feature to the UCL API and therefore it may contain bugs that we have not yet identified. If you come across any issues please do reach out to us and we will fix any issues as soon as we can.
+</aside>
+
+## Getting Started
+Once you have created an app in the UCL API Dashboard you will see a dropdown labelled `OAuth Settings`. Click this to access a number of new fields:
+Field                 | Description
+----------------------| -----------
+Client ID             | Your application's OAuth Application ID
+Client Secret         | A parameter used for calculating cryptographic proof of your application's identity. Note that the way this is used is the key difference in our implementation of OAuth from the default.
+Callback URL          | The URL your users will be redirected to after they have logged in with UCL API. A GET parameter will specify whether they clicked Allow or Deny so that your application can handle both scenarios accordingly.
+OAuth Scope           | This allows you to request personal data from your users. More scopes will be added over time. You do not need to tick any scopes if you just want your application to use UCL API as an identity service without personal data access.
+
+<aside class="warning">
+  <strong>Important!</strong>
+  <hr>
+  <strong>Your application must have a Callback URL for OAuth to work.</strong> In addition, we strongly recommend that you use <strong>HTTPS with certificate validation enabled</strong> to ensure the tunnel between your application and the UCL API is fully encrypted, especially because this is the first time that you can use the UCL API to get specific personal user data, and that must be kept secure.
+
+  It is <strong>your</strong> responsibility to keep all user data secure and to use it only for the purposes you tell your users you will use it for.
+</aside>
+
+## Authentiction Flow
+Our OAuth flow is not unlike any other flow from an organisation such as Slack or Google. However, you should read this section anyway to ensure you understand how to interface with us.
+
+### User Login Experience
+Before delving into the technical details, this is the experience a user should expect to see.
+- User clicks a `Log In with UCL API` button.
+- If the user does not have an active UCL SSO session, they will be asked to log in with UCL's Shibboleth SSO service.
+- User is redirected back to a page which tells them which data will be passed to your app. They can either `Allow` or `Deny` this.
+- User is redirected back to your application. If they denied the request, your app should tell them that this happened. If they accepted the request then your app should store this in a cookie so that the user does not have to log in through us again (unless you change the app's scope, as they will need to accept the new scopes for your app to access them).
+
+### OAuth Technical Flow
+In order to make this happen, there are a number of endpoints your application must respond to. A full example for Django is available [on our GitHub](https://github.com/uclapi/django-uclapi-oauth) for you to adapt. 
+
+### Step 0: Render a Log In Button
+In order to prevent CSRF attacks, we recommend you render a POST form with a login button and CSRF token to your users to let them log into UCL API. When clicked, this should generate a `state` parameter used to track the user through the login flow. You should store the `state` in the user's session cookie so that you can check that a given login response is valid.
+
+In Django you might do something like the following.
+
+> HTML form that is rendered to the user
+
+```html
+<form action="/uclapi/login/process" method="post">
+    {% csrf_token %}
+    <button type="submit">Log in with UCL API</button>
+</form>
+```
+
+> Django backend code
+
+```python
+@csrf_protect
+def process_login(request):
+    state = generate_state()
+    request.session["state"] = state
+    auth_url = "https://uclapi.com/oauth/authorise"
+    auth_url += "?client_id=" + YOUR_CLIENT_ID
+    auth_url += "&state=" + state
+  
+    return redirect(auth_url)
+```
+
+Your `generate_state` function should generate a random, long, ephemeral and unpredictable string.
+
+### Step 1: The Log In
+Once a `state` parameter is stored in the session, your application does not have to do anything until the callback. We and UCL's SSO system will handle authenticating the user.
+
+### Step 2: The Callback
+
 # Get Involved
 This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
 
