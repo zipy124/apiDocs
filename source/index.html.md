@@ -456,37 +456,40 @@ Error                 | Description
 
 # OAuth
 OAuth support allows your application to authenticate with the UCL API against UCL's Single Sign On (SSO) system in order to provide a personalised experience to your users. This also means that you will not ever have to work with Shibboleth, as that is all abstracted away for you. Over the coming months we are also planning to add:
-- Personalised room bookings data
-- Personalised timetable data
-- Personalised UCL Union data and submission
+<ul>
+  <li>Personalised room bookings data</li>
+  <li>Personalised timetable data</li>
+  <li>Personalised UCL Union data and submission</li>
+</ul>
 
 With OAuth it will be possible for users to authorise your application access to their personal data on a scope-by-scope basis.
 
 <aside class="notice">
   <strong>Please Note!</strong>
-  <hr>
-  Whilst we roughly follow the OAuth 2.0 Specification, [https://tools.ietf.org/html/rfc6749](RFC6749), we have tweaked some parts of it to provide the most secure possible experience. We also do not (yet!) support every single subset of the specification. If you have a complex use case that we cannot cater for yet, please do let us know, and we will do our best to support you.<br>
+  <hr />
+  Whilst we roughly follow the OAuth 2.0 Specification, <a href="https://tools.ietf.org/html/rfc6749">RFC6749</a>, we have tweaked some parts of it to provide the most secure possible experience. We also do not (yet!) support every single subset of the specification. If you have a complex use case that we cannot cater for yet, please do let us know, and we will do our best to support you.<br />
   OAuth is a completely new feature to the UCL API and therefore it may contain bugs that we have not yet identified. If you come across any issues please do reach out to us and we will fix any issues as soon as we can.
 </aside>
 
 ## Getting Started
 Once you have created an app in the UCL API Dashboard you will see a dropdown labelled `OAuth Settings`. Click this to access a number of new fields:
-Field                 | Description
-----------------------| -----------
-Client ID             | Your application's OAuth Application ID
-Client Secret         | A parameter used for calculating cryptographic proof of your application's identity. Note that the way this is used is the key difference in our implementation of OAuth from the default.
-Callback URL          | The URL your users will be redirected to after they have logged in with UCL API. A GET parameter will specify whether they clicked Allow or Deny so that your application can handle both scenarios accordingly.
-OAuth Scope           | This allows you to request personal data from your users. More scopes will be added over time. You do not need to tick any scopes if you just want your application to use UCL API as an identity service without personal data access.
+
+Field            | Description
+---------------- | ----------------
+Client ID | Your application's OAuth Application ID
+Client Secret | A parameter used for calculating cryptographic proof of your application's identity. Note that the way this is used is the key difference in our implementation of OAuth from the default.
+Callback URL | The URL your users will be redirected to after they have logged in with UCL API. A GET parameter will specify whether they clicked Allow or Deny so that your application can handle both scenarios accordingly.
+OAuth Scope | This allows you to request personal data from your users. More scopes will be added over time. You do not need to tick any scopes if you just want your application to use UCL API as an identity service without personal data access.
 
 <aside class="warning">
   <strong>Important!</strong>
-  <hr>
+  <hr />
   <strong>Your application must have a Callback URL for OAuth to work.</strong> In addition, we strongly recommend that you use <strong>HTTPS with certificate validation enabled</strong> to ensure the tunnel between your application and the UCL API is fully encrypted, especially because this is the first time that you can use the UCL API to get specific personal user data, and that must be kept secure.
 
   It is <strong>your</strong> responsibility to keep all user data secure and to use it only for the purposes you tell your users you will use it for.
 </aside>
 
-## Authentiction Flow
+## Authentication Flow
 Our OAuth flow is not unlike any other flow from an organisation such as Slack or Google. However, you should read this section anyway to ensure you understand how to interface with us.
 
 ### User Login Experience
@@ -513,7 +516,7 @@ In Django you might do something like the following.
 </form>
 ```
 
-> Django backend code
+> Backend code
 
 ```python
 @csrf_protect
@@ -533,7 +536,147 @@ Your `generate_state` function should generate a random, long, ephemeral and unp
 Once a `state` parameter is stored in the session, your application does not have to do anything until the callback. We and UCL's SSO system will handle authenticating the user.
 
 ### Step 2: The Callback
+Once a user has passed the UCL login process we will tell them what data your app will be able to access, and from there they can choose either `Deny` or `Allow`. Both of these will redirect to the callback URL that you specify, but with different parameters.
 
+#### Denied Login
+If the login is denied, you the URL redirected to will be: `https://your/callback/url?result=denied&state=YOUR_STATE_PARAMETER`.
+
+#### Allowed Login
+If the user clicks to allow the application to access their data, they will be sent to `https://your/calllback/url?result=allowed&code=CODE_PARAMETER&client_id=YOUR_CLIENT_ID&state=YOUR_STATE_PARAMETER`.
+
+The most important parameter to note here is the code parameter. This can be exchanged, via your application's secret, for an OAuth token for the user that you should store securely on your server. The process for this is as follows in an environment such as Django. The exchange should be done in the background by your app's server, and the endpoint is `https://uclapi.com/oauth/token?code=CODE_PARAMETER&client_secret_proof=CODE_ENCRYPTED_USING_CLIENT_SECRET`.
+
+> Getting an OAuth token from a code
+
+```python
+def allowed(request):
+    try:
+        code = request.GET.get("code")
+        client_id = request.GET.get("client_id")
+        state = request.GET.get("state")
+    except KeyError:
+        return JsonResponse({
+            "error": "Parameters missing from request."
+        })
+
+    try:
+        session_state = request.session["state"]
+    except KeyError:
+        return JsonResponse({
+            "ok": False,
+            "error": "There is no session cookie set containing a state"
+        })
+
+    hmac_digest = hmac.new(bytes(YOUR_CLIENT_SECRET, 'ascii'),
+                           msg=code.encode('ascii'),
+                           digestmod=hashlib.sha256).digest()
+    client_secret_proof = base64.b64encode(hmac_digest).decode()
+
+    url = "https://uclapi.com/oauth/token"
+    params = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'client_secret_proof': client_secret_proof
+    }
+
+    r = requests.get(url, params=params)
+
+    try:
+        token_data = r.json()
+
+        if token_data["ok"] is not True:
+            return JsonResponse({
+                "ok": False,
+                "error": "An error occurred: " + token_data["error"]
+            })
+
+        if token_data["state"] != state:
+            return JsonResponse({
+                "ok": False,
+                "error": "The wrong state was returned"
+            })
+
+        if token_data["client_id"] != client_id:
+            return JsonResponse({
+                "ok": False,
+                "error": "The wrong client ID was returned"
+            })
+
+        # Retrieve the OAuth token
+        token_code = token_data["token"]
+        # The scope information is returned as a JSON object
+        scope_data = json.loads(token_data["scope"])
+    except KeyError:
+        return JsonResponse({
+            "ok": False,
+            "error": "Proper JSON was not returned by the token endpoint"
+        })
+
+    #
+    # NOW SAVE THE OAUTH TOKEN IN A DATABASE
+    # Also you should render a success page to the user
+    #
+```
+
+### Step 3 (Optional): Retrieve User Data
+Once you have a user token you can retrieve basic user data, such as their name, email address, etc., by using the `oauth/user/data` endpoint.
+
+```python
+    hmac_digest = hmac.new(bytes(YOUR_CLIENT_SECRET, 'ascii'),
+                           msg=token_code.encode('ascii'),
+                           digestmod=hashlib.sha256).digest()
+    client_secret_proof = base64.b64encode(hmac_digest).decode()
+
+    url = "https://uclapi.com/oauth/user/data"
+    params = {
+        'token': USER_OAUTH_TOKEN,
+        'client_secret_proof': client_secret_proof
+    }
+
+    r = requests.get(url, params=params)
+
+    return JsonResponse(r.json())
+```
+
+> Example JSON Response
+
+```json
+{
+  "ok": true,
+  "department": "Dept of Well Documented APIs™️",
+  "email": "abcdefg@ucl.ac.uk",
+  "cn": "abcdefg",
+  "full_name": "Ms Amazing B Person",
+  "scope_number": 2,
+  "upi": "amper11",
+  "given_name": "Amazing B"
+}
+```
+
+## Client Secrets
+Most of the above looks like a normal OAuth 2.0 login flow, and that's because it is. There is one major difference, however, and that is that **you never, ever, send your raw client secret in a request**!. This is so that even if somebody was to Man-in-The-Middle (MiTM) the connection, and you did not verify certificates, the most the attacker would be able to get would be a user token. If a user token is compromised it should still be regenerated; however, it is completely unusable without the `client_secret_proof` parameter which is generated using the Client Secret. A `client_secret_proof` parameter **must** be sent with every request to the API. The algorithm for generating this is as follows:
+<ol>
+  <li>
+    Firstly, take the message data. This is usually a user token, except for during the initial login process, where you use the randomly generated verification code instead.
+  </li>
+  <li>
+    Next, convert this to bytes using the ASCII character set.
+  </li>
+  <li>
+    Take the Client Secret and also convert this to ASCII bytes.
+  </li>
+  <li>
+    Create a <strong>SHA256 HMAC<strong> representation of the message data using the Client Secret as the key.
+  </li>
+  <li>
+    Base64 encode this HMAC to a string.
+  </li>
+  <li>
+    Attach it to your JSON request. The `key` is <strong>always</strong> `client_secret_proof`, and the value should be the Base64 string you generated above.,
+  </li>
+</ol>
+
+The reason this process is so great is that you *never, ever* send your Client Secret out in the open or over a broken HTTPS connection. It is more complex than usual OAuth, but exists to keep your UCL data secure.
 # Get Involved
 This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
 
