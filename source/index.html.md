@@ -489,6 +489,12 @@ OAuth Scope | This allows you to request personal data from your users. More sco
   It is <strong>your</strong> responsibility to keep all user data secure and to use it only for the purposes you tell your users you will use it for.
 </aside>
 
+## Client Libraries
+Our technical flow is fully documented below so that you can implement a client library yourself. However, if you just want to get started straight away, we have some client libraries available for the following platforms:
+* Django: [django-uclapi-oauth](https://github.com/uclapi/django-uclapi-oauth)
+
+There are more to come, and we welcome contributions from the community to expand our ready-made library offerings!
+
 ## Authentication Flow
 Our OAuth flow is not unlike any other flow from an organisation such as Slack or Google. However, you should read this section anyway to ensure you understand how to interface with us.
 
@@ -619,23 +625,48 @@ def allowed(request):
 ```
 
 ### Step 3 (Optional): Retrieve User Data
-Once you have a user token you can retrieve basic user data, such as their name, email address, etc., by using the `oauth/user/data` endpoint.
+Once you have a user token you can retrieve basic user data, such as their name, email address, etc., by using the `oauth/user/data` endpoint. Note that once you have a user token, you **must** get a Nonce code from the `/oauth/nonce` endpoint in order to get personal data. This is protect against replay attacks.
 
 ```python
-    hmac_digest = hmac.new(bytes(YOUR_CLIENT_SECRET, 'ascii'),
-                           msg=token_code.encode('ascii'),
-                           digestmod=hashlib.sha256).digest()
-    client_secret_proof = base64.b64encode(hmac_digest).decode()
+  # Get a Nonce from the oauth/nonce endpoint
+  url = "https://uclapi.com/oauth/nonce"
+  params = {
+      'token': token_code,
+      'client_secret_proof': client_secret_proof
+  }
 
-    url = "https://uclapi.com/oauth/user/data"
-    params = {
-        'token': USER_OAUTH_TOKEN,
-        'client_secret_proof': client_secret_proof
-    }
+  r = requests.get(url, params=params)
 
-    r = requests.get(url, params=params)
+  nonce_data = r.json()
+  try:
+      nonce = nonce_data["nonce"]
+  except KeyError:
+      return JsonResponse({
+          "ok": False,
+          "error": "No nonce was received."
+      })
 
-    return JsonResponse(r.json())
+  # Generate a vertification string, which is just the token, an ampersand
+  # and the nonce concatenated. This is then encrypted with the client secret
+  # as before.
+  # This protects against replay attacks.
+  verification_str = token_code + "&" + nonce
+
+  hmac_digest = hmac.new(bytes(YOUR_CLIENT_SECRET, 'ascii'),
+                          msg=verification_str.encode('ascii'),
+                          digestmod=hashlib.sha256).digest()
+  client_secret_proof = base64.b64encode(hmac_digest).decode()
+
+  url = "https://uclapi.com/oauth/user/data"
+  params = {
+      'token': token_code,
+      'nonce': nonce,
+      'client_secret_proof': client_secret_proof
+  }
+
+  r = requests.get(url, params=params)
+
+  return JsonResponse(r.json())
 ```
 
 > Example JSON Response
@@ -654,13 +685,16 @@ Once you have a user token you can retrieve basic user data, such as their name,
 ```
 
 ## Client Secrets
-Most of the above looks like a normal OAuth 2.0 login flow, and that's because it is. There is one major difference, however, and that is that **you never, ever, send your raw client secret in a request**!. This is so that even if somebody was to Man-in-The-Middle (MiTM) the connection, and you did not verify certificates, the most the attacker would be able to get would be a user token. If a user token is compromised it should still be regenerated; however, it is completely unusable without the `client_secret_proof` parameter which is generated using the Client Secret. A `client_secret_proof` parameter **must** be sent with every request to the API. The algorithm for generating this is as follows:
+Most of the above looks like a normal OAuth 2.0 login flow, and that's because it is. There is one major difference, however, and that is that **you never, ever, send your raw client secret in a request**!. This is so that even if somebody was to Man-in-The-Middle (MiTM) the connection, and you did not verify certificates, the most the attacker would be able to get would be a user token. If a user token is compromised it should still be regenerated; however, it is completely unusable without the `client_secret_proof` parameter which is generated using the Client Secret. A `client_secret_proof` parameter **must** be sent with every request to the API. In addition, every request that includes a user's token requires a randomly-generated, one-use nonce. This prevents even a stolen `client_secret_proof` parameter from being used twice with the same token. The algorithm for generating this parameter is as follows:
 <ol>
   <li>
-    Firstly, take the message data. This is usually a user token, except for during the initial login process, where you use the randomly generated verification code instead.
+    Before anything, use the `/oauth/nonce` endpoint to get a Nonce parameter for your request.
   </li>
   <li>
-    Next, convert this to bytes using the ASCII character set.
+    Now, take the user token and add an ampersand (&amp;) and the nonce provided to you in the previous step. You should get a value that looks like `uclapi-user-abcdefg123456hij-abcdefg123456hij-abcdefg123456hij-abcdefg123456hij&nonceabcd1234abcd1234abcd1234abcd1234abcd1234`.
+  </li>
+  <li>
+    Next, convert this to string bytes using the ASCII character set.
   </li>
   <li>
     Take the Client Secret and also convert this to ASCII bytes.
@@ -676,7 +710,10 @@ Most of the above looks like a normal OAuth 2.0 login flow, and that's because i
   </li>
 </ol>
 
-The reason this process is so great is that you *never, ever* send your Client Secret out in the open or over a broken HTTPS connection. It is more complex than usual OAuth, but exists to keep your UCL data secure.
+The reason this process is so great is that you *never, ever* send your Client Secret out in the open or over a broken HTTPS connection. It also means that if somebody captures some HTTPS traffic and tries to retransmit it in order to make the same thing happen twice the nonce will no longer exist, and the attempt will be blocked. This technique is more complex than usual OAuth, but exists to keep your UCL data secure.
+
+An example of this in use is available above in the Retrieve User Data section.
+
 # Get Involved
 This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
 
