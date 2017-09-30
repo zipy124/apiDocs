@@ -413,7 +413,7 @@ html, body {
       td:nth-child(2) {
         width: 80px;
       }
-    } 
+    }
     th {
       padding: 5px 10px;
       border-bottom: 1px solid #ccc;
@@ -458,7 +458,8 @@ html, body {
     background-color: rgba(0,0,0,0.05);
     padding: 3px;
     border-radius: 3px;
-    @extend %break-words;
+    word-break: break-word;
+    hyphens: none;
     @extend %code-font;
   }
 
