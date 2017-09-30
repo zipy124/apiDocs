@@ -454,6 +454,93 @@ Error                 | Description
 `No roomid supplied`  | Gets returned when you don't supply a `roomid`.
 `No siteid supplied`  | Gets returned when you don't supply a `siteid`.
 
+
+# Search
+
+The base url is `https://uclapi.com/search/`
+
+Version Header | Latest Version
+-------------- | --------------
+`uclapi-search-version` | `1`
+
+## Get People
+**Endpoint:** `https://uclapi.com/search/people`
+
+This endpoint returns matching people and information about them.
+
+_Note: This endpoint only returns a maximum of 20 matches._
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl https://uclapi.com/search/people \
+-d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+-d query='Jane'
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "query": "Jane"
+}
+r = requests.get("https://uclapi.com/search/people", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&query=Jane")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | Authentication token.
+`query` | `Jane Doe`| Required | Name of the person you are searching for
+
+### Response
+
+```json
+{
+  "ok": true,
+  "people": [
+    {
+      "name": "Jane Doe",
+      "status": "Student",
+      "department": "Dept of Med Phys & Biomedical Eng",
+      "email": "jane.doe.17@ucl.ac.uk"
+    },
+    ...
+  ]
+}
+```
+
+The people field contains a list of people that match your query.
+
+Person Attribute | Example |  Description
+--------- | ---------- |  -----------
+`name` | `Jane Doe` | The name of the person.
+`status` | `Staff` | Tell's us whether the person is a student of member of staff.
+`department` | `UCL Medical School`| The department the student studies or works under.
+`email` | `jane.doe.17@ucl.ac.uk` | The email of the person.
+
+### Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`Token does not exist` | Gets returned when you supply an invalid `token`.
+`No query provided` | Gets returned when you have not supplied a `query` in your request.
+
+
 # Get Involved
 This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
 
