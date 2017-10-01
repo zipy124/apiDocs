@@ -94,13 +94,17 @@ OAuth scopes specify how your app need to access a UCL user's account. As an app
 
 If you application wants to use OAuth, it should do the following:
 
-1. Send a request to `/oauth/authorise` with `state` and `client_id` of the application. Please not that the callback URL has to be set for the app!
+1. Create an application and then set its callback URL.
 
-2. Login with your UCL credentials. (if not logged in already)
+2. Send a request to `https://uclapi.com/oauth/authorise` with `state` and `client_id` of the application. Please not that the callback URL has to be set for the app!
 
-3. Authorize or deny the application. If the application is authorized, the callback URL receives `client_id`, `state` (specified in 1.), `result`, and `code`.
+3. Login with your UCL credentials. (if not logged in already)
 
-4. To receive OAuth user token (for performing actions on user's behalf), we require `code` (from 3.), `client_id`, and `client_secret`. These should then be set to `/oauth/token`, which will return response containing `state`, `ok`, `client_id`, `token` (OAuth user token), and `scope` (scopes the app can access on user's behalf).
+4. Authorize or deny the application. If the application is authorized, the callback URL receives `client_id`, `state` (specified in 1.), `result`, and `code`.
+
+If the application is denied, the callback URL receives `result` and `state`, and will have no access to your user data.
+
+5. To receive the OAuth user token (for performing actions on user's behalf), we require `code` (from 3.), `client_id`, and `client_secret`. These should then be set to `https://uclapi.com/oauth/token`, which will return response containing `state`, `ok`, `client_id`, `token` (OAuth user token), and `scope` (scopes the app can access on user's behalf).
 
 ## Authorise
 **Endpoint:**
@@ -119,8 +123,8 @@ curl https://uclapi.com/oauth/authorise/?client_id=123.456&state=1
 import requests
 
 params = {
-  "client_id": 123.456,
-  "state": 1,
+  "client_id": "123.456",
+  "state": "1",
 }
 r = requests.get("https://uclapi.com/oauth/authorise", params=params)
 print(r.json())
@@ -172,7 +176,7 @@ import requests
 
 params = {
   "client_id": "123.456",
-  "code": 1,
+  "code": "1",
   "client_secret": "secret",
 }
 r = requests.get("https://uclapi.com/oauth/token", params=params)
@@ -269,6 +273,17 @@ Parameter | Example | Required | Description
     "scope_number": 0,
 }
 ```
+
+User Data Property | Example |  Description
+--------- | ---------- |  -----------
+`department` | `Dept Of Computer Science` | Department the user belongs to.
+`email` | `zcabmrk@ucl.ac.uk` | E-mail for the given user.
+`ok` | `true` | Returns if the query was successful.
+`full_name` | `Martin Mrkvicka` | Full name of the user.
+`cn` | `` | No idea.
+`given_name` | `Martin` | Given first name of the user.
+`upi` | `mmrkv12` | Unique Person Identifier.
+`scope_number` | `0` | Scopes the application has access to on behalf of the user.
 
 ### Errors
 
