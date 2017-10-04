@@ -86,6 +86,8 @@ On the right hand side you'll see a code sample with the version data added. We 
 
 This is a quick guide to OAuth support in UCL API for developers. OAuth is a protocol that lets external apps request authorization to private details in your UCL API account without getting your password, making sure you can e.g. get data on users' behalf or create a "Sign In With UCL" button for your website.
 
+Sounds intriguing? Demo of "Sign In With UCL" is located [here](https://uclapi-oauth-demo.glitch.me).
+
 ## Scopes
 
 OAuth scopes specify how your app need to access a UCL user's account. As an app developer, you set the desired scopes in the [API Dashboard](https://uclapi.com/dashboard). When a user is responding to your user request, the requested scopes will be displayed to the user.
