@@ -455,6 +455,106 @@ Error                 | Description
 `No siteid supplied`  | Gets returned when you don't supply a `siteid`.
 
 
+## Webhooks
+With webhooks, you don't send HTTP requests to us, *we* send HTTP requests to you.
+This is useful for data that changes frequently, such as room bookings. Whenever a booking gets added or removed, we'll send those details to your server.
+
+### Setup
+After creating an app in the [dashboard](https://uclapi.com/dashboard/), you can configure webhook settings in the app settings view.
+
+
+Setting | Example              |  Description
+-------------- | ----------------- |  -----------
+Verification Secret         | `bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a`         | Random string that you use to make sure that all requests to your webhook URL come from UCL API servers, and not a third party. You must keep this secret.
+Webhook URL  | `https://example.com/webhook` | The URL must use https and must be a publicly accessible URL. This is the URL we'll send events to.
+`siteid`        | `086`          | (Optional) In case you want to restrict the booking events you receive to only one specific `siteid`.
+`roomid`        | `433`          | (Optional) In case you want to restrict the booking events you receive to only one specific `roomid`.
+`contact`        | `Michael Arthur`          | (Optional) In case you want to restrict the booking events you receive to only one specific `contact`.
+
+
+### Events
+Whenever you receive data on your webhook we call that an "event". At the moment there are 2 events: `challenge` and `bookings_changed`
+
+Events are always delivered as POST requests to your webhook URL. The data will be JSON inside the body of the POST request. Every event will contain at least 3 components: `service`, `name`, `verification_secret`. You can see an example on the right.  
+A full-fledged example app that makes use of UCL API webhooks (written in Python) can be found [here.](https://github.com/uclapi/webhook_demo_app)
+
+```json
+{
+  "service": "webhooks",
+  "name": "challenge",
+  "verification_secret": "bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a",
+  ...
+}
+```
+
+### challenge event
+You'll receive this event when you first input or alter your webhook URL. It exists to make sure that the URL you entered is under your control.
+The JSON data sent to you contains a `challenge` parameter. You need to set up your code to respond promptly with a JSON object containing only the challenge parameter.
+
+> Request from UCL API to your endpoint
+
+```json
+{
+  "service": "webhooks",
+  "name": "challenge",
+  "verification_secret": "bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a",
+  "challenge": "f9b4fd5325e21e3-002e9e00a1b1af6-bc37b346d59b0cb-730043261cfa206"
+}
+```
+
+
+> Prompt response from your server to verify URL control
+
+```json
+{
+  "challenge": "f9b4fd5325e21e3-002e9e00a1b1af6-bc37b346d59b0cb-730043261cfa206"
+}
+```
+
+### bookings_changed event
+You'll receive this event when a booking was either added or removed. You can see an example on the right.  
+A `bookings_changed` event contains at least either one `bookings_added` or `bookings_removed` key, but not necessarily both.
+
+```json
+{
+  "service": "roombookings",
+  "name": "bookings_changed",
+  "verification_secret": "bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a",
+  "content": {
+    "bookings_added": [
+      {
+        "phone": null,
+        "contact": "Room Closed",
+        "weeknumber": 52,
+        "description": "Rm. Closed",
+        "start_time": "2017-08-27T23:00:00+01:00",
+        "roomid": "G08",
+        "siteid": "013",
+        "roomname": "Chadwick Building G08",
+        "slotid": 907872,
+        "end_time": "2017-08-27T23:30:00+01:00"
+      },
+    ...
+    ],
+    "bookings_removed": [
+      {
+        "weeknumber": 45,
+        "end_time": "2017-07-07T18:00:00+01:00",
+        "slotid": 1631230,
+        "phone": null,
+        "roomid": "B1.03",
+        "siteid": "212",
+        "description": "Summer School",
+        "roomname": "Cruciform Building B1.03",
+        "contact": "Michael Arthur",
+        "start_time": "2017-07-07T09:00:00+01:00"
+      },
+    ...
+    ]
+  }
+}
+```
+
 # Search
 
 The base url is `https://uclapi.com/search/`
