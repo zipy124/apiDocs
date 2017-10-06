@@ -84,27 +84,25 @@ On the right hand side you'll see a code sample with the version data added. We 
 
 # OAuth
 
-This is a quick guide to OAuth support in UCL API for developers. OAuth is a protocol that lets external apps request authorization to private details in your UCL API account without getting your password, making sure you can e.g. get data on users' behalf or create a "Sign In With UCL" button for your website.
+This is a quick guide to OAuth support in UCL API for developers. OAuth is a protocol that lets external apps request secure access to private UCL account data without getting your password. This can be done with a "Sign In With UCL" button on your website which avoids UCL users from needing to set up another account username and password. It also allows you as a developer to, for example, get a user's personal timetable.
 
 ## Scopes
 
-OAuth scopes specify how your app need to access a UCL user's account. As an app developer, you set the desired scopes in the [API Dashboard](https://uclapi.com/dashboard). When a user is responding to your user request, the requested scopes will be displayed to the user.
+OAuth scopes specify how your app needs to access a UCL user's account. As an app developer, you set the desired scopes in the [API Dashboard](https://uclapi.com/dashboard). When a user is responding to your authorisation request, the requested scopes will be displayed to the user.
 
-## OAuth workflow
+## OAuth Workflow
 
-If you application wants to use OAuth, it should do the following:
+If your application wants to use OAuth, you **must** set a callback URL in the dashboard. Then the app should follow this procedure:
 
-1. Create an application and then set its callback URL.
+1. Send a request to `https://uclapi.com/oauth/authorise` with `state` and the application's `client_id`.
 
-2. Send a request to `https://uclapi.com/oauth/authorise` with `state` and `client_id` of the application. Please not that the callback URL has to be set for the app!
+2. The user will need to log in with their UCL credentials on the UCL Single Sign-on website (if not logged in already).
 
-3. Login with your UCL credentials. (if not logged in already)
+3. The user will be allowed to either authorise or deny the application, based on the OAuth scope requested. If the application is authorised, the callback URL receives `client_id`, `state` (specified in 1.), `result`, and `code`.
 
-4. Authorize or deny the application. If the application is authorized, the callback URL receives `client_id`, `state` (specified in 1.), `result`, and `code`.
+If the application is denied, the callback URL receives `result` and `state`, and no private data will be provided to the application.
 
-If the application is denied, the callback URL receives `result` and `state`, and will have no access to your user data.
-
-5. To receive the OAuth user token (for performing actions on user's behalf), we require `code` (from 3.), `client_id`, and `client_secret`. These should then be set to `https://uclapi.com/oauth/token`, which will return response containing `state`, `ok`, `client_id`, `token` (OAuth user token), and `scope` (scopes the app can access on user's behalf).
+4. To receive the OAuth user token (for performing actions on user's behalf), we require `code` (from 3.), `client_id`, and `client_secret`. These should then be set to `https://uclapi.com/oauth/token`, which will return a response containing `state`, `ok`, `client_id`, `token` (OAuth user token), and `scope` (scopes the app can access on the user's behalf).
 
 ## Authorise
 **Endpoint:**
