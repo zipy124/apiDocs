@@ -640,6 +640,248 @@ Error | Description
 `Token does not exist` | Gets returned when you supply an invalid `token`.
 `No query provided` | Gets returned when you have not supplied a `query` in your request.
 
+# Timetable
+
+The base url is `https://uclapi.com/timetable/`
+
+Version Header | Latest Version
+-------------- | --------------
+`uclapi-timetable-version` | `1`
+
+## Get personal timetable
+**Endpoint:** `https://uclapi.com/timetable/personal`
+
+This endpoint returns the personal timetable of the user.
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl https://uclapi.com/timetable/personal \
+-d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb client_secret=1235710601390595.8880128173195265
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "client_secret": "1235710601390595.8880128173195265"
+}
+r = requests.get("https://uclapi.com/timetable/personal", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/timetable/personal?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=1235710601390595.8880128173195265")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`client_secret` | `1235710601390595.8880128173195265` | Required | Client id.
+
+### Response
+
+```json
+{
+    "timetable":{
+        "2018-01-29": [
+            {
+                "location": {
+                    "address": [
+                        "29 Gordon Sq",
+                        "London",
+                        "WC1H 0PP"
+                    ],
+                    "name": "Gordon House 106",
+                    "sitename": "Gordon House",
+                    "type": "CB",
+                    "capacity": 50
+                },
+                "end_time": "18:00:00",
+                "module": {
+                    "module_id": "COMP3058",
+                    "lecturer": {
+                        "email": "ucacdgo@ucl.ac.uk",
+                        "name": "GORSE, Denise (Dr)"
+                    },
+                    "name": "Artificial Intelligence and Neural Computing",
+                    "course_owner": "COMPS_ENG",
+                },
+                "duration": 120,
+                "start_time": "16:00:00"
+            }
+        ]
+    },
+    "ok": true
+}
+```
+
+The `timetable` field contains a map where dates are mapped to event objects.
+
+Person Attribute | Example |  Description
+--------- | ---------- |  -----------
+`location` | `JSON object` | Location of details of the timetable event.
+`address` | `["29 Gordon Sq", "London", "WC1H 0PP"]` | Address represented as an array.
+`name` | `Gordon House 106`| Room name of the timetable event.
+`sitename` | `Gordon House` | Name of the site where the event is happening.
+`type` | `CB` | Type of the room eg., Lecture Theatre, etc.
+`capacity` | `60` | Capacity of the room.
+`start_time` | `16:00:00` | Start time of the event.
+`end_time` | `18:00:00` | End time of the event.
+`module` | `JSON object` | Json object containing module details.
+`module_id` | `COMP3058` | Module id.
+`name` | `Artificial Intelligence and Neural Computing` | Module name.
+`course_owner` | `COMPS_ENG` | Department the module comes under.
+`duration` | `120` | Duration of the event.
+
+### Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`OAuth token doesn't exist.` | Gets returned when you supply an invalid `token`.
+`Student does not have any assigned timetables.` | Gets returned when the user the token belongs to does not have any timetable assigned.
+
+
+The base url is `https://uclapi.com/timetable/`
+
+Version Header | Latest Version
+-------------- | --------------
+`uclapi-timetable-version` | `1`
+
+## Get timetable for modules.
+**Endpoint:** `https://uclapi.com/timetable/bymodule`
+
+This endpoint returns a yearly timetable for the supplied modules.
+
+**Allowed request type:** `POST`
+
+### Query Parameters
+
+```shell
+curl -x POST -d '{"modules": ["COMP3095"]}' https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=1235710601390595.8880128173195265 --header "Content-Type:application/json"
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "client_secret": "1235710601390595.8880128173195265"
+}
+
+data = {
+    "modules": ["COMP3095"]
+}
+
+r = requests.post("https://uclapi.com/timetable/bymodule", params=params, data=data)
+print(r.json())
+```
+
+```javascript
+
+var data = {
+    modules: ["COMP3095"]
+}
+
+fetch("https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=1235710601390595.8880128173195265",
+{
+    method: "POST",
+    body: JSON.stringify(data)
+})
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`client_secret` | `1235710601390595.8880128173195265` | Required | Client id.
+`modules` | `["COMP3095", "COMP3001"]` | Required | An array of the module codes you want the timetable of.
+
+### Response
+
+```json
+{
+    "timetable": {
+        "2017-11-23": [
+            {
+                "location": {
+                    "address": [
+                        "Torrington Place",
+                        "London",
+                        "WC1E 7JE"
+                    ],
+                    "sitename": "Roberts Building",
+                    "capacity": 91,
+                    "name": "Roberts Building 508",
+                    "type": "CB"
+                },
+                "module": {
+                    "lecturer": {
+                        "email": "ucachun@ucl.ac.uk",
+                        "name": "HUNTER, Anthony (Prof)"
+                    },
+                    "module_code": "COMP3093",
+                    "course_owner": "COMPS_ENG",
+                    "name": "Research Methods",
+                    "module_id": "COMP3095"
+                },
+                "end_time": "18:30:00",
+                "start_time": "17:30:00",
+                "duration": 60
+            }
+        ],
+    },
+    "ok": true
+}
+```
+This endpoint will create a timetable for the module ids provided and return the yearly calendar.
+
+The `timetable` field contains a map where dates are mapped to event objects.
+
+
+Person Attribute | Example |  Description
+--------- | ---------- |  -----------
+`location` | `JSON object` | Location of details of the timetable event.
+`address` | `["29 Gordon Sq", "London", "WC1H 0PP"]` | Address represented as an array.
+`name` | `Gordon House 106`| Room name of the timetable event.
+`sitename` | `Gordon House` | Name of the site where the event is happening.
+`type` | `CB` | Type of the room eg., Lecture Theatre, etc.
+`capacity` | `60` | Capacity of the room.
+`start_time` | `16:00:00` | Start time of the event.
+`end_time` | `18:00:00` | End time of the event.
+`module` | `JSON object` | Json object containing module details.
+`module_id` | `COMP3058` | Module id.
+`lecturer` | `JSON object` | Json object with details of the lecturer.
+`email` | `ucachun@ucl.ac.uk` | Email of the lecturer.
+`name` | `HUNTER, Anthony (Prof)` | Name of the lectuer.
+`name` | `Artificial Intelligence and Neural Computing` | Module name.
+`course_owner` | `COMPS_ENG` | Department the module comes under.
+`module_code` | `COMP3C58` | Module code. We are not yet sure why this exists. Hopefully we will find out.
+`duration` | `120` | Duration of the event in minutes.
+
+### Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`OAuth token doesn't exist.` | Gets returned when you supply an invalid `token`.
+`No module ids provided.` | No module ids provided in post request.
+
 
 # Get Involved
 This documentation is all open sourced at [https://github.com/uclapi/apiDocs](https://github.com/uclapi/apiDocs).
