@@ -88,6 +88,24 @@ This is a quick guide to OAuth support in UCL API for developers. OAuth is a pro
 
 Sounds intriguing? Demo of "Sign In With UCL" is located [here](https://uclapi-oauth-demo.glitch.me).
 
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/uclapi-oauth-demo)
+
+## Sign In With UCL Button
+
+If you want to add a "Sign In With UCL" button to your website, which looks like this:
+
+![](https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png)
+
+you can copy the following the following code:
+
+```plaintext
+<a href="https://uclapi.com/oauth/authorise?client_id=CLIENT_ID&state=STATE">
+<img src="https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png">
+</a>
+```
+
+where `CLIENT_ID` and `STATE` should be replaced by `client_id` of your app and a random `state`.
+
 ## Scopes
 
 OAuth scopes specify how your app needs to access a UCL user's account. As an app developer, you set the desired scopes in the [API Dashboard](https://uclapi.com/dashboard). When a user is responding to your authorisation request, the requested scopes will be displayed to the user.
@@ -201,7 +219,7 @@ Parameter | Example | Required | Description
 
 ### Response
 
-```
+```json
 {
     "scope": "[]",
     "state": "1",
@@ -261,7 +279,7 @@ Parameter | Example | Required | Description
 
 ### Response
 
-```
+```json
 {
     "department": "Dept of Department",
     "email": "xxxxxxx@ucl.ac.uk",
@@ -280,7 +298,7 @@ User Data Property | Example |  Description
 `email` | `zcabmrk@ucl.ac.uk` | E-mail for the given user.
 `ok` | `true` | Returns if the query was successful.
 `full_name` | `Martin Mrkvicka` | Full name of the user.
-`cn` | `` | No idea.
+`cn` | `.` | No idea.
 `given_name` | `Martin` | Given first name of the user.
 `upi` | `mmrkv12` | Unique Person Identifier.
 `scope_number` | `0` | Scopes the application has access to on behalf of the user.
