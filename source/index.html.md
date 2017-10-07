@@ -804,8 +804,8 @@ _Note: This endpoint only returns a maximum of 20 matches._
 ### Query Parameters
 
 ```shell
-curl https://uclapi.com/search/people \
--d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+curl -X GET https://uclapi.com/search/people \
+-d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
 -d query='Jane'
 ```
 
@@ -887,8 +887,9 @@ This endpoint returns the personal timetable of the user.
 ### Query Parameters
 
 ```shell
-curl https://uclapi.com/timetable/personal \
--d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb client_secret=secret
+curl -X GET https://uclapi.com/timetable/personal \
+-d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d client_secret=secret
 ```
 
 ```python
@@ -997,7 +998,10 @@ This endpoint returns a yearly timetable for the supplied modules.
 ### Query Parameters
 
 ```shell
-curl -x POST -d '{"modules": ["COMP3095"]}' https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret --header "Content-Type:application/json"
+curl -X GET https://uclapi.com/timetable/bymodule \
+-d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d client_secret=secret \
+-d modules=COMP3095,COMP3001
 ```
 
 ```python
@@ -1006,26 +1010,17 @@ import requests
 params = {
   "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
   "client_secret": "secret"
+  "modules": "COMP3095,COMP3001"
 }
 
-data = {
-    "modules": ["COMP3095"]
-}
-
-r = requests.post("https://uclapi.com/timetable/bymodule", params=params, data=data)
+r = requests.get("https://uclapi.com/timetable/bymodule", params=params)
 print(r.json())
 ```
 
 ```javascript
-
-var data = {
-    modules: ["COMP3095"]
-}
-
-fetch("https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret",
+fetch("https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret&modules=COMP3095,COMP3001",
 {
-    method: "POST",
-    body: JSON.stringify(data)
+    method: "GET",
 })
 .then((response) => {
   return response.json()
@@ -1039,7 +1034,7 @@ Parameter | Example | Required | Description
 --------- | ------- | -------- | -----------
 `token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
 `client_secret` | `mysecret` | Required | Client secret of the authenticating app.
-`modules` | `["COMP3095", "COMP3001"]` | Required | An array of the module codes you want the timetable of.
+`modules` | `COMP3095,COMP3001` | Required | A comma-separated list of the module codes you want the timetable of.
 
 ### Response
 
