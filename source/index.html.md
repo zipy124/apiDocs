@@ -82,6 +82,235 @@ fetch("https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad
 
 On the right hand side you'll see a code sample with the version data added. We are specifying that version `1` of the `roombookings` service should be used for the request URL `https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb`. You should amend the example accordingly for the service and API version you are using.
 
+# OAuth
+
+This is a quick guide to OAuth support in UCL API for developers. OAuth is a protocol that lets external apps request secure access to private UCL account data without getting your password. This can be done with a "Sign In With UCL" button on your website which avoids UCL users from needing to set up another account username and password. It also allows you as a developer to, for example, get a user's personal timetable.
+
+Sounds intriguing? Demo of "Sign In With UCL" is located [here](https://uclapi-oauth-demo.glitch.me).
+
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/uclapi-oauth-demo)
+
+## Sign In With UCL Button
+
+If you want to add a "Sign In With UCL" button to your website, which looks like this:
+
+![](https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png)
+
+you can copy the following the following code:
+
+```plaintext
+<a href="https://uclapi.com/oauth/authorise?client_id=CLIENT_ID&state=STATE">
+<img src="https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png">
+</a>
+```
+
+where `CLIENT_ID` and `STATE` should be replaced by `client_id` of your app and a random `state`.
+
+## Scopes
+
+OAuth scopes specify how your app needs to access a UCL user's account. As an app developer, you set the desired scopes in the [API Dashboard](https://uclapi.com/dashboard). When a user is responding to your authorisation request, the requested scopes will be displayed to the user.
+
+## OAuth Workflow
+
+If your application wants to use OAuth, you **must** set a callback URL in the dashboard. Then the app should follow this procedure:
+
+1. Send a request to `https://uclapi.com/oauth/authorise` with `state` and the application's `client_id`.
+
+2. The user will need to log in with their UCL credentials on the UCL Single Sign-on website (if not logged in already).
+
+3. The user will be allowed to either authorise or deny the application, based on the OAuth scope requested. If the application is authorised, the callback URL receives `client_id`, `state` (specified in 1.), `result`, and `code`.
+
+If the application is denied, the callback URL receives `result` and `state`, and no private data will be provided to the application.
+
+4. To receive the OAuth user token (for performing actions on user's behalf), we require `code` (from 3.), `client_id`, and `client_secret`. These should then be set to `https://uclapi.com/oauth/token`, which will return a response containing `state`, `ok`, `client_id`, `token` (OAuth user token), and `scope` (scopes the app can access on the user's behalf).
+
+## Authorise
+**Endpoint:**
+
+The base URL is: `https://uclapi.com/oauth/authorise`
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl https://uclapi.com/oauth/authorise/?client_id=123.456&state=1
+```
+
+```python
+import requests
+
+params = {
+  "client_id": "123.456",
+  "state": "1",
+}
+r = requests.get("https://uclapi.com/oauth/authorise", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/oauth/authorise/?client_id=123.456&state=1")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`client_id` | `123.456` | Required | Client ID of the authenticating app.
+`state` | `1` | Required | OAuth state.
+
+### Response
+
+Redirection to authorise page.
+
+### Errors
+
+Error | Description
+--------- | ---------
+`Incorrect parameters supplied.` | Gets returned when you have not supplied a `client_id` and a `state` in your request.
+`App does not exist for client id.` | Gets returned when you supply an invalid `client_id`.
+`No callback URL set for this app.` | Gets returned when you have not set a callback URL for your app.
+
+## Token
+
+**Endpoint:**
+
+The base URL is: `https://uclapi.com/oauth/token`
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl https://uclapi.com/oauth/token?code=mysecretcode&client_id=123.456&client_secret=secret
+```
+
+```python
+import requests
+
+params = {
+  "client_id": "123.456",
+  "code": "1",
+  "client_secret": "secret",
+}
+r = requests.get("https://uclapi.com/oauth/token", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/oauth/token?code=mysecretcode&client_id=123.456&client_secret=secret")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`client_id` | `123.456` | Required | Client ID of the authenticating app.
+`code` | `mysecretcode` | Required | Secret code obtained from the `authorise` endpoint.
+`client_secret` | `mysecret` | Required | Client secret of the authenticating app.
+
+### Response
+
+```json
+{
+    "scope": "[]",
+    "state": "1",
+    "ok": true,
+    "client_id": "123.456",
+    "token": "uclapi-user-abc-def-ghi-jkl",
+}
+```
+
+### Errors
+
+Error | Description
+--------- | ---------
+`The client did not provide requisite data to get the token.` | Gets returned when you have not supplied a `client_id`, `code`, `client_secret` in your request.
+`The code received was invalid, or has expired. Please try again.` | As error message.
+`Client secret incorrect.` | Gets returned when the client secret was incorrect.
+
+## User Data
+
+**Endpoint:**
+
+The base URL is: `https://uclapi.com/oauth/user/data`
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl https://uclapi.com/oauth/user/data?client_secret=secret&token=uclapi-user-abd-def-ghi-jkl
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-user-abd-def-ghi-jkl",
+  "client_secret": "secret",
+}
+r = requests.get("https://uclapi.com/oauth/token", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/oauth/user/data?client_secret=secret&token=uclapi-user-abd-def-ghi-jkl")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token` | `uclapi-user-abd-def-ghi-jkl` | Required | OAuth user token.
+`client_secret` | `mysecret` | Required | Client secret of the authenticating app.
+
+### Response
+
+```json
+{
+    "department": "Dept of Department",
+    "email": "xxxxxxx@ucl.ac.uk",
+    "ok": true,
+    "full_name": "Full Name",
+    "cn": "xxxxxxx",
+    "given_name": "Full",
+    "upi": "fname12",
+    "scope_number": 0,
+}
+```
+
+User Data Property | Example |  Description
+--------- | ---------- |  -----------
+`department` | `Dept Of Computer Science` | Department the user belongs to.
+`email` | `zcabmrk@ucl.ac.uk` | E-mail for the given user.
+`ok` | `true` | Returns if the query was successful.
+`full_name` | `Martin Mrkvicka` | Full name of the user.
+`cn` | `.` | No idea.
+`given_name` | `Martin` | Given first name of the user.
+`upi` | `mmrkv12` | Unique Person Identifier.
+`scope_number` | `0` | Scopes the application has access to on behalf of the user.
+
+### Errors
+
+Error | Description
+--------- | ---------
+`Token does not exist.` | Gets returned when `token` does not exist.
+`Client secret incorrect.` | Gets returned when the client secret was incorrect.
+
+
 # Room Bookings
 
 The base url is `https://uclapi.com/roombookings/`
