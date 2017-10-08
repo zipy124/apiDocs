@@ -877,7 +877,7 @@ Version Header | Latest Version
 -------------- | --------------
 `uclapi-timetable-version` | `1`
 
-## Get personal timetable
+## Get Personal Timetable
 **Endpoint:** `https://uclapi.com/timetable/personal`
 
 This endpoint returns the personal timetable of the user.
@@ -888,7 +888,7 @@ This endpoint returns the personal timetable of the user.
 
 ```shell
 curl -X GET https://uclapi.com/timetable/personal \
--d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
 -d client_secret=secret
 ```
 
@@ -896,7 +896,7 @@ curl -X GET https://uclapi.com/timetable/personal \
 import requests
 
 params = {
-  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "token": "uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
   "client_secret": "secret"
 }
 r = requests.get("https://uclapi.com/timetable/personal", params=params)
@@ -904,7 +904,7 @@ print(r.json())
 ```
 
 ```javascript
-fetch("https://uclapi.com/timetable/personal?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret")
+fetch("https://uclapi.com/timetable/personal?token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret")
 .then((response) => {
   return response.json()
 })
@@ -915,8 +915,9 @@ fetch("https://uclapi.com/timetable/personal?token=uclapi-5d58c3c4e6bf9c-c2910ad
 
 Parameter | Example | Required | Description
 --------- | ------- | -------- | -----------
-`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`token`   | `uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
 `client_secret` | `mysecret` | Required | Client secret of the authenticating app.
+`date_filter` | `2017-10-11` | Optional | A specific date to filter your results to.
 
 ### Response
 
@@ -988,18 +989,18 @@ Version Header | Latest Version
 -------------- | --------------
 `uclapi-timetable-version` | `1`
 
-## Get timetable for modules.
+## Get Timetable for Modules
 **Endpoint:** `https://uclapi.com/timetable/bymodule`
 
 This endpoint returns a yearly timetable for the supplied modules.
 
-**Allowed request type:** `POST`
+**Allowed request type:** `GET`
 
 ### Query Parameters
 
 ```shell
 curl -X GET https://uclapi.com/timetable/bymodule \
--d token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
 -d client_secret=secret \
 -d modules=COMP3095,COMP3001
 ```
@@ -1008,7 +1009,7 @@ curl -X GET https://uclapi.com/timetable/bymodule \
 import requests
 
 params = {
-  "token": "uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "token": "uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
   "client_secret": "secret"
   "modules": "COMP3095,COMP3001"
 }
@@ -1018,7 +1019,7 @@ print(r.json())
 ```
 
 ```javascript
-fetch("https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret&modules=COMP3095,COMP3001",
+fetch("https://uclapi.com/timetable/bymodule?token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret&modules=COMP3095,COMP3001",
 {
     method: "GET",
 })
@@ -1032,9 +1033,10 @@ fetch("https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad
 
 Parameter | Example | Required | Description
 --------- | ------- | -------- | -----------
-`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`token`   | `uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
 `client_secret` | `mysecret` | Required | Client secret of the authenticating app.
 `modules` | `COMP3095,COMP3001` | Required | A comma-separated list of the module codes you want the timetable of.
+`date_filter` | `2017-10-11` | Optional | A specific date to filter your results to.
 
 ### Response
 
@@ -1104,7 +1106,314 @@ Error | Description
 --------- | ---------
 `No token provided` | Gets returned when you have not supplied a `token` in your request.
 `OAuth token doesn't exist.` | Gets returned when you supply an invalid `token`.
-`No module ids provided.` | No module ids provided in post request.
+`No module IDs provided.` | No module ids provided in post request.
+`Invalid module IDs provided.` | For some reason the code was unable to divide the module IDs you passed up by comma. Ensure you pass a comma delimited list of module IDs with no spaces or trailing commas, such as `COMP101P` or `COMP101P,COMP210P,ELEC210P`.
+`One or more invalid Module IDs supplied.` | One or more of the module IDs you provided does not exist. Consider using `/data/modules` (in tandem with `/data/departments`) to get a list of valid module IDs.
+
+## Get Departments
+**Endpoint:** `https://uclapi.com/timetable/data/departments`
+
+This endpoint returns all the departments at UCL.
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl -X GET https://uclapi.com/timetable/data/departments \
+-d token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d client_secret=secret
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "client_secret": "secret"
+}
+r = requests.get("https://uclapi.com/timetable/data/departments", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/timetable/data/departments?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`client_secret` | `mysecret` | Required | Client secret of the authenticating app.
+
+### Response
+
+```json
+{
+  "departments": [
+    ...,
+    {
+        "name": "SOCSC LC - Social Science Research Unit",
+        "department_id": "SOC01_IOE"
+    },
+    {
+        "name": "EDPAS LC - Humanities and Social Sciences",
+        "department_id": "EDP01_IOE"
+    },
+    {
+        "name": "UCL School of Management - MGT SCI",
+        "department_id": "MANA2_ENG"
+    },
+    {
+        "name": "Medical Physics and Biomedical Engineering - biomed eng",
+        "department_id": "MPHB2_ENG"
+    },
+    {
+        "name": "Medical Physics and Biomedical Engineering - medphys",
+        "department_id": "MPHB1_ENG"
+    },
+    {
+        "name": "UCL School of Management - IMB",
+        "department_id": "MANA1_ENG"
+    }
+  ],
+  "ok": true
+}
+```
+
+The `department_id` field should be used for the course and module list endpoints (following).
+
+### Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`OAuth token doesn't exist.` | Gets returned when you supply an invalid `token`.
+
+The base url is `https://uclapi.com/timetable/`
+
+Version Header | Latest Version
+-------------- | --------------
+`uclapi-timetable-version` | `1`
+
+
+## Get Courses for a Department
+**Endpoint:** `https://uclapi.com/timetable/data/courses`
+
+This endpoint returns all the courses a particular department at UCL offers.
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl -X GET https://uclapi.com/timetable/data/courses \
+-d token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d client_secret=secret \
+-d department=DEPARTMENT_ID
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "client_secret": "secret",
+  "department": "DEPARTMENT_ID"
+}
+r = requests.get("https://uclapi.com/timetable/data/courses", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/timetable/data/courses?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret&department=DEPARTMENT_ID")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`client_secret` | `mysecret` | Required | Client secret of the authenticating app.
+`department` | `COMPS_ENG` | Required | ID of the department. Available from the `/data/departments` endpoint.
+
+### Response
+
+```json
+{
+    "courses": [
+        {
+            "course_id": "TMSCOMSCFI01",
+            "course_name": "MSc Computational Finance",
+            "years": 1
+        },
+        {
+            "course_id": "TPPCOMSING01",
+            "course_name": "PG Dip Computer Science",
+            "years": 1
+        },
+        {
+            "course_id": "UMNCOMSMAI05",
+            "course_name": "MEng Mathematical Computation (International Programme)",
+            "years": 4
+        },
+        {
+            "course_id": "RRDCOMSING01",
+            "course_name": "Research Degree:  Computer Science",
+            "years": 3
+        },
+        {
+            "course_id": "RRDCOMSFNC01",
+            "course_name": "Research Degree: Financial Computing",
+            "years": 3
+        }
+    ],
+    "ok": true
+}
+```
+
+Attribute | Example | Description
+--------- | ------- | -----------
+`course_id` | `TPPCOMSING01` | The internal ID of the course being offered
+`course_name` | `MSc Computational Finance` | A human-readable degree course name
+`years` | `3` | The number of years the course requires for completion
+
+
+### Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`OAuth token doesn't exist.` | Gets returned when you supply an invalid `token`.
+`Supply a Department ID using the department parameter.` | Gets returned when you have not supplied a `department` ID parameter in your request.
+
+The base url is `https://uclapi.com/timetable/`
+
+Version Header | Latest Version
+-------------- | --------------
+`uclapi-timetable-version` | `1`
+
+
+## Get Modules for a Department
+**Endpoint:** `https://uclapi.com/timetable/data/modules`
+
+This endpoint returns all the modules a particular department at UCL offers.
+
+**Allowed request type:** `GET`
+
+### Query Parameters
+
+```shell
+curl -X GET https://uclapi.com/timetable/data/modules \
+-d token=uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb \
+-d client_secret=secret \
+-d department=DEPARTMENT_ID
+```
+
+```python
+import requests
+
+params = {
+  "token": "uclapi-user-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb",
+  "client_secret": "secret",
+  "department": "DEPARTMENT_ID"
+}
+r = requests.get("https://uclapi.com/timetable/data/modules", params=params)
+print(r.json())
+```
+
+```javascript
+fetch("https://uclapi.com/timetable/data/modules?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&client_secret=secret&department=DEPARTMENT_ID")
+.then((response) => {
+  return response.json()
+})
+.then((json) => {
+  console.log(json);
+})
+```
+
+Parameter | Example | Required | Description
+--------- | ------- | -------- | -----------
+`token`   | `uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb` | Required | OAuth token.
+`client_secret` | `mysecret` | Required | Client secret of the authenticating app.
+`department` | `COMPS_ENG` | Required | ID of the department. Available from the `/data/departments` endpoint.
+
+### Response
+
+```json
+{
+    "ok": true,
+    "modules": [
+        {
+            "name": "Theory I",
+            "module_code": "COMP1B12",
+            "module_id": "COMP102P",
+            "class_size": 150
+        },
+        {
+            "name": "Mathematical Methods, Implementations and Algorithmics (Masters Level)",
+            "module_code": "COMP4C72",
+            "module_id": "COMPM072",
+            "class_size": 10
+        },
+        {
+            "name": "Evaluating Critical Topics in Virtual Environments, Imaging and Visualisation",
+            "module_code": "",
+            "module_id": "COMPGR04",
+            "class_size": 8
+        },
+        {
+            "name": "Robotic Control Theory and Systems",
+            "module_code": "",
+            "module_id": "COMPGX02",
+            "class_size": 50
+        },
+        {
+            "name": "Advanced Deep Learning and Reinforcement Learning",
+            "module_code": "",
+            "module_id": "COMPMI22",
+            "class_size": 20
+        },
+        {
+            "name": "Supervised Learning A",
+            "module_code": "COMPGI01",
+            "module_id": "COMPGI01A",
+            "class_size": 0
+        }
+    ]
+}
+```
+
+Attribute | Example | Description
+--------- | ------- | -----------
+`name` | `Theory I` | The human-readable module name
+`module_code` | `COMP1B12` | An internal code name for the module. Sometimes this can differentiate between duplicate modules.
+`module_id` | `COMP102P` | The only Module ID you should need. Whenever we refer to a module's ID we refer by default to this value. It is usually what the module will be called on the UCL website and in Moodle.
+`class_size` | `150` | The typical size of the class. This realistically cannot be enforced as a hard limit as core modules must be taken by the whole cohort regardless of intake size.
+
+
+### Errors
+
+Error | Description
+--------- | ---------
+`No token provided` | Gets returned when you have not supplied a `token` in your request.
+`OAuth token doesn't exist.` | Gets returned when you supply an invalid `token`.
+`Supply a Department ID using the department parameter.` | Gets returned when you have not supplied a `department` ID parameter in your request.
+
+The base url is `https://uclapi.com/timetable/`
+
+Version Header | Latest Version
+-------------- | --------------
+`uclapi-timetable-version` | `1`
 
 
 # Get Involved
