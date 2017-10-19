@@ -361,7 +361,7 @@ Parameter | Example | Required | Description
 `roomid` | `433` | Optional | The room ID (not to be confused, with the `roomname`).
 `siteid` | `086`| Optional | Every room is inside a site (building). All sites have IDs.
 `sitename` | `Torrington Place, 1-19`| Optional | Every site (building) has a name. In some cases this is contained in the `roomname` as well.
-`classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
+`classification` | `CR`| Optional | The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster, `CFE` = Cafe, `TH` = Theater.
 `capacity` | `55`| Optional | Every room has a set capacity of how many people can fit inside it. When supplied, all rooms with the given capacity or greater will be returned.
 
 ### Response
@@ -405,7 +405,7 @@ Room Property | Example |  Description
 `siteid` | `005`| Every room is inside a site (building). All sites have IDs.
 `sitename` | `Main Building` | The name of the site (building).
 `capacity` | `50` | The number of people that can fit in the room.
-`classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster.
+`classification` | `SS`| The type of room. `LT` = Lecture Theatre, `CR` = Classroom, `SS` = Social Space, `PC1` = Public Cluster,`CFE` = Cafe, `TH` = Theater.
 `automated` | `N` | Whether bookings in this room will be confirmed automatically. `A` stands for automated, and `N` for not automated. `P` represents that the confirmation will be automatic, but only under certain circumstances.
 `location` | - | Contains an object with two keys `address`, and `coordinates`. `address` contains an array of address information, which when combined will make up a complete address. <br /> `coordinates` contains a `lat` and `lng` key with the latitude and longitude of the room.
 
