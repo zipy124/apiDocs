@@ -1,0 +1,1863 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
+    <title>UCL API Reference</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #303030;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.svg" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">Shell</a>
+              <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="javascript">JavaScript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='https://uclapi.com/dashboard/'>Get an API Key</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="welcome">Welcome</h1>
+
+<p>Yay, you made it! 🎉</p>
+
+<p>Welcome to the documentation for UCL&rsquo;s brand new open API. Each service is listed below with examples in three different programming languages (Shell script using cURL, Python and JavaScript) to help you get going as quickly as possible.</p>
+
+<p>The API will be made up of several services, each of which will be separately versioned and explained. Every service will be documented here with important information, tips and examples.</p>
+
+<h2 id="get-your-api-key">Get Your API Key</h2>
+
+<p>Before you can use the API you should head to the <a href="https://uclapi.com/dashboard">API Dashboard</a> and sign up using your UCL user account. Once logged into the dashboard simply name your app and you&rsquo;ll be given a key that you can use to access all the services. Simples!</p>
+
+<h2 id="api-rate-limits">API Rate Limits</h2>
+
+<p>Rate limiting of the API is primarily on a per-user basis. The limit is calculated against user&rsquo;s ID (e-mail) across all access tokens.</p>
+
+<p>The limit is 10 000 requests per day and resets every day midnight London time. (00:00 GMT)</p>
+
+<p>When a request is throttled, the response returned by the server has HTTP Status Code &ldquo;429 Too Many Requests&rdquo;. It includes a <code class="prettyprint">Retry-After</code> header with the number of seconds the client is throttled for.</p>
+
+<p>If you would like your rate limit to be increased, contact us at isd.apiteam@ucl.ac.uk</p>
+
+<h1 id="version-information">Version Information</h1>
+
+<p>Each service has a header named <code class="prettyprint">uclapi-servicenamehere-version</code> which you can add to your requests, where <code class="prettyprint">servicenamehere</code> is the endpoint name for the service you are using. For example, for the Room Bookings service you would set the <code class="prettyprint">uclapi-roombookings-version</code> header.</p>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s2">"uclapi-roombookings-version: 1"</span> https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span>
+<span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"uclapi-roombookings-version"</span><span class="p">:</span> <span class="s">"1"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/rooms"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">myHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">();</span>
+<span class="nx">myHeaders</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">"uclapi-roombookings-version"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">initData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">myHeaders</span><span class="p">,</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="s1">'cors'</span><span class="p">,</span>
+  <span class="na">cache</span><span class="p">:</span> <span class="s1">'default'</span>
+<span class="p">};</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span> <span class="nx">initData</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+<aside class="warning">
+  <strong>Really Important Warning</strong>
+  <hr>
+  <ul>
+    <li>By default, every UCL API request gets sent to the <strong>latest version</strong> of the service you requested.</li>
+    <li>This is okay for test purposes.</li>
+    <li>If you are deploying into production you must follow the versioning instructions to ensure you are not affected by breaking changes.</li>
+  </ul>
+</aside>
+
+<p>On the right hand side you&rsquo;ll see a code sample with the version data added. We are specifying that version <code class="prettyprint">1</code> of the <code class="prettyprint">roombookings</code> service should be used for the request URL <code class="prettyprint">https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code>. You should amend the example accordingly for the service and API version you are using.</p>
+
+<h1 id="oauth">OAuth</h1>
+
+<p>This is a quick guide to OAuth support in UCL API for developers. OAuth is a protocol that lets external apps request secure access to private UCL account data without getting your password. This can be done with a &ldquo;Sign In With UCL&rdquo; button on your website which avoids UCL users from needing to set up another account username and password. It also allows you as a developer to, for example, get a user&rsquo;s personal timetable.</p>
+
+<p>Sounds intriguing? Demo of &ldquo;Sign In With UCL&rdquo; is located <a href="https://uclapi-oauth-demo.glitch.me">here</a>.</p>
+
+<p><a href="https://glitch.com/edit/#!/remix/uclapi-oauth-demo"><img src="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" alt="Remix on Glitch" /></a></p>
+
+<h2 id="sign-in-with-ucl-button">Sign In With UCL Button</h2>
+
+<p>If you want to add a &ldquo;Sign In With UCL&rdquo; button to your website, which looks like this:</p>
+
+<p><img src="https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png" alt="Signinwithuclsmall" /></p>
+
+<p>you can copy the following the following code:</p>
+<pre class="highlight plaintext tab-plaintext"><code>&lt;a href="https://uclapi.com/oauth/authorise?client_id=CLIENT_ID&amp;state=STATE"&gt;
+&lt;img src="https://s3.eu-west-2.amazonaws.com/uclapi-static/SignInWithUCLSmall.png"&gt;
+&lt;/a&gt;
+</code></pre>
+<p>where <code class="prettyprint">CLIENT_ID</code> and <code class="prettyprint">STATE</code> should be replaced by <code class="prettyprint">client_id</code> of your app and a random <code class="prettyprint">state</code>.</p>
+
+<h2 id="scopes">Scopes</h2>
+
+<p>OAuth scopes specify how your app needs to access a UCL user&rsquo;s account. As an app developer, you set the desired scopes in the <a href="https://uclapi.com/dashboard">API Dashboard</a>. When a user is responding to your authorisation request, the requested scopes will be displayed to the user.</p>
+
+<h2 id="oauth-workflow">OAuth Workflow</h2>
+
+<p>If your application wants to use OAuth, you <strong>must</strong> set a callback URL in the dashboard. Then the app should follow this procedure:</p>
+
+<ol>
+<li><p>Send a request to <code class="prettyprint">https://uclapi.com/oauth/authorise</code> with <code class="prettyprint">state</code> and the application&rsquo;s <code class="prettyprint">client_id</code>.</p></li>
+<li><p>The user will need to log in with their UCL credentials on the UCL Single Sign-on website (if not logged in already).</p></li>
+<li><p>The user will be allowed to either authorise or deny the application, based on the OAuth scope requested. If the application is authorised, the callback URL receives <code class="prettyprint">client_id</code>, <code class="prettyprint">state</code> (specified in 1.), <code class="prettyprint">result</code>, and <code class="prettyprint">code</code>.</p></li>
+</ol>
+
+<p>If the application is denied, the callback URL receives <code class="prettyprint">result</code> and <code class="prettyprint">state</code>, and no private data will be provided to the application.</p>
+
+<ol>
+<li>To receive the OAuth user token (for performing actions on user&rsquo;s behalf), we require <code class="prettyprint">code</code> (from 3.), <code class="prettyprint">client_id</code>, and <code class="prettyprint">client_secret</code>. These should then be set to <code class="prettyprint">https://uclapi.com/oauth/token</code>, which will return a response containing <code class="prettyprint">state</code>, <code class="prettyprint">ok</code>, <code class="prettyprint">client_id</code>, <code class="prettyprint">token</code> (OAuth user token), and <code class="prettyprint">scope</code> (scopes the app can access on the user&rsquo;s behalf).</li>
+</ol>
+
+<h2 id="authorise">Authorise</h2>
+
+<p><strong>Endpoint:</strong></p>
+
+<p>The base URL is: <code class="prettyprint">https://uclapi.com/oauth/authorise</code></p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/oauth/authorise/?client_id<span class="o">=</span>123.456&amp;state<span class="o">=</span>1
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"client_id"</span><span class="p">:</span> <span class="s">"123.456"</span><span class="p">,</span>
+  <span class="s">"state"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/oauth/authorise"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/oauth/authorise/?client_id=123.456&amp;state=1"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">client_id</code></td>
+<td><code class="prettyprint">123.456</code></td>
+<td>Required</td>
+<td>Client ID of the authenticating app.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">state</code></td>
+<td><code class="prettyprint">1</code></td>
+<td>Required</td>
+<td>OAuth state.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+
+<p>Redirection to authorise page.</p>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">Incorrect parameters supplied.</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">client_id</code> and a <code class="prettyprint">state</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">App does not exist for client id.</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">client_id</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">No callback URL set for this app.</code></td>
+<td>Gets returned when you have not set a callback URL for your app.</td>
+</tr>
+</tbody></table>
+
+<h2 id="token">Token</h2>
+
+<p><strong>Endpoint:</strong></p>
+
+<p>The base URL is: <code class="prettyprint">https://uclapi.com/oauth/token</code></p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/oauth/token?code<span class="o">=</span>mysecretcode&amp;client_id<span class="o">=</span>123.456&amp;client_secret<span class="o">=</span>secret
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"client_id"</span><span class="p">:</span> <span class="s">"123.456"</span><span class="p">,</span>
+  <span class="s">"code"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>
+  <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"secret"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/oauth/token"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/oauth/token?code=mysecretcode&amp;client_id=123.456&amp;client_secret=secret"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">client_id</code></td>
+<td><code class="prettyprint">123.456</code></td>
+<td>Required</td>
+<td>Client ID of the authenticating app.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">code</code></td>
+<td><code class="prettyprint">mysecretcode</code></td>
+<td>Required</td>
+<td>Secret code obtained from the <code class="prettyprint">authorise</code> endpoint.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_secret</code></td>
+<td><code class="prettyprint">mysecret</code></td>
+<td>Required</td>
+<td>Client secret of the authenticating app.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[]"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123.456"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uclapi-user-abc-def-ghi-jkl"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">The client did not provide requisite data to get the token.</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">client_id</code>, <code class="prettyprint">code</code>, <code class="prettyprint">client_secret</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">The code received was invalid, or has expired. Please try again.</code></td>
+<td>As error message.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Client secret incorrect.</code></td>
+<td>Gets returned when the client secret was incorrect.</td>
+</tr>
+</tbody></table>
+
+<h2 id="user-data">User Data</h2>
+
+<p><strong>Endpoint:</strong></p>
+
+<p>The base URL is: <code class="prettyprint">https://uclapi.com/oauth/user/data</code></p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/oauth/user/data?client_secret<span class="o">=</span>secret&amp;token<span class="o">=</span>uclapi-user-abd-def-ghi-jkl
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-user-abd-def-ghi-jkl"</span><span class="p">,</span>
+  <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"secret"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/oauth/token"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/oauth/user/data?client_secret=secret&amp;token=uclapi-user-abd-def-ghi-jkl"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-user-abd-def-ghi-jkl</code></td>
+<td>Required</td>
+<td>OAuth user token.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_secret</code></td>
+<td><code class="prettyprint">mysecret</code></td>
+<td>Required</td>
+<td>Client secret of the authenticating app.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"department"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dept of Department"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxx@ucl.ac.uk"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full Name"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxx"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"given_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"upi"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fname12"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"scope_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>User Data Property</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">department</code></td>
+<td><code class="prettyprint">Dept Of Computer Science</code></td>
+<td>Department the user belongs to.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">email</code></td>
+<td><code class="prettyprint">zcabmrk@ucl.ac.uk</code></td>
+<td>E-mail for the given user.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">ok</code></td>
+<td><code class="prettyprint">true</code></td>
+<td>Returns if the query was successful.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">full_name</code></td>
+<td><code class="prettyprint">Martin Mrkvicka</code></td>
+<td>Full name of the user.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">cn</code></td>
+<td><code class="prettyprint">.</code></td>
+<td>No idea.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">given_name</code></td>
+<td><code class="prettyprint">Martin</code></td>
+<td>Given first name of the user.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">upi</code></td>
+<td><code class="prettyprint">mmrkv12</code></td>
+<td>Unique Person Identifier.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">scope_number</code></td>
+<td><code class="prettyprint">0</code></td>
+<td>Scopes the application has access to on behalf of the user.</td>
+</tr>
+</tbody></table>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">Token does not exist.</code></td>
+<td>Gets returned when <code class="prettyprint">token</code> does not exist.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Client secret incorrect.</code></td>
+<td>Gets returned when the client secret was incorrect.</td>
+</tr>
+</tbody></table>
+
+<h1 id="room-bookings">Room Bookings</h1>
+
+<p>The base url is <code class="prettyprint">https://uclapi.com/roombookings/</code></p>
+
+<table><thead>
+<tr>
+<th>Version Header</th>
+<th>Latest Version</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uclapi-roombookings-version</code></td>
+<td><code class="prettyprint">1</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="get-rooms">Get Rooms</h2>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/rooms</code></p>
+
+<p>This endpoint returns rooms and information about them.
+If you don&rsquo;t specify any query parameters besides the <code class="prettyprint">token</code>, all rooms will be returned.<br>
+<em>Note: This endpoint only returns publicly bookable rooms. Departmentally bookable rooms are not included.</em></p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/rooms?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/rooms"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/rooms?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">roomname</code></td>
+<td><code class="prettyprint">Torrington (1-19) 433</code></td>
+<td>Optional</td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">roomid</code></td>
+<td><code class="prettyprint">433</code></td>
+<td>Optional</td>
+<td>The room ID (not to be confused, with the <code class="prettyprint">roomname</code>).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">siteid</code></td>
+<td><code class="prettyprint">086</code></td>
+<td>Optional</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sitename</code></td>
+<td><code class="prettyprint">Torrington Place, 1-19</code></td>
+<td>Optional</td>
+<td>Every site (building) has a name. In some cases this is contained in the <code class="prettyprint">roomname</code> as well.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">classification</code></td>
+<td><code class="prettyprint">CR</code></td>
+<td>Optional</td>
+<td>The type of room. <code class="prettyprint">LT</code> = Lecture Theatre, <code class="prettyprint">CR</code> = Classroom, <code class="prettyprint">SS</code> = Social Space, <code class="prettyprint">PC1</code> = Public Cluster, <code class="prettyprint">CFE</code> = Cafe, <code class="prettyprint">TH</code> = Theater.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">capacity</code></td>
+<td><code class="prettyprint">55</code></td>
+<td>Optional</td>
+<td>Every room has a set capacity of how many people can fit inside it. When supplied, all rooms with the given capacity or greater will be returned.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rooms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"roomname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wilkins Building (Main Building) Portico"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Z4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"siteid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"005"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"sitename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main Building"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"classification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"automated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"lat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"51.524699"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"lng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-0.13366"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"Gower Street"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"WC1E 6BT"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">""</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The room field contains a list of rooms that match your query. If no filters are applied, all rooms will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Room Property</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">roomname</code></td>
+<td><code class="prettyprint">Wilkins Building (Main Building) Portico</code></td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">roomid</code></td>
+<td><code class="prettyprint">Z4</code></td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">siteid</code></td>
+<td><code class="prettyprint">005</code></td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sitename</code></td>
+<td><code class="prettyprint">Main Building</code></td>
+<td>The name of the site (building).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">capacity</code></td>
+<td><code class="prettyprint">50</code></td>
+<td>The number of people that can fit in the room.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">classification</code></td>
+<td><code class="prettyprint">SS</code></td>
+<td>The type of room. <code class="prettyprint">LT</code> = Lecture Theatre, <code class="prettyprint">CR</code> = Classroom, <code class="prettyprint">SS</code> = Social Space, <code class="prettyprint">PC1</code> = Public Cluster,<code class="prettyprint">CFE</code> = Cafe, <code class="prettyprint">TH</code> = Theater.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">automated</code></td>
+<td><code class="prettyprint">N</code></td>
+<td>Whether bookings in this room will be confirmed automatically. <code class="prettyprint">A</code> stands for automated, and <code class="prettyprint">N</code> for not automated. <code class="prettyprint">P</code> represents that the confirmation will be automatic, but only under certain circumstances.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">location</code></td>
+<td>-</td>
+<td>Contains an object with two keys <code class="prettyprint">address</code>, and <code class="prettyprint">coordinates</code>. <code class="prettyprint">address</code> contains an array of address information, which when combined will make up a complete address. <br /> <code class="prettyprint">coordinates</code> contains a <code class="prettyprint">lat</code> and <code class="prettyprint">lng</code> key with the latitude and longitude of the room.</td>
+</tr>
+</tbody></table>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Token does not exist</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-bookings">Get Bookings</h2>
+
+<h3 id="regular-request">Regular Request</h3>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/bookings</code></p>
+
+<p>This endpoint shows the results to a bookings or space availability query. It returns a paginated list of bookings.
+<em>Note: This endpoint only returns publicly displayed bookings. Departmental bookings are not included.</em></p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h4 id="query-parameters">Query Parameters</h4>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact<span class="o">=</span>Mark
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"contact"</span><span class="p">:</span> <span class="s">"Mark"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;contact=Mark"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token.</td>
+</tr>
+<tr>
+<td>roomname</td>
+<td><code class="prettyprint">Cruciform Building B.3.05</code></td>
+<td>Optional</td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td>roomid</td>
+<td><code class="prettyprint">433</code></td>
+<td>Optional</td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
+</tr>
+<tr>
+<td>start_datetime</td>
+<td><code class="prettyprint">2011-03-06T03:36:45+00:00</code></td>
+<td>Optional</td>
+<td>Start datetime of the booking. Returns bookings with a <code class="prettyprint">start_datetime</code> after the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>end_datetime</td>
+<td><code class="prettyprint">2011-03-06T03:36:45+00:00</code></td>
+<td>Optional</td>
+<td>End datetime of the booking. Returns bookings with an <code class="prettyprint">end_datetime</code> before the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>date</td>
+<td><code class="prettyprint">20160202</code></td>
+<td>Optional</td>
+<td>Date of the bookings you need, in the format <em>YYYYMMDD</em>. Returns bookings occurring on this day. <strong>This query parameter is only considered when <code class="prettyprint">end_datetime</code> and <code class="prettyprint">start_datetime</code> are not supplied.</strong></td>
+</tr>
+<tr>
+<td>siteid</td>
+<td><code class="prettyprint">086</code></td>
+<td>Optional</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code class="prettyprint">Lecture</code></td>
+<td>Optional</td>
+<td>Describes what the booking is. Could contain a module code (for example <code class="prettyprint">WIBRG005</code>) or just the type of activity (for example <code class="prettyprint">Lecture</code>).</td>
+</tr>
+<tr>
+<td>contact</td>
+<td><code class="prettyprint">Mark Herbster</code></td>
+<td>Optional</td>
+<td>The name of the person who made the booking. Substrings of the contact name can be used: Queries for <code class="prettyprint">Mark</code> will include <code class="prettyprint">Mark Herbster</code>. Sometimes, a society or student group may be the contact for a booking.</td>
+</tr>
+<tr>
+<td>results_per_page</td>
+<td><code class="prettyprint">50</code></td>
+<td>Optional</td>
+<td>Number of bookings returned per page. Maximum allowed value is <code class="prettyprint">1000</code>. Defaults to <code class="prettyprint">1000</code>.</td>
+</tr>
+</tbody></table>
+
+<h4 id="response">Response</h4>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">  
+          </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">998503</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-02T18:00:00+00:00"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"split weeks to assist rooming 29.06"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"roomname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Torrington (1-19) 433"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"siteid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"086"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ms Leah Markwick"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"weeknumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"433"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-02T09:00:00+00:00"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45699"</span><span class="w">
+       </span><span class="p">},</span><span class="w">
+       </span><span class="err">...</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6hb14hXjRV"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1197</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ok</td>
+<td><code class="prettyprint">true</code></td>
+<td>Boolean indicating whether the request was successful.</td>
+</tr>
+<tr>
+<td>bookings</td>
+<td>-</td>
+<td>An array of booking objects.</td>
+</tr>
+<tr>
+<td>next_page_exists</td>
+<td><code class="prettyprint">true</code></td>
+<td>True if there is another page containing more bookings.</td>
+</tr>
+<tr>
+<td>page_token</td>
+<td><code class="prettyprint">6hb14hXjRV</code></td>
+<td>Page token parameter that needs to be supplied to view subsequent pages. Only included when the next page exists.</td>
+</tr>
+<tr>
+<td>count</td>
+<td><code class="prettyprint">1197</code></td>
+<td>Total number of bookings matching the query. The <code class="prettyprint">count</code> field will only be in the first response to a query</td>
+</tr>
+</tbody></table>
+
+<p>The bookings array contains booking objects, which each have the following properties.</p>
+
+<table><thead>
+<tr>
+<th>Booking Property</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>slotid</td>
+<td><code class="prettyprint">1024991</code></td>
+<td>An ID for the booking. Combined with <code class="prettyprint">weeknumber</code> they can be assumed to be almost unique.</td>
+</tr>
+<tr>
+<td>contact</td>
+<td><code class="prettyprint">Wilhelm Klopp - UCLU Tech Society</code></td>
+<td>Name of the person (and society/student group, if applicable) who made the booking.</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td><code class="prettyprint">2016-10-20T18:00:00+00:00</code></td>
+<td>Start datetime of the booking. Returns bookings with a <code class="prettyprint">start_datetime</code> after the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td><code class="prettyprint">2016-10-20T19:00:00+00:00</code></td>
+<td>End datetime of the booking. Returns bookings with an <code class="prettyprint">end_datetime</code> before the one supplied. Follows the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 formatting standard</a>.</td>
+</tr>
+<tr>
+<td>roomname</td>
+<td><code class="prettyprint">Cruciform Building B.3.05</code></td>
+<td>The name of the room. It often includes the name of the site (building) as well.</td>
+</tr>
+<tr>
+<td>roomid</td>
+<td><code class="prettyprint">B305</code></td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>).</td>
+</tr>
+<tr>
+<td>siteid</td>
+<td><code class="prettyprint">044</code></td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
+</tr>
+<tr>
+<td>weeknumber</td>
+<td><code class="prettyprint">8</code></td>
+<td>The week the booking is in.</td>
+</tr>
+<tr>
+<td>phone</td>
+<td><code class="prettyprint">45699</code></td>
+<td>Phone number of the room (UCL extension).</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code class="prettyprint">Lecture</code></td>
+<td>Describes what the booking is. Could contain a module code (for example WIBRG005) or just the type of activity (for example Lecture).</td>
+</tr>
+</tbody></table>
+
+<h3 id="paginated-request">Paginated Request</h3>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/bookings</code></p>
+
+<p>Paginated requests also go to the <code class="prettyprint">/bookings</code> endpoint but, unlike the regular requests, only the <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code> should be supplied. All other filters are &ldquo;remembered&rdquo; from the initiating regular request.</p>
+
+<p>The API &ldquo;remembers&rdquo; how many requests you&rsquo;ve made, so to move through the pages you can keep making the same request (with the same <code class="prettyprint">token</code> and <code class="prettyprint">page_token</code>) until the response&rsquo;s <code class="prettyprint">next_page_exists</code> field is <code class="prettyprint">false</code>.</p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h4 id="query-parameters">Query Parameters</h4>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/bookings?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token<span class="o">=</span>6hb14hXjRV
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"page_token"</span><span class="p">:</span> <span class="s">"6hb14hXjRV"</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/bookings"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/bookings?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;page_token=6hb14hXjRV"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token</td>
+</tr>
+<tr>
+<td><code class="prettyprint">page_token</code></td>
+<td><code class="prettyprint">6hb14hXjRV</code></td>
+<td>Required</td>
+<td>Page token received in initial <code class="prettyprint">/bookings</code> request. The page token does not change as you paginate through the results.</td>
+</tr>
+</tbody></table>
+
+<h4 id="response">Response</h4>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"page_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wmCUiJgItq"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next_page_exists"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bookings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"roomname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Christopher Ingold Building XLG2 Auditorium"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">733044</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"siteid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"067"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-20T13:00:00+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XLG2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"weeknumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-20T14:00:00+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dr Mark Roberts"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The response to a paginated request is identical to that of a regular request, except that no <code class="prettyprint">count</code> field is provided.</p>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Token does not exist</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">date/time isn&#39;t formatted as suggested in the docs</code></td>
+<td>Passed datetime parameter does not conform to the ISO8601 format</td>
+</tr>
+<tr>
+<td><code class="prettyprint">results_per_page should be an integer</code></td>
+<td><code class="prettyprint">results_per_page</code> should always be an integer.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Page token does not exist</code></td>
+<td>The passed <code class="prettyprint">page_token</code> parameter isn&rsquo;t a valid one.</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-equipment">Get Equipment</h2>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/roombookings/equipment</code></p>
+
+<p>This endpoint returns any equipment/feature information about a specific room. So, for example whether there is a <code class="prettyprint">Whiteboard</code> or a <code class="prettyprint">DVD Player</code> in the room. A full example can be seen <a href="https://roombooking.ucl.ac.uk/rb/bookableSpace/roomInfo.html?room=B15B&amp;building=016&amp;invoker=EFD">here.</a></p>
+
+<p>You <em>need</em> to supply a <code class="prettyprint">token</code>, <code class="prettyprint">roomid</code>, and <code class="prettyprint">siteid</code> to get a response.</p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl https://uclapi.com/roombookings/equipment?token<span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;roomid<span class="o">=</span>433&amp;siteid<span class="o">=</span>086
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"roomid"</span><span class="p">:</span> <span class="s">"433"</span>
+  <span class="s">"siteid"</span><span class="p">:</span> <span class="s">"086"</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/roombookings/equipment"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/roombookings/equipment?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;roomid=433&amp;siteid=086"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+  <span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token</td>
+</tr>
+<tr>
+<td><code class="prettyprint">roomid</code></td>
+<td><code class="prettyprint">433</code></td>
+<td>Required</td>
+<td>The room ID (not to be confused with the <code class="prettyprint">roomname</code>)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">siteid</code></td>
+<td><code class="prettyprint">086</code></td>
+<td>Required</td>
+<td>Every room is inside a site (building). All sites have IDs.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"equipment"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Managed PC"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"units"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chairs with Tables"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"units"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The equipment field contains a list of equipment items. This list can have a different length depending on the room, and it can also be empty.</p>
+
+<p>Each equipment item contains a <code class="prettyprint">type</code>, a <code class="prettyprint">description</code>, and the number of <code class="prettyprint">units</code>.</p>
+
+<table><thead>
+<tr>
+<th>Equipment Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td><code class="prettyprint">FE</code></td>
+<td>The type of equipment. Either Fixed Equipment (<code class="prettyprint">FE</code>) or Fixed Feature (<code class="prettyprint">FF</code>).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">description</code></td>
+<td><code class="prettyprint">Managed PC</code></td>
+<td>What the piece of equipment actually is.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">units</code></td>
+<td><code class="prettyprint">1</code></td>
+<td>The number of times this piece of equipment exists in the room.</td>
+</tr>
+</tbody></table>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Token does not exist</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">No roomid supplied</code></td>
+<td>Gets returned when you don&rsquo;t supply a <code class="prettyprint">roomid</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">No siteid supplied</code></td>
+<td>Gets returned when you don&rsquo;t supply a <code class="prettyprint">siteid</code>.</td>
+</tr>
+</tbody></table>
+
+<h2 id="webhooks">Webhooks</h2>
+
+<p>With webhooks, you don&rsquo;t send HTTP requests to us, <em>we</em> send HTTP requests to you.
+This is useful for data that changes frequently, such as room bookings. Whenever a booking gets added or removed, we&rsquo;ll send those details to your server.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>After creating an app in the <a href="https://uclapi.com/dashboard/">dashboard</a>, you can configure webhook settings in the app settings view.</p>
+
+<table><thead>
+<tr>
+<th>Setting</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Verification Secret</td>
+<td><code class="prettyprint">bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a</code></td>
+<td>Random string that you use to make sure that all requests to your webhook URL come from UCL API servers, and not a third party. You must keep this secret.</td>
+</tr>
+<tr>
+<td>Webhook URL</td>
+<td><code class="prettyprint">https://example.com/webhook</code></td>
+<td>The URL must use https and must be a publicly accessible URL. This is the URL we&rsquo;ll send events to.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">siteid</code></td>
+<td><code class="prettyprint">086</code></td>
+<td>(Optional) In case you want to restrict the booking events you receive to only one specific <code class="prettyprint">siteid</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">roomid</code></td>
+<td><code class="prettyprint">433</code></td>
+<td>(Optional) In case you want to restrict the booking events you receive to only one specific <code class="prettyprint">roomid</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">contact</code></td>
+<td><code class="prettyprint">Michael Arthur</code></td>
+<td>(Optional) In case you want to restrict the booking events you receive to only one specific <code class="prettyprint">contact</code>.</td>
+</tr>
+</tbody></table>
+
+<h3 id="events">Events</h3>
+
+<p>Whenever you receive data on your webhook we call that an &ldquo;event&rdquo;. At the moment there are 2 events: <code class="prettyprint">challenge</code> and <code class="prettyprint">bookings_changed</code></p>
+
+<p>Events are always delivered as POST requests to your webhook URL. The data will be JSON inside the body of the POST request. Every event will contain at least 3 components: <code class="prettyprint">service</code>, <code class="prettyprint">name</code>, <code class="prettyprint">verification_secret</code>. You can see an example on the right.<br>
+A full-fledged example app that makes use of UCL API webhooks (written in Python) can be found <a href="https://github.com/uclapi/webhook_demo_app">here.</a></p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhooks"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"challenge"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"verification_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a"</span><span class="p">,</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="challenge-event">challenge event</h3>
+
+<p>You&rsquo;ll receive this event when you first input or alter your webhook URL. It exists to make sure that the URL you entered is under your control.
+The JSON data sent to you contains a <code class="prettyprint">challenge</code> parameter. You need to set up your code to respond promptly with a JSON object containing only the challenge parameter.</p>
+
+<blockquote>
+<p>Request from UCL API to your endpoint</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webhooks"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"challenge"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"verification_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"challenge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f9b4fd5325e21e3-002e9e00a1b1af6-bc37b346d59b0cb-730043261cfa206"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Prompt response from your server to verify URL control</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"challenge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f9b4fd5325e21e3-002e9e00a1b1af6-bc37b346d59b0cb-730043261cfa206"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="bookings_changed-event">bookings_changed event</h3>
+
+<p>You&rsquo;ll receive this event when a booking was either added or removed. You can see an example on the right.<br>
+A <code class="prettyprint">bookings_changed</code> event contains at least either one <code class="prettyprint">bookings_added</code> or <code class="prettyprint">bookings_removed</code> key, but not necessarily both.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"roombookings"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bookings_changed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"verification_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bc35f27d47742f7-c3bd7768defb2c2-1c556d86859419a-897b8dc9273691a"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"bookings_added"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Room Closed"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"weeknumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rm. Closed"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-27T23:00:00+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G08"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"siteid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"013"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"roomname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chadwick Building G08"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">907872</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-27T23:30:00+01:00"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"bookings_removed"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"weeknumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-07T18:00:00+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slotid"</span><span class="p">:</span><span class="w"> </span><span class="mi">1631230</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"roomid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1.03"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"siteid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"212"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Summer School"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"roomname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cruciform Building B1.03"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Michael Arthur"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-07T09:00:00+01:00"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h1 id="search">Search</h1>
+
+<p>The base url is <code class="prettyprint">https://uclapi.com/search/</code></p>
+
+<table><thead>
+<tr>
+<th>Version Header</th>
+<th>Latest Version</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uclapi-search-version</code></td>
+<td><code class="prettyprint">1</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="get-people">Get People</h2>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/search/people</code></p>
+
+<p>This endpoint returns matching people and information about them.</p>
+
+<p><em>Note: This endpoint only returns a maximum of 20 matches.</em></p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://uclapi.com/search/people <span class="se">\</span>
+-d <span class="nv">token</span><span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb <span class="se">\</span>
+-d <span class="nv">query</span><span class="o">=</span><span class="s1">'Jane'</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"query"</span><span class="p">:</span> <span class="s">"Jane"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/search/people"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/search/people?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;query=Jane"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>Authentication token.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">query</code></td>
+<td><code class="prettyprint">Jane Doe</code></td>
+<td>Required</td>
+<td>Name of the person you are searching for</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"people"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Student"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"department"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dept of Med Phys &amp; Biomedical Eng"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane.doe.17@ucl.ac.uk"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The people field contains a list of people that match your query.</p>
+
+<table><thead>
+<tr>
+<th>Person Attribute</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td><code class="prettyprint">Jane Doe</code></td>
+<td>The name of the person.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">status</code></td>
+<td><code class="prettyprint">Staff</code></td>
+<td>Tell&rsquo;s us whether the person is a student of member of staff.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">department</code></td>
+<td><code class="prettyprint">UCL Medical School</code></td>
+<td>The department the student studies or works under.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">email</code></td>
+<td><code class="prettyprint">jane.doe.17@ucl.ac.uk</code></td>
+<td>The email of the person.</td>
+</tr>
+</tbody></table>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Token does not exist</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">No query provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">query</code> in your request.</td>
+</tr>
+</tbody></table>
+
+<h1 id="timetable">Timetable</h1>
+
+<p>The base url is <code class="prettyprint">https://uclapi.com/timetable/</code></p>
+
+<table><thead>
+<tr>
+<th>Version Header</th>
+<th>Latest Version</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uclapi-timetable-version</code></td>
+<td><code class="prettyprint">1</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="get-personal-timetable">Get personal timetable</h2>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/timetable/personal</code></p>
+
+<p>This endpoint returns the personal timetable of the user.</p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://uclapi.com/timetable/personal <span class="se">\</span>
+-d <span class="nv">token</span><span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb <span class="se">\</span>
+-d <span class="nv">client_secret</span><span class="o">=</span>secret
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"secret"</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/timetable/personal"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/timetable/personal?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;client_secret=secret"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>OAuth token.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_secret</code></td>
+<td><code class="prettyprint">mysecret</code></td>
+<td>Required</td>
+<td>Client secret of the authenticating app.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"timetable"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"2018-01-29"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="s2">"29 Gordon Sq"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"WC1H 0PP"</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gordon House 106"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"sitename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gordon House"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CB"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18:00:00"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"module"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"module_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMP3058"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"lecturer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ucacdgo@ucl.ac.uk"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GORSE, Denise (Dr)"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Artificial Intelligence and Neural Computing"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"course_owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPS_ENG"</span><span class="p">,</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16:00:00"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The <code class="prettyprint">timetable</code> field contains a map where dates are mapped to event objects.</p>
+
+<table><thead>
+<tr>
+<th>Person Attribute</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">location</code></td>
+<td><code class="prettyprint">JSON object</code></td>
+<td>Location of details of the timetable event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">address</code></td>
+<td><code class="prettyprint">[&quot;29 Gordon Sq&quot;, &quot;London&quot;, &quot;WC1H 0PP&quot;]</code></td>
+<td>Address represented as an array.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td><code class="prettyprint">Gordon House 106</code></td>
+<td>Room name of the timetable event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sitename</code></td>
+<td><code class="prettyprint">Gordon House</code></td>
+<td>Name of the site where the event is happening.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td><code class="prettyprint">CB</code></td>
+<td>Type of the room eg., Lecture Theatre, etc.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">capacity</code></td>
+<td><code class="prettyprint">60</code></td>
+<td>Capacity of the room.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">start_time</code></td>
+<td><code class="prettyprint">16:00:00</code></td>
+<td>Start time of the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">end_time</code></td>
+<td><code class="prettyprint">18:00:00</code></td>
+<td>End time of the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">module</code></td>
+<td><code class="prettyprint">JSON object</code></td>
+<td>Json object containing module details.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">module_id</code></td>
+<td><code class="prettyprint">COMP3058</code></td>
+<td>Module id.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td><code class="prettyprint">Artificial Intelligence and Neural Computing</code></td>
+<td>Module name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">course_owner</code></td>
+<td><code class="prettyprint">COMPS_ENG</code></td>
+<td>Department the module comes under.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">duration</code></td>
+<td><code class="prettyprint">120</code></td>
+<td>Duration of the event.</td>
+</tr>
+</tbody></table>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">OAuth token doesn&#39;t exist.</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">Student does not have any assigned timetables.</code></td>
+<td>Gets returned when the user the token belongs to does not have any timetable assigned.</td>
+</tr>
+</tbody></table>
+
+<p>The base url is <code class="prettyprint">https://uclapi.com/timetable/</code></p>
+
+<table><thead>
+<tr>
+<th>Version Header</th>
+<th>Latest Version</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uclapi-timetable-version</code></td>
+<td><code class="prettyprint">1</code></td>
+</tr>
+</tbody></table>
+
+<h2 id="get-timetable-for-modules">Get timetable for modules.</h2>
+
+<p><strong>Endpoint:</strong> <code class="prettyprint">https://uclapi.com/timetable/bymodule</code></p>
+
+<p>This endpoint returns a yearly timetable for the supplied modules.</p>
+
+<p><strong>Allowed request type:</strong> <code class="prettyprint">GET</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+<pre class="highlight shell tab-shell"><code>curl -X GET https://uclapi.com/timetable/bymodule <span class="se">\</span>
+-d <span class="nv">token</span><span class="o">=</span>uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb <span class="se">\</span>
+-d <span class="nv">client_secret</span><span class="o">=</span>secret <span class="se">\</span>
+-d <span class="nv">modules</span><span class="o">=</span>COMP3095,COMP3001
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">"token"</span><span class="p">:</span> <span class="s">"uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb"</span><span class="p">,</span>
+  <span class="s">"client_secret"</span><span class="p">:</span> <span class="s">"secret"</span>
+  <span class="s">"modules"</span><span class="p">:</span> <span class="s">"COMP3095,COMP3001"</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://uclapi.com/timetable/bymodule"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://uclapi.com/timetable/bymodule?token=uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb&amp;client_secret=secret&amp;modules=COMP3095,COMP3001"</span><span class="p">,</span>
+<span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">json</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td><code class="prettyprint">uclapi-5d58c3c4e6bf9c-c2910ad3b6e054-7ef60f44f1c14f-a05147bfd17fdb</code></td>
+<td>Required</td>
+<td>OAuth token.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">client_secret</code></td>
+<td><code class="prettyprint">mysecret</code></td>
+<td>Required</td>
+<td>Client secret of the authenticating app.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">modules</code></td>
+<td><code class="prettyprint">COMP3095,COMP3001</code></td>
+<td>Required</td>
+<td>A comma-separated list of the module codes you want the timetable of.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response">Response</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"timetable"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"2017-11-23"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="s2">"Torrington Place"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"WC1E 7JE"</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="s2">"sitename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Roberts Building"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Roberts Building 508"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CB"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"module"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"lecturer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ucachun@ucl.ac.uk"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HUNTER, Anthony (Prof)"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="s2">"module_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMP3093"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"course_owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPS_ENG"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Research Methods"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"module_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMP3095"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18:30:00"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17:30:00"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"ok"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will create a timetable for the module ids provided and return the yearly calendar.</p>
+
+<p>The <code class="prettyprint">timetable</code> field contains a map where dates are mapped to event objects.</p>
+
+<table><thead>
+<tr>
+<th>Person Attribute</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">location</code></td>
+<td><code class="prettyprint">JSON object</code></td>
+<td>Location of details of the timetable event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">address</code></td>
+<td><code class="prettyprint">[&quot;29 Gordon Sq&quot;, &quot;London&quot;, &quot;WC1H 0PP&quot;]</code></td>
+<td>Address represented as an array.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td><code class="prettyprint">Gordon House 106</code></td>
+<td>Room name of the timetable event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sitename</code></td>
+<td><code class="prettyprint">Gordon House</code></td>
+<td>Name of the site where the event is happening.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td><code class="prettyprint">CB</code></td>
+<td>Type of the room eg., Lecture Theatre, etc.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">capacity</code></td>
+<td><code class="prettyprint">60</code></td>
+<td>Capacity of the room.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">start_time</code></td>
+<td><code class="prettyprint">16:00:00</code></td>
+<td>Start time of the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">end_time</code></td>
+<td><code class="prettyprint">18:00:00</code></td>
+<td>End time of the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">module</code></td>
+<td><code class="prettyprint">JSON object</code></td>
+<td>Json object containing module details.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">module_id</code></td>
+<td><code class="prettyprint">COMP3058</code></td>
+<td>Module id.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">lecturer</code></td>
+<td><code class="prettyprint">JSON object</code></td>
+<td>Json object with details of the lecturer.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">email</code></td>
+<td><code class="prettyprint">ucachun@ucl.ac.uk</code></td>
+<td>Email of the lecturer.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td><code class="prettyprint">HUNTER, Anthony (Prof)</code></td>
+<td>Name of the lectuer.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td><code class="prettyprint">Artificial Intelligence and Neural Computing</code></td>
+<td>Module name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">course_owner</code></td>
+<td><code class="prettyprint">COMPS_ENG</code></td>
+<td>Department the module comes under.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">module_code</code></td>
+<td><code class="prettyprint">COMP3C58</code></td>
+<td>Module code. We are not yet sure why this exists. Hopefully we will find out.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">duration</code></td>
+<td><code class="prettyprint">120</code></td>
+<td>Duration of the event in minutes.</td>
+</tr>
+</tbody></table>
+
+<h3 id="errors">Errors</h3>
+
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">No token provided</code></td>
+<td>Gets returned when you have not supplied a <code class="prettyprint">token</code> in your request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">OAuth token doesn&#39;t exist.</code></td>
+<td>Gets returned when you supply an invalid <code class="prettyprint">token</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">No module ids provided.</code></td>
+<td>No module ids provided in post request.</td>
+</tr>
+</tbody></table>
+
+<h1 id="get-involved">Get Involved</h1>
+
+<p>This documentation is all open sourced at <a href="https://github.com/uclapi/apiDocs">https://github.com/uclapi/apiDocs</a>.</p>
+
+<p>The full API is open sourced at <a href="https://github.com/uclapi/uclapi">https://github.com/uclapi/uclapi</a>.</p>
+
+<p>Any and all contributions are welcome! If you spot a typo or error, feel free to fix it and submit a pull request :)</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">Shell</a>
+                <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="javascript">JavaScript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
