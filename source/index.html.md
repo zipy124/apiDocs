@@ -993,7 +993,7 @@ Version Header | Latest Version
 
 This endpoint returns a yearly timetable for the supplied modules.
 
-**Allowed request type:** `POST`
+**Allowed request type:** `GET`
 
 ### Query Parameters
 
